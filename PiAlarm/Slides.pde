@@ -7,6 +7,7 @@ class Slide1 {
   int slide = 0; // time slide
   int minute;
   int hour;
+  int day;
   int month;
   int year;
   String amPm;
@@ -21,14 +22,5 @@ class Slide1 {
     textSize(64); // draw the date
     //text()
     textSize(128);
-  }
-
-  void update() { // function will contain any variables that needed to be updated continuously
-    minute = minute();
-    hour = hour();
-    month = month();
-    year = year();
-    theTime = hour + ":" + minute;
-    timeX = 400 - textWidth(theTime)/2;
   }
 }
