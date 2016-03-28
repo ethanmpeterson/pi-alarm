@@ -1,12 +1,8 @@
 class Slide1 {
-  float x;
-  float y = 480/2;
-  float x2;
-  float y2;
-  float x3;
-  float y3;
-  boolean rightPressed;
-  boolean leftPressed;
+  float timeX;
+  float timeY = 480/2;
+  boolean rightPressed; // when right button is pressed
+  boolean leftPressed; // when left button is pressed
   String theTime; // string containing the complete time for the pi Alarms main page
   int slide = 0; // time slide
   int minute;
@@ -15,11 +11,16 @@ class Slide1 {
   int year;
   String amPm;
 
-void Slide1() {/*Nothing to Construct*/}
+  void Slide1() {/*Nothing to Construct*/}
 
   void drawSlide() {
+    background(255);
     fill(0);
-    text(theTime, x, y);
+    textSize(128);
+    text(theTime, timeX, timeY); // draw the time
+    textSize(64); // draw the date
+    //text()
+    textSize(128);
   }
 
   void update() { // function will contain any variables that needed to be updated continuously
@@ -28,6 +29,6 @@ void Slide1() {/*Nothing to Construct*/}
     month = month();
     year = year();
     theTime = hour + ":" + minute;
-    x = 400 - textWidth(theTime)/2;
+    timeX = 400 - textWidth(theTime)/2;
   }
 }
