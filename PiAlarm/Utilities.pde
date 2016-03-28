@@ -1,88 +1,92 @@
+import java.util.Calendar; // for keeping time as opposed to built in processing functions
+
 class Util {
+
+  Calendar c = Calendar.getInstance();
+
+  // useful variables for all classes
   public int slide = 0; // time slide
   public int minute;
   public int hour;
   public int day;
+  public int weekDay;
   public int month;
   public int year;
+  public boolean isPM;
+
   void Util() {/*Nothing to Construct*/}
 
   void update() { // function will contain any variables that needed to be updated continuously
-    minute = c.get(Calendar.MINUTE) + 1;
+    minute = c.get(Calendar.MINUTE);
     hour = c.get(Calendar.HOUR);
-    month = c.get(Calendar.MONTH);
+    day = c.get(Calendar.DAY_OF_MONTH);
+    weekDay = c.get(Calendar.DAY_OF_WEEK);
+    month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
-    theTime = hour + ":" + minute;
-    timeX = 400 - textWidth(theTime)/2;
   }
 
   String getMonth(int m) { // takes month var as input
     if (m == 1) {
       return "January";
-    }
-    if (m == 2) {
+    } else if (m == 2) {
       return "February";
-    }
-    if (m == 3) {
+    } else if (m == 3) {
       return "March";
-    }
-    if (m == 4) {
+    } else if (m == 4) {
       return "April";
-    }
-    if (m == 5) {
+    } else if (m == 5) {
       return "May";
-    }
-    if (m == 6) {
+    } else if (m == 6) {
       return "June";
-    }
-    if (m == 7) {
+    } else if (m == 7) {
       return "July";
-    }
-    if (m == 8) {
+    } else if (m == 8) {
       return "August";
-    }
-    if (m == 9) {
+    } else if (m == 9) {
       return "September";
-    }
-    if (m == 10) {
+    } else if (m == 10) {
       return "October";
-    }
-    if (m == 11) {
+    } else if (m == 11) {
       return "November";
-    }
-    if (m == 12) {
+    } else if (m == 12) {
       return "December";
+    } else {
+      return "Error";
     }
-    return "Error";
   }
-
 
   String getWeekDay(int w) {
     if (w == 1) {
       return "Sunday";
-    }
-    if (w == 2) {
+    } else if (w == 2) {
       return "Monday";
-    }
-    if (w == 3) {
+    } else if (w == 3) {
       return "Tuesday";
-    }
-    if (w == 4) {
+    } else if (w == 4) {
       return "Wednesday";
-    }
-    if (w == 5) {
+    } else if (w == 5) {
       return "Thursday";
-    }
-    if (w == 6) {
+    } else if (w == 6) {
       return "Friday";
-    }
-    if (w == 7) {
+    } else if (w == 7) {
       return "Saturday";
+    } else {
+      return "Error";
     }
-    return "Error";
   }
 
   String get12HourTime() {
-
+    if (c.get(Calendar.HOUR_OF_DAY) >= 12) {
+      isPM = true;
+    }
+    if (c.get(Calendar.HOUR_OF_DAY) < 12) {
+      isPM = false;
+    }
+    if (!isPM) {
+      return hour + ":" + minute + " AM";
+    } else if (isPM) {
+      return hour + ":" + minute + " PM";
+    }
+    return hour + ":" + minute;
   }
 }
