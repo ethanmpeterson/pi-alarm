@@ -66,7 +66,7 @@ class Util {
     }
   }
 
-  String getWeekDay(int w) {
+  String getWeekDay(int w) { // function returns a weekday based on what number is given by the Java Calendar class
     if (w == 1) {
       return "Sunday";
     } else if (w == 2) {
@@ -86,18 +86,25 @@ class Util {
     }
   }
 
-  String get12HourTime() {
-    if (c.get(Calendar.HOUR_OF_DAY) >= 12) {
+  String get12HourTime() { // returns a String of the time in 12 hour form
+    if (c.get(Calendar.HOUR_OF_DAY) >= 12) { // checks if the hour of the day is greater or equal to 12 meaning it is the afternoon
       isPM = true;
     }
-    if (c.get(Calendar.HOUR_OF_DAY) < 12) {
+    if (c.get(Calendar.HOUR_OF_DAY) < 12) { // checks if the hour of the day is less than 12 meaning it is the morning
       isPM = false;
     }
-    if (!isPM) {
+    if (!isPM && minute >= 10) {
       return hour + ":" + minute + " AM";
-    } else if (isPM) {
+      if (minute < 10) {
+        return hour + ":" + "0" + minute + " AM";
+      }
+    } else if (isPM && minute >= 10) {
       return hour + ":" + minute + " PM";
+      if (minute < 10) {
+        return hour + ":" + "0" + minute + " PM";
+      }
+    } else {
+      return "Error";
     }
-    return hour + ":" + minute;
   }
 }

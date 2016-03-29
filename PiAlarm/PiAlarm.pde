@@ -20,7 +20,7 @@ void draw() {
 }
 
 void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
-  if (s == 0) {
+  if (s == 0) { // check if the slide is the right one for the function to run the rest of the draw slide functions will use this model
     fill(0);
     textSize(128);
     text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
@@ -41,6 +41,18 @@ void drawSlide0(int s) { // s variable is the slide number to ensure it is only 
 
 void drawSlide1(int s) {
   if (s == 1) {
-  
+
+  }
+}
+
+void drawSlide2(int s) {
+  if (s == 2) {
+
+  }
+}
+
+void drawSlide3(int s) {
+  if (s == 3) {
+
   }
 }
