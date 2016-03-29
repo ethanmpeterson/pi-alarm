@@ -12,9 +12,20 @@ class Util {
   public int weekDay;
   public int month;
   public int year;
+  public int timeX;
+  public int timeY;
+  public int dateX;
+  public int dateY;
   public boolean isPM;
 
-  void Util() {/*Nothing to Construct*/}
+  void Util() { // do the initial setting of the variables in the constructor
+    minute = c.get(Calendar.MINUTE);
+    hour = c.get(Calendar.HOUR);
+    day = c.get(Calendar.DAY_OF_MONTH);
+    weekDay = c.get(Calendar.DAY_OF_WEEK);
+    month = c.get(Calendar.MONTH) + 1;
+    year = c.get(Calendar.YEAR);
+  }
 
   void update() { // function will contain any variables that needed to be updated continuously
     minute = c.get(Calendar.MINUTE);
