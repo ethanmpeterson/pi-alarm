@@ -19,6 +19,9 @@ void draw() {
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
   // the variables in util will evantually be moved to a resources class depending on how many are needed
+  if (keyPressed && key == ' ') {
+    exit();
+  }
 }
 
 void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
