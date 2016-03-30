@@ -1,39 +1,42 @@
 import java.util.Calendar; // for keeping time as opposed to built in processing functions
+//import processing.io.*; // IO library to control the raspberry Pi's GPIO pins to detect button presses
+// for now navigation will be done with the keyboard for testing purposes
+// the library will be included when the program is compiled for raspberry pi
 
 class Util {
 
+  //Resource r = new Resource();
   Calendar c = Calendar.getInstance();
 
   // useful variables for all classes
-  public int slide = 0; // time slide
+  // time slide
   public int minute;
   public int hour;
   public int day;
   public int weekDay;
   public int month;
   public int year;
-  public int timeX;
-  public int timeY;
-  public int dateX;
-  public int dateY;
+  public String theDate;
   public boolean isPM;
 
   void Util() { // do the initial setting of the variables in the constructor
-    minute = c.get(Calendar.MINUTE);
+    minute = c.get(Calendar.MINUTE); // update the time variables as shortcuts to accessing the calendar
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
     weekDay = c.get(Calendar.DAY_OF_WEEK);
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
+    theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
   }
 
-  void update() { // function will contain any variables that needed to be updated continuously
+  void update() { // function will contain any variables that needed to be updated continuously in draw function
     minute = c.get(Calendar.MINUTE);
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
     weekDay = c.get(Calendar.DAY_OF_WEEK);
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
+    theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
   }
 
   String getMonth(int m) { // takes month var as input
@@ -95,16 +98,47 @@ class Util {
     }
     if (!isPM && minute >= 10) {
       return hour + ":" + minute + " AM";
-      if (minute < 10) {
-        return hour + ":" + "0" + minute + " AM";
-      }
+    } else if (minute < 10) { // add 0 padding if the minute is below 10
+      return hour + ":" + "0" + minute + " AM";
     } else if (isPM && minute >= 10) {
       return hour + ":" + minute + " PM";
-      if (minute < 10) {
-        return hour + ":" + "0" + minute + " PM";
-      }
+    } else if (minute < 10) {
+      return hour + ":" + "0" + minute + " PM";
     } else {
       return "Error";
+    }
+  }
+
+  void switchSlideFrom(int s) {
+    if (keyPressed && key == CODED) {
+      if (keyCode == RIGHT) {
+        if (s == 0) {
+          r.slide = 1;
+        }
+        if (s == 1) {
+          r.slide = 2;
+        }
+        if (s == 2) {
+          r.slide = 3;
+        }
+        if (s == 3) {
+          r.slide = 0;
+        }
+      }
+      if (keyCode == LEFT) {
+        if (s == 0) {
+          r.slide = 3;
+        }
+        if (s == 1) {
+          r.slide = 0;
+        }
+        if (s == 2) {
+          r.slide = 1;
+        }
+        if (s == 3) {
+          r.slide = 2;
+        }
+      }
     }
   }
 }
