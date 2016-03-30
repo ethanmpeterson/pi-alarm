@@ -11,7 +11,7 @@ void setup() {
 }
 
 void draw() {
-  //background(255);
+  background(255);
   u.update();
   fill(0);
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
