@@ -24,6 +24,10 @@ void draw() {
   }
 }
 
+void mouseClicked() { // runs when the mouse is pressed and released
+
+}
+
 void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
   if (s == 0) { // check if the slide is the right one for the function to run the rest of the draw slide functions will use this model
     fill(0);

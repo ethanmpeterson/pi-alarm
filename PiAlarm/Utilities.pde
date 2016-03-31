@@ -98,12 +98,16 @@ class Util {
     }
     if (!isPM && minute >= 10) {
       return hour + ":" + minute + " AM";
-    } else if (minute < 10) { // add 0 padding if the minute is below 10
+    } else if (!isPM && minute < 10) { // add 0 padding if the minute is below 10
       return hour + ":" + "0" + minute + " AM";
-    } else if (isPM && minute >= 10) {
+    } else if (isPM && minute >= 10 && hour != 0) {
       return hour + ":" + minute + " PM";
-    } else if (minute < 10) {
+    } else if (isPM && minute < 10 && hour != 0) {
       return hour + ":" + "0" + minute + " PM";
+    } else if (isPM && hour == 0 && minute < 10) {
+      return "12:" + "0" + minute + " PM";
+    } else if (isPM && hour == 0 && minute >= 10) {
+      return "12:" + minute + " PM";
     } else {
       return "Error";
     }

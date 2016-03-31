@@ -37,6 +37,9 @@ public void draw() {
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
   // the variables in util will evantually be moved to a resources class depending on how many are needed
+  if (keyPressed && key == ' ') {
+    exit();
+  }
 }
 
 public void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
@@ -174,12 +177,16 @@ class Util {
     }
     if (!isPM && minute >= 10) {
       return hour + ":" + minute + " AM";
-    } else if (minute < 10) { // add 0 padding if the minute is below 10
+    } else if (!isPM && minute < 10) { // add 0 padding if the minute is below 10
       return hour + ":" + "0" + minute + " AM";
-    } else if (isPM && minute >= 10) {
+    } else if (isPM && minute >= 10 && hour != 0) {
       return hour + ":" + minute + " PM";
-    } else if (minute < 10) {
+    } else if (isPM && minute < 10 && hour != 0) {
       return hour + ":" + "0" + minute + " PM";
+    } else if (isPM && hour == 0 && minute < 10) {
+      return "12:" + "0" + minute + " PM";
+    } else if (isPM && hour == 0 && minute >= 10) {
+      return "12:" + minute + " PM";
     } else {
       return "Error";
     }
