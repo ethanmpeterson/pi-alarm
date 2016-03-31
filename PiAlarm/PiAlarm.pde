@@ -24,7 +24,7 @@ void draw() {
   }
 }
 
-void mouseClicked() { // runs when the mouse is pressed and released
+void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
 
 }
 

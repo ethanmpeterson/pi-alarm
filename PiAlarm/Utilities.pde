@@ -5,7 +5,7 @@ import java.util.Calendar; // for keeping time as opposed to built in processing
 
 class Util {
 
-  //Resource r = new Resource();
+  Resource r = new Resource();
   Calendar c = Calendar.getInstance();
 
   // useful variables for all classes
