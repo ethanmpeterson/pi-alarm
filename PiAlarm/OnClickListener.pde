@@ -1,4 +1,4 @@
-class OnClickListener {
+class OnClickListener implements Triangle, Rectangle, Circle {
 
 private Util u = new Util(); // gives access to util functions in case they are needed
 private Resource r = new Resource(); // gives class access to variables stored in Resource class
