@@ -8,6 +8,7 @@ void setup() {
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
   frameRate(60);
   textFont(r.time);
+  noCursor(); // does not show cursor to make touchscreen experience better
 }
 
 void draw() {
@@ -34,7 +35,7 @@ void drawSlide0(int s) { // s variable is the slide number to ensure it is only 
     textSize(128);
     text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
     textSize(32); // draw the date
-    text(u.theDate, 400 - textWidth(u.theDate)/2, 400);
+    text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
   }
 } //all the code in this function is housed within an if statement checking that slide is 0 because this is slide 0
 

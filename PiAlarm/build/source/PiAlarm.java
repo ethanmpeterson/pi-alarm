@@ -4,6 +4,7 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import java.util.Calendar; 
+import java.util.Date; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -26,6 +27,7 @@ public void setup() {
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
   frameRate(60);
   textFont(r.time);
+  noCursor(); // does not show cursor to make touchscreen experience better
 }
 
 public void draw() {
@@ -42,7 +44,7 @@ public void draw() {
   }
 }
 
-public void mouseClicked() { // runs when the mouse is pressed and released
+public void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
 
 }
 
@@ -52,7 +54,7 @@ public void drawSlide0(int s) { // s variable is the slide number to ensure it i
     textSize(128);
     text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
     textSize(32); // draw the date
-    text(u.theDate, 400 - textWidth(u.theDate)/2, 400);
+    text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
   }
 } //all the code in this function is housed within an if statement checking that slide is 0 because this is slide 0
 
@@ -73,6 +75,23 @@ public void drawSlide3(int s) { // will likely be settings
 
   }
 }
+class OnClickListner {
+
+private Util u = new Util(); // gives access to util functions in case they are needed
+private Resource r = new Resource(); // gives class access to variables stored in Resource class
+
+public void OnClickListner(int highlight) { // takes color the button should be when the user is hovering over it
+
+}
+
+  public void tri(float x1, float y1, float x2, float y2, float x3, float y3) {
+
+  }
+
+  public void rect() {
+
+  }
+}
 class Resource { // stores useful public vars and assets such as sounds fonts and images
   public int slide = 0;
   public int timeX;
@@ -82,6 +101,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public PFont time;
 }
  // for keeping time as opposed to built in processing functions
+ // for getting the date from system time and updating the calendar object
 //import processing.io.*; // IO library to control the raspberry Pi's GPIO pins to detect button presses
 // for now navigation will be done with the keyboard for testing purposes
 // the library will be included when the program is compiled for raspberry pi
@@ -89,7 +109,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
 class Util {
 
   Resource r = new Resource();
-  Calendar c = Calendar.getInstance();
+  Calendar c;
 
   // useful variables for all classes
   // time slide
@@ -101,8 +121,10 @@ class Util {
   public int year;
   public String theDate;
   public boolean isPM;
+  private long startTime; // long is like an int that can holder a larger value
 
   public void Util() { // do the initial setting of the variables in the constructor
+    c = Calendar.getInstance();
     minute = c.get(Calendar.MINUTE); // update the time variables as shortcuts to accessing the calendar
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
@@ -113,6 +135,7 @@ class Util {
   }
 
   public void update() { // function will contain any variables that needed to be updated continuously in draw function
+    c = Calendar.getInstance(); // reseting the object in a loop will update it to the latest time
     minute = c.get(Calendar.MINUTE);
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
@@ -123,7 +146,7 @@ class Util {
   }
 
   public String getMonth(int m) { // takes month var as input
-    if (m == 1) {
+    if (m == 1) { //return the right month string depending on what number from 1-12 is inputted into the function
       return "January";
     } else if (m == 2) {
       return "February";

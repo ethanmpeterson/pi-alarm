@@ -1,4 +1,5 @@
 import java.util.Calendar; // for keeping time as opposed to built in processing functions
+import java.util.Date; // for getting the date from system time and updating the calendar object
 //import processing.io.*; // IO library to control the raspberry Pi's GPIO pins to detect button presses
 // for now navigation will be done with the keyboard for testing purposes
 // the library will be included when the program is compiled for raspberry pi
@@ -6,7 +7,7 @@ import java.util.Calendar; // for keeping time as opposed to built in processing
 class Util {
 
   Resource r = new Resource();
-  Calendar c = Calendar.getInstance();
+  Calendar c;
 
   // useful variables for all classes
   // time slide
@@ -18,8 +19,10 @@ class Util {
   public int year;
   public String theDate;
   public boolean isPM;
+  private long startTime; // long is like an int that can holder a larger value
 
   void Util() { // do the initial setting of the variables in the constructor
+    c = Calendar.getInstance();
     minute = c.get(Calendar.MINUTE); // update the time variables as shortcuts to accessing the calendar
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
@@ -30,6 +33,7 @@ class Util {
   }
 
   void update() { // function will contain any variables that needed to be updated continuously in draw function
+    c = Calendar.getInstance(); // reseting the object in a loop will update it to the latest time
     minute = c.get(Calendar.MINUTE);
     hour = c.get(Calendar.HOUR);
     day = c.get(Calendar.DAY_OF_MONTH);
@@ -40,7 +44,7 @@ class Util {
   }
 
   String getMonth(int m) { // takes month var as input
-    if (m == 1) {
+    if (m == 1) { //return the right month string depending on what number from 1-12 is inputted into the function
       return "January";
     } else if (m == 2) {
       return "February";
