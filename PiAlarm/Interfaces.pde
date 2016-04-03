@@ -4,7 +4,7 @@ interface Triangle {
 }
 
 interface Rectangle {
-  void rect(float x, float y, float width, float height)
+  void rect(float x, float y, float width, float height);
   void rectListen(OnClickListener r);
 }
 

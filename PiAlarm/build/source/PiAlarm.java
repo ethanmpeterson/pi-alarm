@@ -75,21 +75,52 @@ public void drawSlide3(int s) { // will likely be settings
 
   }
 }
-class OnClickListner {
-
-private Util u = new Util(); // gives access to util functions in case they are needed
-private Resource r = new Resource(); // gives class access to variables stored in Resource class
-
-public void OnClickListner(int highlight) { // takes color the button should be when the user is hovering over it
-
+interface Triangle {
+  public void tri(float x1, float y1, float x2, float y2, float x3, float y3);
+  public void triListen(OnClickListener t);
 }
+
+interface Rectangle {
+  public void rect(float x, float y, float width, float height);
+  public void rectListen(OnClickListener r);
+}
+
+interface Circle {
+  public void circle(float x, float y, float diameter);
+  public void circleListen(OnClickListener c);
+}
+class OnClickListener implements Triangle, Rectangle, Circle {
+
+  private Util u = new Util(); // gives access to util functions in case they are needed
+  private Resource r = new Resource(); // gives class access to variables stored in Resource class
+
+  int highColor;
+
+  public void OnClickListener(int highlight) { // takes color the button should be when the user is hovering over it
+    highlight = this.highColor; // will change depending on the instance of the class by using this
+    // each instance of OnClickListner can have a unique value as oppose to other objects of the same type inheriting it
+  }
+  // interface methods
 
   public void tri(float x1, float y1, float x2, float y2, float x3, float y3) {
 
   }
+  public void triListen(OnClickListener t) {
 
-  public void rect() {
+  }
 
+  public void rect(float x, float y, float width, float height) {
+
+  }
+  public void rectListen(OnClickListener r) {
+
+  }
+
+  public void circle(float x, float y, float diameter) {
+
+  }
+  public void circleListen(OnClickListener c) {
+    
   }
 }
 class Resource { // stores useful public vars and assets such as sounds fonts and images
