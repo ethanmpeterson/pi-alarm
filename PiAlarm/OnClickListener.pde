@@ -6,9 +6,11 @@ class OnClickListener implements Triangle, Rectangle, Circle {
   color highColor;
   // arrays to hold coordinates from the shapes being inputted into their respective function
   float triangle[] = new float[5];
+  float triAreas[] = new float[3]; // will store area values for calculating if the the mouse is inside any given triangle
   float rectangle[] = new float[3];
   float circle[] = new float[2];
-  public boolean[] = new boolean[2]; // public boolean array to check if the
+  public boolean overShape[] = new boolean[2]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
+  // ex. first position is true if the cursor is hovering over a triangle
 
 
   void OnClickListener(color highlight) { // takes color the button should be when the user is hovering over it
@@ -28,7 +30,17 @@ class OnClickListener implements Triangle, Rectangle, Circle {
 
   //function listens for button presses and does something if the given triangle has been pressed (same applies for the following shapes)
   void triListen(OnClickListener t) { // takes OnClickListener as input to check the variables of that particular object
-
+    // get area of the triangle given in this object
+    triAreas[0] = triArea(t.triangle[0], t.triangle[1], t.triangle[2], t.triangle[3], t.triangle[4], t.triangle[5]);
+    // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
+    triAreas[1] = triArea(mouseX, mouseY, t.triangle[2], t.triangle[3], t.triangle[4], t.triangle[5]);
+    triAreas[2] = triArea(t.triangle[0], t.triangle[1], mouseX, mouseY, t.triangle[4], t.triangle[5]);
+    triAreas[3] = triArea(t.triangle[0], t.triangle[1], t.triangle[2], t.triangle[3], mouseX, mouseY);
+    if (triAreas[0] == triAreas[1] + triAreas[2] + triAreas[3]) {
+      overShape[0] = true;
+    } else {
+      overShape[0] = false;
+    }
   }
 
   void rect(float x, float y, float width, float height) {
@@ -43,5 +55,10 @@ class OnClickListener implements Triangle, Rectangle, Circle {
   }
   void circleListen(OnClickListener c) {
 
+  }
+
+  // extra class functions
+  float triArea(float x1, float y1, float x2, float y2, float x3, float y3) {
+    return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))/2.0); // return absolute value (whole number) of the area
   }
 }
