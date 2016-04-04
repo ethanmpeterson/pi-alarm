@@ -5,11 +5,11 @@ class OnClickListener implements Triangle, Rectangle, Circle {
 
   color highColor;
   // arrays to hold coordinates from the shapes being inputted into their respective function
-  float triangle[] = new float[5];
-  float triAreas[] = new float[3]; // will store area values for calculating if the the mouse is inside any given triangle
-  float rectangle[] = new float[3];
-  float circle[] = new float[2];
-  public boolean overShape[] = new boolean[2]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
+  float triangle[] = new float[6];
+  float triAreas[] = new float[4]; // will store area values for calculating if the the mouse is inside any given triangle
+  float rectangle[] = new float[4];
+  float circle[] = new float[3];
+  public boolean overShape[] = new boolean[3]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
   // ex. first position is true if the cursor is hovering over a triangle
 
 
@@ -43,19 +43,24 @@ class OnClickListener implements Triangle, Rectangle, Circle {
     }
   }
 
+
   void rect(float x, float y, float width, float height) {
 
   }
+
   void rectListen(OnClickListener r) {
 
   }
 
+
   void circle(float x, float y, float diameter) {
 
   }
+
   void circleListen(OnClickListener c) {
 
   }
+
 
   // extra class functions
   float triArea(float x1, float y1, float x2, float y2, float x3, float y3) {

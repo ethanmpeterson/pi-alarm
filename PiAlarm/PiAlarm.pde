@@ -1,5 +1,6 @@
 Util u = new Util();
 Resource r = new Resource();
+OnClickListener onClickListener = new OnClickListener();
 
 void setup() {
   size(800, 480);
@@ -8,13 +9,13 @@ void setup() {
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
   frameRate(60);
   textFont(r.time);
-  noCursor(); // does not show cursor to make touchscreen experience better
 }
 
 void draw() {
   background(255);
   u.update();
   fill(0);
+  triangle(width/2, height/2, width/2 - 50, height/2 + 50, width/2 + 50, height/2 + 50);
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
