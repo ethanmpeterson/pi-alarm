@@ -1,4 +1,4 @@
-class OnClickListener implements Triangle, Rectangle, Circle {
+class OnClickListener implements Triangle, Rectangle, Circle { // implements methods within each of those interfaces
 
   private Util u = new Util(); // gives access to util functions in case they are needed
   private Resource r = new Resource(); // gives class access to variables stored in Resource class
@@ -45,11 +45,19 @@ class OnClickListener implements Triangle, Rectangle, Circle {
 
 
   void rect(float x, float y, float width, float height) {
-
+    // fill the rectangle array with values inputted into the function using this to make it unique to the particular instance of the class
+    this.rectangle[0] = x;
+    this.rectangle[1] = y;
+    this.rectangle[2] = width;
+    this.rectangle[3] = height;
   }
 
   void rectListen(OnClickListener r) {
-
+    if (mouseX >= r.rectangle[0] && mouseX <= r.rectangle[0] + r.rectangle[2] && mouseY >= r.rectangle[1] && mouseY <= r.rectangle[3]) {
+      overShape[1] = true;
+    } else {
+      overShape[1] = false;
+    }
   }
 
 

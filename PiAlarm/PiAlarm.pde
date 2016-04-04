@@ -1,6 +1,7 @@
 Util u = new Util();
 Resource r = new Resource();
-OnClickListener onClickListener = new OnClickListener();
+OnClickListener leftTriButton = new OnClickListener();
+OnClickListener rightTriButton = new OnClickListener();
 
 void setup() {
   size(800, 480);
