@@ -21,35 +21,28 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftTriButton = new OnClickListener();
 OnClickListener rightTriButton = new OnClickListener();
-OnClickListener rectTest = new OnClickListener();
 
 public void setup() {
   
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
-  rectTest.rect(width/2, height/2, 50, 50);
   frameRate(60);
   textFont(r.time);
+  fill(0);
 }
 
 public void draw() {
   background(255);
+  fill(255);
+  // draw right and left buttons
+  triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]); // right
+  triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]); // left
   u.update();
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
-  rectTest.listen(rectTest, "RECTANGLE");
-  fill(0);
-  rect(width/2, height/2, 50, 50);
-  if (rectTest.over(rectTest)) {
-    fill(255);
-    rect(width/2, height/2, 50, 50);
-  } else {
-    fill(0);
-    rect(width/2, height/2, 50, 50);
-  }
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -189,6 +182,8 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int dateX;
   public int dateY;
   public PFont time;
+  public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
+  public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
 }
  // for keeping time as opposed to built in processing functions
  // for getting the date from system time and updating the calendar object

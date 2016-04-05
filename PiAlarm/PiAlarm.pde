@@ -8,13 +8,17 @@ void setup() {
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
-  rectTest.rect(width/2, height/2, 50, 50);
   frameRate(60);
   textFont(r.time);
+  fill(0);
 }
 
 void draw() {
   background(255);
+  fill(255);
+  // draw right and left buttons
+  triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]); // right
+  triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]); // left
   u.update();
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
