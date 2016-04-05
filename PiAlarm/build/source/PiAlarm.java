@@ -90,6 +90,12 @@ interface Rectangle {
 interface Circle {
   public void circle(float x, float y, float diameter);
 }
+
+interface Buttons {
+  public void makeRectButton(String text, float x, float y, float width, float height);
+  public void makeTriButton(float x1, float y1, float x2, float y2, float x3, float y3);
+  public void makeCircleButton(float x, float y, float diameter);
+}
 class OnClickListener implements Triangle, Rectangle, Circle { // implements methods within each of those interfaces
 
   private Util u = new Util(); // gives access to util functions in case they are needed
@@ -181,7 +187,8 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int timeY;
   public int dateX;
   public int dateY;
-  public PFont time;
+  public PFont time;                    // grey color
+  public int buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
   public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
 }
