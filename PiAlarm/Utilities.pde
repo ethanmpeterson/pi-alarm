@@ -119,7 +119,7 @@ class Util {
     }
   }
                               // true = right button false = left button
-  void switchSlideFrom(boolean direction) {
+  void switchSlide(boolean direction) {
     if (direction) {
       if (r.slide == 0) {
         r.slide = 1;
