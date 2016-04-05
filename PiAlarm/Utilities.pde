@@ -30,6 +30,7 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
+    r.dayNum = r.schoolYear[month - 1][day];
   }
 
   void update() { // function will contain any variables that needed to be updated continuously in draw function
@@ -41,6 +42,7 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
+    r.dayNum = r.schoolYear[month - 1][day];
   }
 
   String getMonth(int m) { // takes month var as input
@@ -116,36 +118,28 @@ class Util {
       return "Error";
     }
   }
-
-  void switchSlideFrom(int s) {
-    if (keyPressed && key == CODED) {
-      if (keyCode == RIGHT) {
-        if (s == 0) {
-          r.slide = 1;
-        }
-        if (s == 1) {
-          r.slide = 2;
-        }
-        if (s == 2) {
-          r.slide = 3;
-        }
-        if (s == 3) {
-          r.slide = 0;
-        }
+                              // true = right button false = left button
+  void switchSlideFrom(boolean direction) {
+    if (direction) {
+      if (r.slide == 0) {
+        r.slide = 1;
+      } else if (r.slide == 1) {
+        r.slide = 2;
+      } else if (r.slide == 2) {
+        r.slide = 3;
+      } else if (r.slide == 3) {
+        r.slide = 0;
       }
-      if (keyCode == LEFT) {
-        if (s == 0) {
-          r.slide = 3;
-        }
-        if (s == 1) {
-          r.slide = 0;
-        }
-        if (s == 2) {
-          r.slide = 1;
-        }
-        if (s == 3) {
-          r.slide = 2;
-        }
+    }
+    if (!direction) {
+      if (r.slide == 0) {
+        r.slide = 3;
+      } else if (r.slide == 1) {
+        r.slide = 0;
+      } else if (r.slide == 2) {
+        r.slide = 1;
+      } else if (r.slide == 3) {
+        r.slide = 2;
       }
     }
   }
