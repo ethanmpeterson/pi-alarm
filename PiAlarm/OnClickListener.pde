@@ -43,7 +43,7 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
 
   //function listens for button presses and does something if the given shape has been pressed
   void listen(OnClickListener button, String shape) { // takes OnClickListener as input to check the variables of that particular object
-    if (shape == "TRIANGLE") {
+    if (shape == "TRIANGLE") { // function should be called in a loop
       // get area of the triangle given in this object
       button.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]); // use this to only assign the area to the particular instance of the class the function is being used in
       // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
@@ -55,17 +55,38 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
       } else {
         button.overShape[0] = false;
       }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      } else {
+        fill(255);
+        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      }
     } else if (shape == "RECTANGLE") {
       if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[1] + button.rectangle[3]) {
         button.overShape[1] = true;
       } else {
         button.overShape[1] = false;
       }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
+      } else {
+        fill(255);
+        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
+      }
     } else if (shape == "CIRCLE") {
       if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY)) < button.circle[2]) {
         button.overShape[2] = true;
       } else {
         button.overShape[2] = false;
+      }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
+      } else {
+        fill(255);
+        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
       }
     }
   }

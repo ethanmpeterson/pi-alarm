@@ -22,6 +22,7 @@ Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 
+
 public void setup() {
   
   background(255);
@@ -35,7 +36,6 @@ public void setup() {
 public void draw() {
   background(255);
   u.update();
-  u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
@@ -46,7 +46,20 @@ public void draw() {
 }
 
 public void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
-
+  if (rightNavButton.over(rightNavButton)) {
+    //fill(r.buttonHighlight);
+    //triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
+  } else {
+    //fill(255);
+    //triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
+  }
+  if (leftNavButton.over(leftNavButton)) {
+    //fill(r.buttonHighlight);
+    //triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
+  } else {
+    //fill(255);
+    //triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
+  }
 }
 
 public void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
@@ -68,20 +81,6 @@ public void leftRightNav() {
   rightNavButton.tri(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
   rightNavButton.listen(rightNavButton, "TRIANGLE");
   leftNavButton.listen(leftNavButton, "TRIANGLE");
-  if (rightNavButton.over(rightNavButton)) {
-    fill(r.buttonHighlight);
-    triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
-  } else {
-    fill(255);
-    triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
-  }
-  if (leftNavButton.over(leftNavButton)) {
-    fill(r.buttonHighlight);
-    triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
-  } else {
-    fill(255);
-    triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
-  }
 }
 
 public void drawSlide1(int s) { // slide 1 will show RSGC Schedule
@@ -163,7 +162,7 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
 
   //function listens for button presses and does something if the given shape has been pressed
   public void listen(OnClickListener button, String shape) { // takes OnClickListener as input to check the variables of that particular object
-    if (shape == "TRIANGLE") {
+    if (shape == "TRIANGLE") { // function should be called in a loop
       // get area of the triangle given in this object
       button.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]); // use this to only assign the area to the particular instance of the class the function is being used in
       // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
@@ -175,17 +174,38 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
       } else {
         button.overShape[0] = false;
       }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      } else {
+        fill(255);
+        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      }
     } else if (shape == "RECTANGLE") {
       if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[1] + button.rectangle[3]) {
         button.overShape[1] = true;
       } else {
         button.overShape[1] = false;
       }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
+      } else {
+        fill(255);
+        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
+      }
     } else if (shape == "CIRCLE") {
       if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY)) < button.circle[2]) {
         button.overShape[2] = true;
       } else {
         button.overShape[2] = false;
+      }
+      if (over(button) && mousePressed) {
+        fill(r.buttonHighlight);
+        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
+      } else {
+        fill(255);
+        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
       }
     }
   }
@@ -209,6 +229,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int timeY;
   public int dateX;
   public int dateY;
+  public int dayNum;
   public PFont time;                    // grey color
   public int buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
@@ -260,6 +281,7 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
+    r.dayNum = r.schoolYear[month - 1][day];
   }
 
   public void update() { // function will contain any variables that needed to be updated continuously in draw function
@@ -271,6 +293,7 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
+    r.dayNum = r.schoolYear[month - 1][day];
   }
 
   public String getMonth(int m) { // takes month var as input
@@ -346,36 +369,28 @@ class Util {
       return "Error";
     }
   }
-
-  public void switchSlideFrom(int s) {
-    if (keyPressed && key == CODED) {
-      if (keyCode == RIGHT) {
-        if (s == 0) {
-          r.slide = 1;
-        }
-        if (s == 1) {
-          r.slide = 2;
-        }
-        if (s == 2) {
-          r.slide = 3;
-        }
-        if (s == 3) {
-          r.slide = 0;
-        }
+                              // true = right button false = left button
+  public void switchSlide(boolean direction) {
+    if (direction) {
+      if (r.slide == 0) {
+        r.slide = 1;
+      } else if (r.slide == 1) {
+        r.slide = 2;
+      } else if (r.slide == 2) {
+        r.slide = 3;
+      } else if (r.slide == 3) {
+        r.slide = 0;
       }
-      if (keyCode == LEFT) {
-        if (s == 0) {
-          r.slide = 3;
-        }
-        if (s == 1) {
-          r.slide = 0;
-        }
-        if (s == 2) {
-          r.slide = 1;
-        }
-        if (s == 3) {
-          r.slide = 2;
-        }
+    }
+    if (!direction) {
+      if (r.slide == 0) {
+        r.slide = 3;
+      } else if (r.slide == 1) {
+        r.slide = 0;
+      } else if (r.slide == 2) {
+        r.slide = 1;
+      } else if (r.slide == 3) {
+        r.slide = 2;
       }
     }
   }
