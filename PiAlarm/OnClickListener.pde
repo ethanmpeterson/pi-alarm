@@ -45,12 +45,12 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   void listen(OnClickListener button, String shape) { // takes OnClickListener as input to check the variables of that particular object
     if (shape == "TRIANGLE") {
       // get area of the triangle given in this object
-      triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      this.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
       // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
-      triAreas[1] = triArea(mouseX, mouseY, button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
-      triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
-      triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
-      if (triAreas[0] == triAreas[1] + triAreas[2] + triAreas[3]) {
+      this.triAreas[1] = triArea(mouseX, mouseY, button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      this.triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
+      this.triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
+      if (this.triAreas[0] == this.triAreas[1] + this.triAreas[2] + this.triAreas[3]) {
         button.overShape[0] = true;
       } else {
         button.overShape[0] = false;
