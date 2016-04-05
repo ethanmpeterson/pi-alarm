@@ -21,26 +21,35 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftTriButton = new OnClickListener();
 OnClickListener rightTriButton = new OnClickListener();
+OnClickListener rectTest = new OnClickListener();
 
 public void setup() {
   
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
+  rectTest.rect(width/2, height/2, 50, 50);
   frameRate(60);
   textFont(r.time);
 }
 
 public void draw() {
   background(255);
-  u.update();
+  rectTest.listen(rectTest, "RECTANGLE");
   fill(0);
-  triangle(width/2, height/2, width/2 - 50, height/2 + 50, width/2 + 50, height/2 + 50);
+  rect(width/2, height/2, 50, 50);
+  if (rectTest.overShape[1]) {
+    fill(255);
+    rect(width/2, height/2, 50, 50);
+  } else {
+    fill(0);
+    rect(width/2, height/2, 50, 50);
+  }
+  u.update();
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
-  // the variables in util will evantually be moved to a resources class depending on how many are needed
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -100,7 +109,7 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   float circle[] = new float[3];
   public boolean overShape[] = new boolean[3]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
   // ex. first position is true if the cursor is hovering over a triangle
-
+  // private class variables
 
   public void OnClickListener() {/*Nothing to Construct*/}
   // interface methods (program does not compile unless methods from the interfaces I have implemented in the class are within it)
@@ -141,24 +150,25 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
       triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
       triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
       if (triAreas[0] == triAreas[1] + triAreas[2] + triAreas[3]) {
-        overShape[0] = true;
+        button.overShape[0] = true;
       } else {
-        overShape[0] = false;
+        button.overShape[0] = false;
       }
     } else if (shape == "RECTANGLE") {
-      if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[3]) {
+      if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[1] + button.rectangle[3]) {
         overShape[1] = true;
       } else {
         overShape[1] = false;
       }
     } else if (shape == "CIRCLE") {
-      if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY) < button.circle[2])) {
+      if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY)) < button.circle[2]) {
         overShape[2] = true;
       } else {
         overShape[2] = false;
       }
     }
   }
+
 
   public boolean over() { // returns true if the cursor is hovering over a shape given to the class
     if (!this.overShape[0] && !this.overShape[1] && !this.overShape[2]) {

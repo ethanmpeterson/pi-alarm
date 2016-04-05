@@ -15,13 +15,10 @@ void setup() {
 void draw() {
   background(255);
   u.update();
-  fill(0);
-  triangle(width/2, height/2, width/2 - 50, height/2 + 50, width/2 + 50, height/2 + 50);
   u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
   drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
-  // the variables in util will evantually be moved to a resources class depending on how many are needed
   if (keyPressed && key == ' ') {
     exit();
   }
