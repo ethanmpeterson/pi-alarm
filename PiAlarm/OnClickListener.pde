@@ -45,27 +45,27 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   void listen(OnClickListener button, String shape) { // takes OnClickListener as input to check the variables of that particular object
     if (shape == "TRIANGLE") {
       // get area of the triangle given in this object
-      this.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      button.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]); // use this to only assign the area to the particular instance of the class the function is being used in
       // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
-      this.triAreas[1] = triArea(mouseX, mouseY, button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
-      this.triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
-      this.triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
-      if (this.triAreas[0] == this.triAreas[1] + this.triAreas[2] + this.triAreas[3]) {
+      button.triAreas[1] = triArea(mouseX, mouseY, button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      button.triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
+      button.triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
+      if (button.triAreas[0] == button.triAreas[1] + button.triAreas[2] + button.triAreas[3]) {
         button.overShape[0] = true;
       } else {
         button.overShape[0] = false;
       }
     } else if (shape == "RECTANGLE") {
       if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[1] + button.rectangle[3]) {
-        overShape[1] = true;
+        button.overShape[1] = true;
       } else {
-        overShape[1] = false;
+        button.overShape[1] = false;
       }
     } else if (shape == "CIRCLE") {
       if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY)) < button.circle[2]) {
-        overShape[2] = true;
+        button.overShape[2] = true;
       } else {
-        overShape[2] = false;
+        button.overShape[2] = false;
       }
     }
   }
