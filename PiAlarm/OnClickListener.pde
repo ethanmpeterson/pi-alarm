@@ -71,8 +71,8 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   }
 
 
-  public boolean over() { // returns true if the cursor is hovering over a shape given to the class
-    if (!this.overShape[0] && !this.overShape[1] && !this.overShape[2]) {
+  public boolean over(OnClickListener o) { // returns true if the cursor is hovering over a shape given to the class
+    if (!o.overShape[0] && !o.overShape[1] && !o.overShape[2]) {
       return false;
     } else {
       return true;

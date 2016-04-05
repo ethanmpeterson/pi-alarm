@@ -35,21 +35,21 @@ public void setup() {
 
 public void draw() {
   background(255);
+  u.update();
+  u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
+  //depending on what slide the user is switching from
+  // once the value of slide is changed in draw the function corresponding to that value will run
+  drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
   rectTest.listen(rectTest, "RECTANGLE");
   fill(0);
   rect(width/2, height/2, 50, 50);
-  if (rectTest.overShape[1]) {
+  if (rectTest.over(rectTest)) {
     fill(255);
     rect(width/2, height/2, 50, 50);
   } else {
     fill(0);
     rect(width/2, height/2, 50, 50);
   }
-  u.update();
-  u.switchSlideFrom(r.slide); // use switch slide function to change slide value accordingly
-  //depending on what slide the user is switching from
-  // once the value of slide is changed in draw the function corresponding to that value will run
-  drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -170,8 +170,8 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   }
 
 
-  public boolean over() { // returns true if the cursor is hovering over a shape given to the class
-    if (!this.overShape[0] && !this.overShape[1] && !this.overShape[2]) {
+  public boolean over(OnClickListener o) { // returns true if the cursor is hovering over a shape given to the class
+    if (!o.overShape[0] && !o.overShape[1] && !o.overShape[2]) {
       return false;
     } else {
       return true;

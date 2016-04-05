@@ -8,6 +8,7 @@ void setup() {
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
+  rectTest.rect(width/2, height/2, 50, 50);
   frameRate(60);
   textFont(r.time);
 }
