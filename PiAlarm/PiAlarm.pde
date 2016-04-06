@@ -27,20 +27,6 @@ void draw() {
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
-  if (rightNavButton.over(rightNavButton)) {
-    //fill(r.buttonHighlight);
-    //triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
-  } else {
-    //fill(255);
-    //triangle(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
-  }
-  if (leftNavButton.over(leftNavButton)) {
-    //fill(r.buttonHighlight);
-    //triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
-  } else {
-    //fill(255);
-    //triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
-  }
 }
 
 void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
