@@ -42,58 +42,59 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
 
 
   //function listens for button presses and does something if the given shape has been pressed
-  void listen(OnClickListener button, String shape) { // takes OnClickListener as input to check the variables of that particular object
+  void listen(String shape) { // takes OnClickListener as input to check the variables of that particular object
     if (shape == "TRIANGLE") { // function should be called in a loop
       // get area of the triangle given in this object
-      button.triAreas[0] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]); // use this to only assign the area to the particular instance of the class the function is being used in
+      // using this keyword is able to replace the OnClickListener object parameter by implying the current object that the function was called from
+      this.triAreas[0] = triArea(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]); // use this to only assign the area to the particular instance of the class the function is being used in
       // collect area substiting each point of the triangle with the mouse coordinates and storing them in a float array
-      button.triAreas[1] = triArea(mouseX, mouseY, button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
-      button.triAreas[2] = triArea(button.triangle[0], button.triangle[1], mouseX, mouseY, button.triangle[4], button.triangle[5]);
-      button.triAreas[3] = triArea(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], mouseX, mouseY);
-      if (button.triAreas[0] == button.triAreas[1] + button.triAreas[2] + button.triAreas[3]) {
-        button.overShape[0] = true;
+      this.triAreas[1] = triArea(mouseX, mouseY, this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
+      this.triAreas[2] = triArea(this.triangle[0], this.triangle[1], mouseX, mouseY, this.triangle[4], this.triangle[5]);
+      this.triAreas[3] = triArea(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], mouseX, mouseY);
+      if (this.triAreas[0] == this.triAreas[1] + this.triAreas[2] + this.triAreas[3]) {
+        this.overShape[0] = true;
       } else {
-        button.overShape[0] = false;
+        this.overShape[0] = false;
       }
-      if (over(button) && mousePressed) {
-        fill(r.buttonHighlight);
-        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      if (this.over() && mousePressed) {
+      fill(r.buttonHighlight);
+      triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
       } else {
-        fill(255);
-        triangle(button.triangle[0], button.triangle[1], button.triangle[2], button.triangle[3], button.triangle[4], button.triangle[5]);
+      fill(255);
+      triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
       }
     } else if (shape == "RECTANGLE") {
-      if (mouseX >= button.rectangle[0] && mouseX <= button.rectangle[0] + button.rectangle[2] && mouseY >= button.rectangle[1] && mouseY <= button.rectangle[1] + button.rectangle[3]) {
-        button.overShape[1] = true;
-      } else {
-        button.overShape[1] = false;
-      }
-      if (over(button) && mousePressed) {
-        fill(r.buttonHighlight);
-        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
-      } else {
-        fill(255);
-        rect(button.rectangle[0], button.rectangle[1], button.rectangle[2], button.rectangle[3]);
-      }
-    } else if (shape == "CIRCLE") {
-      if (sqrt(sq(button.circle[0] - mouseX) + sq(button.circle[1] - mouseY)) < button.circle[2]) {
-        button.overShape[2] = true;
-      } else {
-        button.overShape[2] = false;
-      }
-      if (over(button) && mousePressed) {
-        fill(r.buttonHighlight);
-        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
-      } else {
-        fill(255);
-        ellipse(button.circle[0], button.circle[1], button.circle[2], button.circle[2]);
-      }
+    if (mouseX >= this.rectangle[0] && mouseX <= this.rectangle[0] + this.rectangle[2] && mouseY >= this.rectangle[1] && mouseY <= this.rectangle[1] + this.rectangle[3]) {
+      this.overShape[1] = true;
+    } else {
+      this.overShape[1] = false;
     }
+    if (this.over() && mousePressed) {
+      fill(r.buttonHighlight);
+      rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
+    } else {
+      fill(255);
+      rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
+    }
+    } else if (shape == "CIRCLE") {
+    if (sqrt(sq(this.circle[0] - mouseX) + sq(this.circle[1] - mouseY)) < this.circle[2]) {
+      this.overShape[2] = true;
+    } else {
+      this.overShape[2] = false;
+    }
+    if (this.over() && mousePressed) {
+      fill(r.buttonHighlight);
+      ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
+    } else {
+      fill(255);
+      ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
+    }
+   }
   }
 
 
-  public boolean over(OnClickListener o) { // returns true if the cursor is hovering over a shape given to the class
-    if (!o.overShape[0] && !o.overShape[1] && !o.overShape[2]) {
+  public boolean over() { // returns true if the cursor is hovering over a shape given to the class
+    if (!this.overShape[0] && !this.overShape[1] && !this.overShape[2]) {
       return false;
     } else {
       return true;

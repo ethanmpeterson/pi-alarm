@@ -46,8 +46,8 @@ void leftRightNav() {
   triangle(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]); // left
   leftNavButton.tri(r.leftButton[0], r.leftButton[1], r.leftButton[2], r.leftButton[3], r.leftButton[4], r.leftButton[5]);
   rightNavButton.tri(r.rightButton[0], r.rightButton[1], r.rightButton[2], r.rightButton[3], r.rightButton[4], r.rightButton[5]);
-  rightNavButton.listen(rightNavButton, "TRIANGLE");
-  leftNavButton.listen(leftNavButton, "TRIANGLE");
+  rightNavButton.listen("TRIANGLE");
+  leftNavButton.listen("TRIANGLE");
 }
 
 void drawSlide1(int s) { // slide 1 will show RSGC Schedule
