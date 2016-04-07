@@ -3,14 +3,13 @@ Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 
-
 void setup() {
   size(800, 480);
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 64);
+  r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
-  textFont(r.time);
   fill(0);
 }
 
@@ -19,7 +18,10 @@ void draw() {
   u.update();
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
-  drawSlide0(r.slide); // pass the value of slide from the utilities class into the function to check if it is 1
+  drawSlide0(r.slide); // pass the value of slide from the resources class into the function to check if it is 1
+  drawSlide1(r.slide);
+  drawSlide2(r.slide);
+  drawSlide3(r.slide);
   leftRightNav();
   if (keyPressed && key == ' ') {
     exit();
@@ -27,17 +29,18 @@ void draw() {
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
+  if (rightNavButton.over() && r.slide < 3) {
+    r.slide++;
+  } else if (r.slide == 3) {
+    r.slide = 0;
+  }
+  if (leftNavButton.over() && r.slide > 0) {
+    r.slide--;
+  } else if (r.slide == 0) {
+    r.slide = 3; 
+  }
 }
 
-void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
-  if (s == 0) { // check if the slide is the right one for the function to run the rest of the draw slide functions will use this model
-    fill(0);
-    textSize(128);
-    text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
-    textSize(32); // draw the date
-    text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
-  }
-} //all the code in this function is housed within an if statement checking that slide is 0 because this is slide 0
 
 void leftRightNav() {
   fill(255);
@@ -50,20 +53,32 @@ void leftRightNav() {
   leftNavButton.listen("TRIANGLE");
 }
 
+
+void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
+  if (s == 0) { // check if the slide is the right one for the function to run the rest of the draw slide functions will use this model
+    textFont(r.time);
+    fill(0);
+    textSize(128);
+    text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
+    textSize(32); // draw the date
+    text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
+  }
+} //all the code in this function is housed within an if statement checking that slide is 0 because this is slide 0
+
+
 void drawSlide1(int s) { // slide 1 will show RSGC Schedule
   if (s == 1) {
-
   }
 }
+
 
 void drawSlide2(int s) { // slide 2 will likely be weather
   if (s == 2) {
-
   }
 }
 
+
 void drawSlide3(int s) { // will likely be settings
   if (s == 3) {
-
   }
 }

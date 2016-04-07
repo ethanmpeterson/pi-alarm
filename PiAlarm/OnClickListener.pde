@@ -8,11 +8,14 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   float triAreas[] = new float[4]; // will store area values for calculating if the the mouse is inside any given triangle
   float rectangle[] = new float[4];
   float circle[] = new float[3];
-  public boolean overShape[] = new boolean[3]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
+  private boolean overShape[] = new boolean[3]; // public boolean array to check if the cursor is hovering over a certain shape depending on the position in the array
   // ex. first position is true if the cursor is hovering over a triangle
   // private class variables
 
-  void OnClickListener() {/*Nothing to Construct*/}
+  void OnClickListener() { // Nothing to Construct
+  
+  }
+  
   // interface methods (program does not compile unless methods from the interfaces I have implemented in the class are within it)
 
   void tri(float x1, float y1, float x2, float y2, float x3, float y3) {
@@ -57,39 +60,39 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
         this.overShape[0] = false;
       }
       if (this.over() && mousePressed) {
-      fill(r.buttonHighlight);
-      triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
+        fill(r.buttonHighlight);
+        triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
       } else {
-      fill(255);
-      triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
+        fill(255);
+        triangle(this.triangle[0], this.triangle[1], this.triangle[2], this.triangle[3], this.triangle[4], this.triangle[5]);
       }
     } else if (shape == "RECTANGLE") {
-    if (mouseX >= this.rectangle[0] && mouseX <= this.rectangle[0] + this.rectangle[2] && mouseY >= this.rectangle[1] && mouseY <= this.rectangle[1] + this.rectangle[3]) {
-      this.overShape[1] = true;
-    } else {
-      this.overShape[1] = false;
-    }
-    if (this.over() && mousePressed) {
-      fill(r.buttonHighlight);
-      rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
-    } else {
-      fill(255);
-      rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
-    }
+      if (mouseX >= this.rectangle[0] && mouseX <= this.rectangle[0] + this.rectangle[2] && mouseY >= this.rectangle[1] && mouseY <= this.rectangle[1] + this.rectangle[3]) {
+        this.overShape[1] = true;
+      } else {
+        this.overShape[1] = false;
+      }
+      if (this.over() && mousePressed) {
+        fill(r.buttonHighlight);
+        rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
+      } else {
+        fill(255);
+        rect(this.rectangle[0], this.rectangle[1], this.rectangle[2], this.rectangle[3]);
+      }
     } else if (shape == "CIRCLE") {
-    if (sqrt(sq(this.circle[0] - mouseX) + sq(this.circle[1] - mouseY)) < this.circle[2]) {
-      this.overShape[2] = true;
-    } else {
-      this.overShape[2] = false;
+      if (sqrt(sq(this.circle[0] - mouseX) + sq(this.circle[1] - mouseY)) < this.circle[2]) {
+        this.overShape[2] = true;
+      } else {
+        this.overShape[2] = false;
+      }
+      if (this.over() && mousePressed) {
+        fill(r.buttonHighlight);
+        ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
+      } else {
+        fill(255);
+        ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
+      }
     }
-    if (this.over() && mousePressed) {
-      fill(r.buttonHighlight);
-      ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
-    } else {
-      fill(255);
-      ellipse(this.circle[0], this.circle[1], this.circle[2], this.circle[2]);
-    }
-   }
   }
 
 
