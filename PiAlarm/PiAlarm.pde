@@ -30,7 +30,7 @@ void draw() {
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
   if (rightNavButton.over()) {
-    if (r.slide == 3) {
+    if (r.slide == 4) {
       r.slide = 0;
     } else {
       r.slide++;
@@ -77,7 +77,12 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
     textSize(48);
     smooth();
     text("Schedule:", width/2 - textWidth("Schedule:")/2, 75);
-    
+    textSize(32);
+    text("School", 125, 125);
+    text("P1:", 125, 175);
+    text("P2:", 125, 225);
+    text("P3:", 125, 275);
+    text("P4:", 125, 325);
   }
 }
 
