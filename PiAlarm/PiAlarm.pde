@@ -7,7 +7,7 @@ void setup() {
   size(800, 480);
   background(255);
   u.update();
-  r.time = createFont("assets/fonts/timeFont.ttf", 64);
+  r.time = createFont("assets/fonts/timeFont.ttf", 24);
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
@@ -29,15 +29,19 @@ void draw() {
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
-  if (rightNavButton.over() && r.slide < 3) {
-    r.slide++;
-  } else if (r.slide == 3) {
-    r.slide = 0;
+  if (rightNavButton.over()) {
+    if (r.slide == 3) {
+      r.slide = 0;
+    } else {
+      r.slide++;
+    }
   }
-  if (leftNavButton.over() && r.slide > 0) {
-    r.slide--;
-  } else if (r.slide == 0) {
-    r.slide = 3; 
+  if (leftNavButton.over()) {
+    if (r.slide == 0) {
+      r.slide = 3;
+    } else {
+      r.slide--;
+    }
   }
 }
 
@@ -68,6 +72,12 @@ void drawSlide0(int s) { // s variable is the slide number to ensure it is only 
 
 void drawSlide1(int s) { // slide 1 will show RSGC Schedule
   if (s == 1) {
+    textFont(r.schedule);
+    fill(0);
+    textSize(48);
+    smooth();
+    text("Schedule:", width/2 - textWidth("Schedule:")/2, 75);
+    
   }
 }
 
