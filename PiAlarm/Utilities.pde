@@ -118,29 +118,4 @@ class Util {
       return "Error";
     }
   }
-                              // true = right button false = left button
-  void switchSlide(boolean direction) {
-    if (direction) {
-      if (r.slide == 0) {
-        r.slide = 1;
-      } else if (r.slide == 1) {
-        r.slide = 2;
-      } else if (r.slide == 2) {
-        r.slide = 3;
-      } else if (r.slide == 3) {
-        r.slide = 0;
-      }
-    }
-    if (!direction) {
-      if (r.slide == 0) {
-        r.slide = 3;
-      } else if (r.slide == 1) {
-        r.slide = 0;
-      } else if (r.slide == 2) {
-        r.slide = 1;
-      } else if (r.slide == 3) {
-        r.slide = 2;
-      }
-    }
-  }
 }
