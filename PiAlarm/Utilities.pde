@@ -17,9 +17,9 @@ class Util {
   public int weekDay;
   public int month;
   public int year;
+  public int dayNum;
   public String theDate;
   public boolean isPM;
-  private long startTime; // long is like an int that can holder a larger value
 
   void Util() { // do the initial setting of the variables in the constructor
     c = Calendar.getInstance();
@@ -30,7 +30,34 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    r.dayNum = r.schoolYear[month - 1][day];
+    this.dayNum = r.schoolYear[this.month - 1][this.day];
+    if (this.dayNum == 1) {
+      r.schoolSchedule[this.dayNum][1] = "Comm. Tech";
+      r.schoolSchedule[this.dayNum][2] = "Gym";
+      r.schoolSchedule[this.dayNum][3] = "English";
+      r.schoolSchedule[this.dayNum][4] = "Instrumental";
+    } 
+    if (this.dayNum == 2) {
+      r.schoolSchedule[this.dayNum][1] = "Science";
+      r.schoolSchedule[this.dayNum][2] = "Software";
+      r.schoolSchedule[this.dayNum][3] = "French";
+      r.schoolSchedule[this.dayNum][4] = "Math";
+    } 
+    if (this.dayNum == 3) {
+      r.schoolSchedule[this.dayNum][1] = "Instrumental";
+      r.schoolSchedule[this.dayNum][2] = "Gym";
+      r.schoolSchedule[this.dayNum][3] = "English";
+      r.schoolSchedule[this.dayNum][4] = "Comm. Tech";
+    } 
+    if (this.dayNum == 4) {
+      r.schoolSchedule[this.dayNum][1] = "Math";
+      r.schoolSchedule[this.dayNum][2] = "Software";
+      r.schoolSchedule[this.dayNum][3] = "French";
+      r.schoolSchedule[this.dayNum][4] = "Science";
+    } 
+    if (this.dayNum == 9) {
+      
+    }
   }
 
   void update() { // function will contain any variables that needed to be updated continuously in draw function
@@ -42,7 +69,28 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    r.dayNum = r.schoolYear[month - 1][day];
+    this.dayNum = r.schoolYear[month - 1][day];
+    if (this.dayNum == 1) {
+      r.schoolSchedule[this.dayNum][1] = "Comm. Tech";
+      r.schoolSchedule[this.dayNum][2] = "Gym";
+      r.schoolSchedule[this.dayNum][3] = "English";
+      r.schoolSchedule[this.dayNum][4] = "Instrumental";
+    } else if (this.dayNum == 2) {
+      r.schoolSchedule[this.dayNum][1] = "Science";
+      r.schoolSchedule[this.dayNum][2] = "Software";
+      r.schoolSchedule[this.dayNum][3] = "French";
+      r.schoolSchedule[this.dayNum][4] = "Math";
+    } else if (this.dayNum == 3) {
+      r.schoolSchedule[this.dayNum][1] = "Instrumental";
+      r.schoolSchedule[this.dayNum][2] = "Gym";
+      r.schoolSchedule[this.dayNum][3] = "English";
+      r.schoolSchedule[this.dayNum][4] = "Comm. Tech";
+    } else if (this.dayNum == 4) {
+      r.schoolSchedule[this.dayNum][1] = "Math";
+      r.schoolSchedule[this.dayNum][2] = "Software";
+      r.schoolSchedule[this.dayNum][3] = "French";
+      r.schoolSchedule[this.dayNum][4] = "Science";
+    }
   }
 
   String getMonth(int m) { // takes month var as input
