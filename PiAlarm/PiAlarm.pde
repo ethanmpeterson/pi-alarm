@@ -3,6 +3,7 @@ Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 
+
 void setup() {
   size(800, 480);
   background(255);
@@ -12,6 +13,7 @@ void setup() {
   frameRate(60);
   fill(0);
 }
+
 
 void draw() {
   background(255);
@@ -23,6 +25,7 @@ void draw() {
   drawSlide2(r.slide);
   drawSlide3(r.slide);
   leftRightNav();
+  println(u.dayNum);
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -78,16 +81,21 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
     smooth();
     text("Schedule:", width/2 - textWidth("Schedule:")/2, 75);
     textSize(32);
-    text("School", 125, 125);
-    text("P1:", 125, 175);
-    text("P2:", 125, 225);
-    text("P3:", 125, 275);
-    text("P4:", 125, 325);
+    if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
+      text("P1: " + r.schoolSchedule[u.dayNum][1], 125, 175);
+      text("P2: " + r.schoolSchedule[u.dayNum][2], 125, 225);
+      text("P3: " + r.schoolSchedule[u.dayNum][3], 125, 275);
+      text("P4: " + r.schoolSchedule[u.dayNum][4], 125, 325);
+    } 
+    if (u.dayNum == 9) {
+      textSize(48);
+      text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
+    }
   }
 }
 
 
-void drawSlide2(int s) { // slide 2 will likely be weather
+void drawSlide2(int s) { // slide 2 will be the users after school activities
   if (s == 2) {
   }
 }
