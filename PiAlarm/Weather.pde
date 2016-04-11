@@ -10,15 +10,17 @@ class Weather {
   private String[] text = new String[5]; // will hold comment on forecast ex. "AM Showers"
   XML[] forecast; // XML array storing the forecast for each 
   
-  public void Weather (String wCode) { // called when weather object is created  wCode parameter takes the weather code for your city user will evantually be able to set this
+  public Weather (String wCode) { // called when weather object is created  wCode parameter takes the weather code for your city user will evantually be able to set this
     weather = loadXML("http://xml.weather.yahoo.com/forecastrss?p=" + wCode); // loads XML file with the weather from Yahoo feed
     wCode = weatherCode;
     url = "http://xml.weather.yahoo.com/forecastrss?p=" + wCode;
+    forecast = weather.getChildren("channel/item/yweather:forecast");
   }
   
   
   public void updateWeatherXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
-    weather = loadXML(url);
+    weather = loadXML(url); // update XML file and forecast
+    forecast = weather.getChildren("channel/item/yweather:forecast");
   }
   
   
@@ -28,15 +30,15 @@ class Weather {
   }
   
   
-  String[] forecast(int d) { // will take string of the day 
+  String[][] getForecast() {
     for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
       day[i] = forecast[i].getString("day"); 
       low[i] = forecast[i].getInt("low");
       high[i] = forecast[i].getInt("high");
       text[i] = forecast[i].getString("text");
     }
-    String[] dayForecast = new String[3]; // pos 0 in the array will be the forecast text, pos 1 low temp, pos 2 the high temp
-    dayForecast[0] = day[0];
+    String[][] dayForecast = new String[3][3]; // pos 0 in the array will be the forecast text, pos 1 low temp, pos 2 the high temp
+    dayForecast[0][0] = day[0];
     return dayForecast;
   }
   
