@@ -20,6 +20,4 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
     {9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 9, 9, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 4, 1, 9, 9, 2},    // November
     {9, 3, 4, 1, 2, 9, 9, 3, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}  // December
     }; //same array that is in the gecko firmware that is filled with the day calendar for 2015-2016 school year
-    
-    public String schoolSchedule[][] = new String[5][5]; // first demension of the array will take the day number and second demension will be the particular period of an RSGC school day
 }

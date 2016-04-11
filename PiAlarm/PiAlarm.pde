@@ -12,7 +12,7 @@ void setup() {
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
-  weatherXML = loadXML("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22toronto%2C%20on%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+  //weatherXML = loadXML("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22toronto%2C%20on%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
 }
 
 
@@ -82,10 +82,10 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
     text("Schedule:", width/2 - textWidth("Schedule:")/2, 75);
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
-      text("P1: " + r.schoolSchedule[u.dayNum][1], 125, 175);
-      text("P2: " + r.schoolSchedule[u.dayNum][2], 125, 225);
-      text("P3: " + r.schoolSchedule[u.dayNum][3], 125, 275);
-      text("P4: " + r.schoolSchedule[u.dayNum][4], 125, 325);
+      text("P1: " + u.p1, 125, 175);
+      text("P2: " + u.p2, 125, 225);
+      text("P3: " + u.p3, 125, 275);
+      text("P4: " + u.p4, 125, 325);
     } 
     if (u.dayNum == 9) {
       textSize(48);

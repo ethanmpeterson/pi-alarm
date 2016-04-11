@@ -19,6 +19,7 @@ class Util {
   public int year;
   public int dayNum;
   public String theDate;
+  public String p1, p2, p3, p4;
   public boolean isPM;
 
   void Util() { // do the initial setting of the variables in the constructor
@@ -32,28 +33,28 @@ class Util {
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
     this.dayNum = r.schoolYear[this.month - 1][this.day];
     if (this.dayNum == 1) {
-      r.schoolSchedule[this.dayNum][1] = "Comm. Tech";
-      r.schoolSchedule[this.dayNum][2] = "Gym";
-      r.schoolSchedule[this.dayNum][3] = "English";
-      r.schoolSchedule[this.dayNum][4] = "Instrumental";
+      p1 = "Comm. Tech";
+      p2 = "Gym";
+      p3 = "English";
+      p4 = "Instrumental";
     } 
     if (this.dayNum == 2) {
-      r.schoolSchedule[this.dayNum][1] = "Science";
-      r.schoolSchedule[this.dayNum][2] = "Software";
-      r.schoolSchedule[this.dayNum][3] = "French";
-      r.schoolSchedule[this.dayNum][4] = "Math";
+      p1 = "Science";
+      p2 = "Software";
+      p3 = "French";
+      p4 = "Math";
     } 
     if (this.dayNum == 3) {
-      r.schoolSchedule[this.dayNum][1] = "Instrumental";
-      r.schoolSchedule[this.dayNum][2] = "Gym";
-      r.schoolSchedule[this.dayNum][3] = "English";
-      r.schoolSchedule[this.dayNum][4] = "Comm. Tech";
+      p1 = "Instrumental";
+      p2 = "Gym";
+      p3 = "English";
+      p4 = "Comm. Tech";
     } 
     if (this.dayNum == 4) {
-      r.schoolSchedule[this.dayNum][1] = "Math";
-      r.schoolSchedule[this.dayNum][2] = "Software";
-      r.schoolSchedule[this.dayNum][3] = "French";
-      r.schoolSchedule[this.dayNum][4] = "Science";
+      p1 = "Math";
+      p2 = "Software";
+      p3 = "French";
+      p4 = "Science";
     } 
     if (this.dayNum == 9) {
       
@@ -71,25 +72,31 @@ class Util {
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
     this.dayNum = r.schoolYear[month - 1][day];
     if (this.dayNum == 1) {
-      r.schoolSchedule[this.dayNum][1] = "Comm. Tech";
-      r.schoolSchedule[this.dayNum][2] = "Gym";
-      r.schoolSchedule[this.dayNum][3] = "English";
-      r.schoolSchedule[this.dayNum][4] = "Instrumental";
-    } else if (this.dayNum == 2) {
-      r.schoolSchedule[this.dayNum][1] = "Science";
-      r.schoolSchedule[this.dayNum][2] = "Software";
-      r.schoolSchedule[this.dayNum][3] = "French";
-      r.schoolSchedule[this.dayNum][4] = "Math";
-    } else if (this.dayNum == 3) {
-      r.schoolSchedule[this.dayNum][1] = "Instrumental";
-      r.schoolSchedule[this.dayNum][2] = "Gym";
-      r.schoolSchedule[this.dayNum][3] = "English";
-      r.schoolSchedule[this.dayNum][4] = "Comm. Tech";
-    } else if (this.dayNum == 4) {
-      r.schoolSchedule[this.dayNum][1] = "Math";
-      r.schoolSchedule[this.dayNum][2] = "Software";
-      r.schoolSchedule[this.dayNum][3] = "French";
-      r.schoolSchedule[this.dayNum][4] = "Science";
+      p1 = "Comm. Tech";
+      p2 = "Gym";
+      p3 = "English";
+      p4 = "Instrumental";
+    } 
+    if (this.dayNum == 2) {
+      p1 = "Science";
+      p2 = "Software";
+      p3 = "French";
+      p4 = "Math";
+    } 
+    if (this.dayNum == 3) {
+      p1 = "Instrumental";
+      p2 = "Gym";
+      p3 = "English";
+      p4 = "Comm. Tech";
+    } 
+    if (this.dayNum == 4) {
+      p1 = "Math";
+      p2 = "Software";
+      p3 = "French";
+      p4 = "Science";
+    } 
+    if (this.dayNum == 9) {
+      
     }
   }
 
