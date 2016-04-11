@@ -10,10 +10,12 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
+Weather weather;
 
 void setup() {
   size(800, 480);
   background(255);
+  weather = new Weather("CAXX0504");
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 24);
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
@@ -107,7 +109,7 @@ void drawSlide2(int s) { // slide 2 will be the users after school activities
 }
 
 
-void drawSlide3(int s) { // will likely be settings
+void drawSlide3(int s) { // will be weather slide
   if (s == 3) {
   }
 }
