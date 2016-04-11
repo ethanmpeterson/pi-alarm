@@ -1,10 +1,6 @@
 class Resource { // stores useful public vars and assets such as sounds fonts and images
   public int slide = 0;
-  public int timeX;
-  public int timeY;
-  public int dateX;
-  public int dateY;
-  public int slideNum; // int will evantually store the number of slides
+  public int slideNum = 4; // int stores the number of slides
   public PFont schedule; // the font used for slide 1 to show my school schedule
   public PFont time;  // grey color
   public color buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor

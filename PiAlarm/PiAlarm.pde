@@ -2,7 +2,7 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
-
+XML weatherXML;
 
 void setup() {
   size(800, 480);
@@ -12,6 +12,7 @@ void setup() {
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
+  weatherXML = loadXML("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22toronto%2C%20on%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
 }
 
 
@@ -25,7 +26,6 @@ void draw() {
   drawSlide2(r.slide);
   drawSlide3(r.slide);
   leftRightNav();
-  println(u.dayNum);
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -33,7 +33,7 @@ void draw() {
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
   if (rightNavButton.over()) {
-    if (r.slide == 4) {
+    if (r.slide == r.slideNum) {
       r.slide = 0;
     } else {
       r.slide++;
