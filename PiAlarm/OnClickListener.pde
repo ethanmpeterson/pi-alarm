@@ -1,7 +1,7 @@
 class OnClickListener implements Triangle, Rectangle, Circle { // implements methods within each of those interfaces
 
   // arrays to hold coordinates from the shapes being inputted into their respective function
-  float triangle[] = new float[6];
+  float triangle[] = new float[6]; // will store coordinates inputted into tri function
   float triAreas[] = new float[4]; // will store area values for calculating if the the mouse is inside any given triangle
   float rectangle[] = new float[4];
   float circle[] = new float[3];

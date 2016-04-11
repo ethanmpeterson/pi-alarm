@@ -1,3 +1,11 @@
+/*
+Raspberry Pi Alarm Clock
+Author: Ethan Peterson
+Revision Date: April 11, 2016
+Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
+a school schedule and touchscreen operation with the Raspberry Pi.
+*/
+
 Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
