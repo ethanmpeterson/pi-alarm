@@ -5,13 +5,13 @@ OnClickListener rightNavButton = new OnClickListener();
 
 
 void setup() {
-  size(800, 480);
   background(255);
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 24);
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
+  fullScreen();
 }
 
 
