@@ -12,12 +12,12 @@ class Weather {
     url = "http://xml.weather.yahoo.com/forecastrss?p=" + wCode;
   }
   
-  void updateWeatherXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
+  public void updateWeatherXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
     weather = loadXML(url);
   }
   
-  String getForecast() {
-    forecast = weather.getChild().getString();
+  public int getTemp() {
+    temp = weather.getChild("channel/item/yweather:condition").getInt("temp");
+    return temp;
   }
-  
 }
