@@ -21,7 +21,7 @@ void setup() {
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
-  println(weather.getForecast()[0][0]);
+  println(weather.getForecast()[1][0]);
 }
 
 

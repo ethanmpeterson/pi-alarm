@@ -32,13 +32,19 @@ class Weather {
   
   String[][] getForecast() {
     for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
-      day[i] = forecast[i].getString("day"); 
+      day[i] = forecast[i].getString("day");  // fill local arrays with data from the XML file for easier access
       low[i] = forecast[i].getInt("low");
       high[i] = forecast[i].getInt("high");
       text[i] = forecast[i].getString("text");
     }
-    String[][] dayForecast = new String[3][3]; // pos 0 in the array will be the forecast text, pos 1 low temp, pos 2 the high temp
-    dayForecast[0][0] = day[0];
+    String[][] dayForecast = new String[5][5]; // first axis of the array will be the day and second will be
+    for (int j = 0; j < day.length; j++) {
+      dayForecast[j][0] = day[j];
+    }
+    for (int z = 0; z < text.length; z++) {
+      dayForecast[z][1] = text[z];
+    }
+    
     return dayForecast;
   }
   
