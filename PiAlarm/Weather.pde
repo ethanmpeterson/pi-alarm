@@ -12,12 +12,33 @@ class Weather {
     url = "http://xml.weather.yahoo.com/forecastrss?p=" + wCode;
   }
   
+  
   public void updateWeatherXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
     weather = loadXML(url);
   }
   
-  public int getTemp() {
+  
+  public int getTemp() { // gets current temperature
     temp = weather.getChild("channel/item/yweather:condition").getInt("temp");
     return temp;
+  }
+  
+  
+  public int high() { // gets high temp for the day
+  
+  }
+  
+  public int low() { // gets low of the day
+  
+  }
+  
+  
+  String forecast() {
+  
+  }
+  
+  
+  private float Farenheit2Celcius() { // will convert farenheit temps from XML to Celcius
+  
   }
 }

@@ -6,7 +6,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public color buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
   public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
-  public int[][] schoolYear = {
+  public static final int[][] schoolYear = {
     {9, 9, 9, 9, 0, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 4, 1, 9, 9, 2, 3, 4, 1, 2, 9, 9}, // January
     {9, 3, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 9, 9, 9, 9, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1},       // February
     {9, 2, 3, 4, 1, 9, 9, 2, 3, 4, 1, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 3, 4, 1}, // March

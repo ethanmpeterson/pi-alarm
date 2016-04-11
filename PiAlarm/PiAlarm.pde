@@ -2,7 +2,6 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
-XML weatherXML;
 
 void setup() {
   size(800, 480);
