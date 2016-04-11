@@ -25,7 +25,6 @@ void draw() {
   drawSlide2(r.slide);
   drawSlide3(r.slide);
   leftRightNav();
-  println(u.dayNum);
   if (keyPressed && key == ' ') {
     exit();
   }

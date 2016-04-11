@@ -30,7 +30,7 @@ class Util {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    this.dayNum = r.schoolYear[this.month - 1][this.day];
+    this.dayNum = r.schoolYear[this.month - 1][this.day]; // use this to make changes to the val of dayNum specific to the instance of Util
     if (this.dayNum == 1) {
       r.schoolSchedule[this.dayNum][1] = "Comm. Tech";
       r.schoolSchedule[this.dayNum][2] = "Gym";
