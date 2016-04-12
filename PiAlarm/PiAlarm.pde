@@ -92,13 +92,13 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
     fill(0);
     textSize(48);
     smooth();
-    text("Schedule:", width/2 - textWidth("Schedule:")/2, 75);
+    text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
-      text("P1: " + u.p1, 125, 175);
-      text("P2: " + u.p2, 125, 225);
-      text("P3: " + u.p3, 125, 275);
-      text("P4: " + u.p4, 125, 325);
+      text("P1: " + u.p1 + u.p1Time, width/2 - textWidth("P1: " + u.p1 + u.p1Time)/2, 175);
+      text("P2: " + u.p2 + u.p2Time, width/2 - textWidth("P2: " + u.p2 + u.p2Time)/2, 225);
+      text("P3: " + u.p3 + u.p3Time, width/2 - textWidth("P3: " + u.p3 + u.p3Time)/2, 275);
+      text("P4: " + u.p4 + u.p4Time, width/2 - textWidth("P4: " + u.p4 + u.p4Time)/2, 325);
     } 
     if (u.dayNum == 9) {
       textSize(48);
