@@ -21,7 +21,11 @@ void setup() {
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
-  println(weather.getForecast()[1][0]);
+  // print out forecast for each day of the week for testing
+  for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
+    print(weather.getForecast()[2][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
+    // prints out day, forecast, high temperature and low temperature
+  }
 }
 
 

@@ -1,7 +1,6 @@
 class Weather {
   private XML weather;
   private int currentTemp; // string storing current temperature returned by getTemp()
-  private String humidity; // String will evantually contain humidity
   private String weatherCode; // weather code for the particular city/region each place has a unique weather code
   private String url; // stores url of XML file + weather code
   private String[] day = new String[5]; // array to store day of the week for the weather forecast
@@ -30,21 +29,27 @@ class Weather {
   }
   
   
-  String[][] getForecast() {
+  public String[][] getForecast() { // function returns array of type String that is demensions meaning it is like a matrix
     for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
       day[i] = forecast[i].getString("day");  // fill local arrays with data from the XML file for easier access
       low[i] = forecast[i].getInt("low");
       high[i] = forecast[i].getInt("high");
       text[i] = forecast[i].getString("text");
     }
-    String[][] dayForecast = new String[5][5]; // first axis of the array will be the day and second will be
-    for (int j = 0; j < day.length; j++) {
+    //                      5x5 array would give a total of 25 spaces
+    String[][] dayForecast = new String[5][5]; // first axis of the array will be the day and second will be the component of forecast you wish to access ex. high temp for the day
+    for (int j = 0; j < day.length; j++) { // fills the first row with the day
       dayForecast[j][0] = day[j];
     }
-    for (int z = 0; z < text.length; z++) {
+    for (int z = 0; z < text.length; z++) { // fills the array with text for the particular day
       dayForecast[z][1] = text[z];
     }
-    
+    for (int k = 0; k < high.length; k++) { // fills array with high temps for the particular day
+      dayForecast[k][2] = Integer.toString(high[k]); // add to string function as high array is of type int and so is the low array uses
+    }
+    for (int l = 0; l < low.length; l++) { // fills array
+      dayForecast[l][3] = Integer.toString(low[l]);
+    }
     return dayForecast;
   }
   
