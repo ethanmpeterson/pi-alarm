@@ -54,7 +54,7 @@ class Weather {
   }
   
   
-  //private float Farenheit2Celcius() { // will convert farenheit temps from XML to Celcius
-  
-  //}
+  private float Farenheit2Celcius(int f) { // will convert farenheit temps from XML to Celcius takes farenheit degree as input
+    return (5(f - 32))/9;
+  }
 }

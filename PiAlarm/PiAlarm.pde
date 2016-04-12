@@ -23,7 +23,7 @@ void setup() {
   fill(0);
   // print out forecast for each day of the week for testing
   for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
-    print(weather.getForecast()[2][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
+    print(weather.getForecast()[1][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
     // prints out day, forecast, high temperature and low temperature
   }
 }
