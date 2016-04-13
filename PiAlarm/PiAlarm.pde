@@ -15,7 +15,7 @@ Weather weather;
 void setup() {
   size(800, 480);
   background(255);
-  weather = new Weather("CAXX0504");
+  weather = new Weather("Toronto", "ON");
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 24);
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);

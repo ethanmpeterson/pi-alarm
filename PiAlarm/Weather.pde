@@ -1,7 +1,6 @@
 class Weather {
   private XML weather;
   private int currentTemp; // string storing current temperature returned by getTemp()
-  private String weatherCode; // weather code for the particular city/region each place has a unique weather code
   private String url; // stores url of XML file + weather code
   private String[] day = new String[5]; // array to store day of the week for the weather forecast
   private int[] low = new int[5]; // 5 slots for each day of the week in the forecast of the low temps
@@ -11,10 +10,9 @@ class Weather {
   // current the length of the all forecast arrays is 5
   XML[] forecast; // XML array storing the forecast for each 
   
-  public Weather (String wCode) { // called when weather object is created  wCode parameter takes the weather code for your city user will evantually be able to set this
-    weather = loadXML("http://xml.weather.yahoo.com/forecastrss?p=" + wCode); // loads XML file with the weather from Yahoo feed
-    wCode = weatherCode;
-    url = "http://xml.weather.yahoo.com/forecastrss?p=" + wCode;
+  public Weather (String city, String provCode) { // called when weather object is created city parameter will take city name ex. Toronto and provCode will take the province ex. ON
+    weather = loadXML("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"); // loads XML file with the weather from Yahoo feed
+    url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     forecast = weather.getChildren("channel/item/yweather:forecast");
   }
   
