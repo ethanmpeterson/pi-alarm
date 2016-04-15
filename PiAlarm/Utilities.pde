@@ -25,6 +25,7 @@ class Util {
   public String p2Time = "  (9:35 AM - 10:50 AM)";
   public String p3Time = "  (11:15 AM - 12:30 PM)";
   public String p4Time = "  (1:25 PM - 2:40 PM)";
+  public String[] extras;
   void Util() { // do the initial setting of the variables in the constructor
     c = Calendar.getInstance();
     minute = c.get(Calendar.MINUTE); // update the time variables as shortcuts to accessing the calendar
@@ -58,9 +59,6 @@ class Util {
       p2 = "Software";
       p3 = "French";
       p4 = "Science";
-    } 
-    if (this.dayNum == 9) {
-      
     }
   }
 
@@ -97,9 +95,6 @@ class Util {
       p2 = "Software";
       p3 = "French";
       p4 = "Science";
-    } 
-    if (this.dayNum == 9) {
-      
     }
   }
 

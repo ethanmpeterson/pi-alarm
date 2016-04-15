@@ -113,6 +113,7 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
 
 void drawSlide2(int s) { // slide 2 will be the users after school activities
   if (s == 2) {
+    
   }
 }
 

@@ -58,15 +58,15 @@ class Weather {
       for (int j = 0; j < arraySize; j++) {
         dayForecast[j][0] = day[j];
         dayForecast[j][1] = text[j];
-        dayForecast[j][2] = Integer.toString(high[j]); // add toString function as high array is of type int and so is the low array
-        dayForecast[j][3] = Integer.toString(low[j]);
+        dayForecast[j][2] = Float.toString(F2C(high[j])); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
+        dayForecast[j][3] = Float.toString(F2C(low[j]));
       }
     }
     return dayForecast;
   }
 
 
-  private float Fahrenheit2Celsius(float f) { // will convert farenheit temps from XML to Celcius takes farenheit degree as input
+  private float F2C(float f) { // will convert farenheit temps from XML to Celcius takes farenheit degree as input
     float celsius = 5 * (f - 32)/9;
     return celsius;
   }
