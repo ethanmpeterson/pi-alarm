@@ -1,5 +1,10 @@
+import java.net.*; // import java net libraries for access to classes like URL and URI
+import java.io.*; // import java io libraries for access to file class
+
 class Weather {
   private XML weather;
+  File f;
+  URL u;
   private boolean xmlAvailable;
   private int currentTemp; // string storing current temperature returned by getTemp()
   private String url; // stores url of XML file + city and province
@@ -16,11 +21,16 @@ class Weather {
     url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     weather = loadXML(url); // loads XML file with the weather from Yahoo feed
     if (weather != null) { // only load the xml file if the link works in case yahoo is down
-      xmlAvailable = true;
-      forecast = weather.getChildren("results/channel/item/yweather:forecast");
+     xmlAvailable = true;
+     forecast = weather.getChildren("results/channel/item/yweather:forecast");
     } else {
-      xmlAvailable = false;
+     xmlAvailable = false;
     } 
+  }
+  
+  
+  public boolean xmlAvail() { // functions allowing me to check if the weather xml file exists outside the class
+    return xmlAvailable;
   }
   
   
