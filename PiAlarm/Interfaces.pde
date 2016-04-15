@@ -19,3 +19,9 @@ interface Buttons {
 interface weatherUtils {
   
 }
+
+interface Time {
+  String getMonth(int m);
+  String getWeekDay(int w);
+  String get12HourTime();
+}
