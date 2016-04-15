@@ -42,6 +42,9 @@ void draw() {
   if (keyPressed && key == ' ') {
     exit();
   }
+  if (u.minute == 0) { // update the weather every hour
+    weather.updateXML();
+  }
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)

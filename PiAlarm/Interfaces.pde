@@ -15,3 +15,7 @@ interface Buttons {
   void makeTriButton(float x1, float y1, float x2, float y2, float x3, float y3);
   void makeCircleButton(float x, float y, float diameter);
 }
+
+interface weatherUtils {
+  
+}
