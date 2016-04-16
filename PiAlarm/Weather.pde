@@ -1,10 +1,5 @@
-import java.net.*; // import java net libraries for access to classes like URL and URI
-import java.io.*; // import java io libraries for access to file class
-
 class Weather {
   private XML weather;
-  File f;
-  URL u;
   private boolean xmlAvailable;
   private int currentTemp; // string storing current temperature returned by getTemp()
   private String url; // stores url of XML file + city and province
@@ -14,49 +9,53 @@ class Weather {
   private int[] high = new int[arraySize]; // array of high daily temps in the forecast
   private String[] text = new String[arraySize]; // will hold comment on forecast ex. "AM Showers"
   // current the length of the all forecast arrays is 5
-  XML[] forecast; // XML array storing the forecast for each 
-  
-  
+  XML[] forecast; // XML array storing the forecast for each
+
+
   public Weather (String city, String provCode) { // called when weather object is created city parameter will take city name ex. Toronto and provCode will take the province ex. ON
     url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-    weather = loadXML(url); // loads XML file with the weather from Yahoo feed
-    if (weather != null) { // only load the xml file if the link works in case yahoo is down
-     xmlAvailable = true;
-     forecast = weather.getChildren("results/channel/item/yweather:forecast");
-    } else {
-     xmlAvailable = false;
-    } 
+    try { // tries a line of code allowing an error in this case NullPointer Exception to be caught and handled
+      weather = loadXML(url); // loads XML file with the weather from Yahoo feed
+      xmlAvailable = true; // will stay true if there is no NullPointerException
+      forecast = weather.getChildren("results/channel/item/yweather:forecast");
+    } catch (NullPointerException e) {
+      println("weather XML is null");
+      xmlAvailable = false;
+    }
+    println(xmlAvailable);
   }
-  
-  
+
+
   public boolean xmlAvail() { // functions allowing me to check if the weather xml file exists outside the class
     return xmlAvailable;
   }
-  
-  
+
+
   public void updateXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
-     if (xmlAvailable) { // only load the xml file if the link works in case yahoo is down
-       xmlAvailable = true;
-       weather = loadXML(url); // loads XML file with the weather from Yahoo feed
-       forecast = weather.getChildren("results/channel/item/yweather:forecast");
-     } else {
-       xmlAvailable = false;
+    try { // tries a line of code allowing an error in this case NullPointer Exception to be caught and handled
+      weather = loadXML(url); // loads XML file with the weather from Yahoo feed
+      xmlAvailable = true; // will stay true if there is no NullPointerException
+      forecast = weather.getChildren("results/channel/item/yweather:forecast");
+    } catch (NullPointerException e) {
+        println("weather XML is null");
+        xmlAvailable = false;
     }
-  }
-  
-  
+      println(xmlAvailable);
+    }
+
+
   public int getTemp() { // gets current temperature
     currentTemp = weather.getChild("results/channel/item/yweather:condition").getInt("temp");
     return currentTemp;
   }
-  
-  
-  //public String[] getWeather() { // will return weather conditions of the very moment
-  //  String currentW[] = weather.getChildren("results/channel/item/yweather:condition");
+
+
+  // public String[] getWeather() { // will return weather conditions of the very moment
+  //  String currentW[] = weather.getChild("results/channel/item/yweather:condition");
   //  return currentW;
-  //}
-  
-  
+  // }
+
+
   public String[][] getForecast() { // function returns array of type String that is demensions meaning it is like a matrix which is filled with the week's forecast
   //                      5x5 array would give a total of 25 spaces
     String[][] dayForecast = new String[arraySize][arraySize]; // first axis of the array will be the day and second will be the component of forecast you wish to access ex. high temp for the day
