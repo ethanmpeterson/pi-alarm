@@ -21,9 +21,8 @@ void setup() {
   r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
   frameRate(60);
   fill(0);
-<<<<<<< HEAD
   fullScreen();
-=======
+  noCursor();
   // print out forecast for each day of the week for testing
   if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
@@ -31,7 +30,6 @@ void setup() {
       // prints out day, forecast, high temperature and low temperature
     }
   }
->>>>>>> master
 }
 
 
