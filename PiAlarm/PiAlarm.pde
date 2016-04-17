@@ -1,10 +1,10 @@
 /*
 Raspberry Pi Alarm Clock
-Author: Ethan Peterson
-Revision Date: April 11, 2016
-Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
-a school schedule and touchscreen operation with the Raspberry Pi.
-*/
+ Author: Ethan Peterson
+ Revision Date: April 16, 2016
+ Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
+ a school schedule and touchscreen operation with the Raspberry Pi.
+ */
 
 Util u = new Util();
 Resource r = new Resource();
@@ -17,7 +17,6 @@ void setup() {
   background(255);
   weather = new Weather("Toronto", "ON");
   if (!weather.xmlAvail()) {
-    
   }
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 24);
@@ -39,10 +38,7 @@ void draw() {
   u.update();
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
-  drawSlide0(r.slide); // pass the value of slide from the resources class into the function to check if it is 1
-  drawSlide1(r.slide);
-  drawSlide2(r.slide);
-  drawSlide3(r.slide);
+  drawSlides(r.slide); // pass the value of slide from the resources class into the function to check if it is 1
   leftRightNav();
   if (keyPressed && key == ' ') {
     exit();
@@ -82,8 +78,8 @@ void leftRightNav() {
 }
 
 
-void drawSlide0(int s) { // s variable is the slide number to ensure it is only drawn when the user has navigated to it
-  if (s == 0) { // check if the slide is the right one for the function to run the rest of the draw slide functions will use this model
+void drawSlides(int s) {
+  if (s == 0) { // code for slide 0 and the following if statements will represent a particular slide as well
     textFont(r.time);
     fill(0);
     textSize(128);
@@ -91,10 +87,7 @@ void drawSlide0(int s) { // s variable is the slide number to ensure it is only 
     textSize(32); // draw the date
     text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
   }
-} //all the code in this function is housed within an if statement checking that slide is 0 because this is slide 0
 
-
-void drawSlide1(int s) { // slide 1 will show RSGC Schedule
   if (s == 1) {
     textFont(r.schedule);
     fill(0);
@@ -113,17 +106,13 @@ void drawSlide1(int s) { // slide 1 will show RSGC Schedule
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
   }
-}
 
-
-void drawSlide2(int s) { // slide 2 will be the users after school activities
   if (s == 2) {
-    
   }
-}
 
-
-void drawSlide3(int s) { // will be weather slide
   if (s == 3) {
+  }
+
+  if (s == 4) {
   }
 }
