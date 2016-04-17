@@ -13,7 +13,7 @@ class Weather {
 
 
   public Weather (String city, String provCode) { // called when weather object is created city parameter will take city name ex. Toronto and provCode will take the province ex. ON
-    url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)%20and%20u%3D'c'&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     try { // tries a line of code allowing an error in this case NullPointer Exception to be caught and handled
       weather = loadXML(url); // loads XML file with the weather from Yahoo feed
       xmlAvailable = true; // will stay true if there is no NullPointerException
@@ -50,10 +50,9 @@ class Weather {
   }
 
 
-  // public String[] getWeather() { // will return weather conditions of the very moment
-  //  String currentW[] = weather.getChild("results/channel/item/yweather:condition");
-  //  return currentW;
-  // }
+  public String getWeather() { // will return weather conditions of the very moment
+    return weather.getChild("results/channel/item/yweather:condition").getString("text");
+  }
 
 
   public String[][] getForecast() { // function returns array of type String that is demensions meaning it is like a matrix which is filled with the week's forecast
@@ -67,16 +66,10 @@ class Weather {
       for (int j = 0; j < arraySize; j++) {
         dayForecast[j][0] = day[j];
         dayForecast[j][1] = text[j];
-        dayForecast[j][2] = Float.toString(F2C(high[j])); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
-        dayForecast[j][3] = Float.toString(F2C(low[j]));
+        dayForecast[j][2] = Integer.toString(high[j]); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
+        dayForecast[j][3] = Integer.toString(low[j]);
       }
     }
     return dayForecast;
-  }
-
-
-  private float F2C(float f) { // will convert farenheit temps from XML to Celcius takes farenheit degree as input
-    float celsius = 5 * (f - 32)/9;
-    return celsius;
   }
 }
