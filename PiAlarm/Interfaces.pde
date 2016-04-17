@@ -16,11 +16,15 @@ interface Buttons {
   void makeCircleButton(float x, float y, float diameter);
 }
 
-interface weatherUtils {
-  
+interface WeatherUtils {
+  boolean xmlAvail();
+  void updateXML();
+  int getTemp();
+  String getWeather();
+  String[][] getForecast();
 }
 
-interface Time {
+interface TimeUtils {
   String getMonth(int m);
   String getWeekDay(int w);
   String get12HourTime();

@@ -10,13 +10,12 @@ Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
-Weather weather;
 
 void setup() {
   size(800, 480);
   background(255);
-  weather = new Weather("Toronto", "ON");
-  if (!weather.xmlAvail()) {
+  u.setWeather("Toronto", "ON");
+  if (u.xmlAvail()) {
   }
   u.update();
   r.time = createFont("assets/fonts/timeFont.ttf", 24);
@@ -24,9 +23,9 @@ void setup() {
   frameRate(60);
   fill(0);
   // print out forecast for each day of the week for testing
-  if (weather.xmlAvail()) {
+  if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
-      print(weather.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
+      print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
       // prints out day, forecast, high temperature and low temperature
     }
   }
@@ -43,8 +42,8 @@ void draw() {
   if (keyPressed && key == ' ') {
     exit();
   }
-  if (u.minute == 0) { // update the weather every hour
-    weather.updateXML();
+  if (u.minute == 0 && second() == 0) { // update the weather every hour
+    u.updateXML();
   }
 }
 
