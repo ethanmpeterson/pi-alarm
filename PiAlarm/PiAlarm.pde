@@ -4,25 +4,27 @@ Raspberry Pi Alarm Clock
  Revision Date: April 16, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
- */
+*/
 
 Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
+OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on weather slide
+OnClickListener prevDay = new OnClickListener();
+String theWeather; // for the weather slide text
+String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 
 void setup() {
   size(800, 480);
   background(255);
   u.setWeather("Toronto", "ON");
-  if (u.xmlAvail()) {
-  }
   u.update();
-  r.time = createFont("assets/fonts/timeFont.ttf", 24);
-  r.schedule = createFont("assets/fonts/OpenSans.ttf", 64);
-  frameRate(60);
+  r.load();
+  frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
   // print out forecast for each day of the week for testing
+  theWeather = u.getTemp() + "°C  " + u.getWeather();
   if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
       print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
@@ -91,7 +93,6 @@ void drawSlides(int s) {
     textFont(r.schedule);
     fill(0);
     textSize(48);
-    smooth();
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
@@ -106,12 +107,19 @@ void drawSlides(int s) {
     }
   }
 
-  if (s == 2) {
+  if (s == 2) { // extra carriculars
+    
   }
 
-  if (s == 3) {
+  if (s == 3) { // weather slide
+    textSize(48);
+    fill(0);
+    text("Weather", width/2 - textWidth("Weather")/2, 75);
+    textSize(32);
+    text(theWeather, width/2 - textWidth(theWeather)/2, 150);
   }
 
   if (s == 4) {
+    
   }
 }

@@ -26,8 +26,8 @@ class Util implements TimeUtils, WeatherUtils {
   public String p3Time = "  (11:15 AM - 12:30 PM)";
   public String p4Time = "  (1:25 PM - 2:40 PM)";
   public String[] extras;
+  
   // weather variables
-
   private XML weather;
   private boolean xmlAvailable;
   private int currentTemp; // string storing current temperature returned by getTemp()
@@ -114,6 +114,7 @@ class Util implements TimeUtils, WeatherUtils {
     }
   }
 
+
   String getMonth(int m) { // takes month var as input
     if (m == 1) { //return the right month string depending on what number from 1-12 is inputted into the function
       return "January";
@@ -144,6 +145,7 @@ class Util implements TimeUtils, WeatherUtils {
     }
   }
 
+
   String getWeekDay(int w) { // function returns a weekday based on what number is given by the Java Calendar class
     if (w == 1) {
       return "Sunday";
@@ -163,6 +165,7 @@ class Util implements TimeUtils, WeatherUtils {
       return "Error";
     }
   }
+
 
   String get12HourTime() { // returns a String of the time in 12 hour form
     if (c.get(Calendar.HOUR_OF_DAY) >= 12) { // checks if the hour of the day is greater or equal to 12 meaning it is the afternoon

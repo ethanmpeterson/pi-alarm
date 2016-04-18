@@ -3,6 +3,10 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int slideNum = 4; // int stores the number of slides
   public PFont schedule; // the font used for slide 1 to show my school schedule
   public PFont time;  // grey color
+  public PShape cloud;
+  public PShape rain;
+  public PShape sun;
+  public PShape partlyCloudy;
   public color buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
   public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
@@ -20,4 +24,15 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
     {9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 9, 9, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 4, 1, 9, 9, 2},    // November
     {9, 3, 4, 1, 2, 9, 9, 3, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}  // December
     }; //same array that is in the gecko firmware that is filled with the day calendar for 2015-2016 school year
+    
+    
+  public void load() {
+    // put all external files/assets that need to be loaded into this function
+    time = createFont("assets/fonts/timeFont.ttf", 24);
+    schedule = createFont("assets/fonts/OpenSans.ttf", 64);
+    cloud = loadShape("assets/img/cloud.svg");
+    rain = loadShape("assets/img/rain.svg");
+    sun = loadShape("assets/img/sun.svg");
+    partlyCloudy = loadShape("assets/img/partlyCloudy.svg");
+  }
 }
