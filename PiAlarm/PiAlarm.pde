@@ -1,7 +1,7 @@
 /*
 Raspberry Pi Alarm Clock
  Author: Ethan Peterson
- Revision Date: April 16, 2016
+ Revision Date: April 19, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
 */
@@ -14,6 +14,8 @@ OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on
 OnClickListener prevDay = new OnClickListener();
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
+boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed
+int timesPressed = 1; // tracks the number of times the nextDay button has been pressed starting at 1
 
 void setup() {
   size(800, 480);
@@ -50,6 +52,7 @@ void draw() {
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
+  // handle clicks to navigate between slides
   if (rightNavButton.over()) {
     if (r.slide == r.slideNum) {
       r.slide = 0;
@@ -63,6 +66,14 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     } else {
       r.slide--;
     }
+  }
+  // handle clicks on nextDay and PrevDay buttons in weather slide
+  if (nextDay.over()) {
+    nextPressed = true;
+    println("next Pressed");
+  }
+  if (prevDay.over()) {
+    
   }
 }
 
@@ -117,6 +128,21 @@ void drawSlides(int s) {
     text("Weather", width/2 - textWidth("Weather")/2, 75);
     textSize(32);
     text(theWeather, width/2 - textWidth(theWeather)/2, 150);
+    for (int i = 0; i < 9; i++) { // use for loop to grab weekdays in the forecast and move to new array outside of the class
+      forecastDays[i] = u.getForecast()[i][0];
+    }
+    fill(255);
+    if (nextPressed) { // only draw and listen for prevDay button if it is needed
+      rect(100, 300, 75, 30); // draw button to take user to prev day in forecast
+      prevDay.rect(100, 300, 75, 30);
+      prevDay.listen("RECTANGLE");
+    }
+    // input the coordinates of each into OnClickListener Class
+    rect(625, 300, 75, 30); // draw button to take user to next day in the forecast
+    nextDay.rect(625, 300, 75, 30);
+    nextDay.listen("RECTANGLE");
+    fill(0);
+    text(forecastDays[1], 630, 328);
   }
 
   if (s == 4) {
