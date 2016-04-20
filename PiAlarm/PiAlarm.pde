@@ -4,7 +4,7 @@ Raspberry Pi Alarm Clock
  Revision Date: April 19, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
-*/
+ */
 
 Util u = new Util();
 Resource r = new Resource();
@@ -16,8 +16,9 @@ OnClickListener prevDay = new OnClickListener();
 
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
-boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed
-int timesPressed = 1; // tracks the number of times the nextDay button has been pressed starting at 1
+boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
+boolean prevPressed;
+int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 1
 
 
 void setup() {
@@ -77,7 +78,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     timesPressed++;
   }
   if (prevDay.over()) {
+    prevPressed = true;
     println("prev Pressed");
+    timesPressed--;
   }
 }
 
@@ -123,7 +126,6 @@ void drawSlides(int s) {
   }
 
   if (s == 2) { // extra carriculars
-    
   }
 
   if (s == 3) { // weather slide
@@ -138,17 +140,27 @@ void drawSlides(int s) {
     fill(255);
     rect(width/2 - 75/2, 300, 75, 30); // draw rect to display text telling the user what day they are viewing the weather for
     // draw triangular buttons to navigate between days
-    triangle(width/2 - 75/2 - 5, 330, width/2 - 75/2 - 5, 300, width/2 - 75/2 - 20, 300 + 15);
-    triangle(75 + width/2 - 75/2 + 5, 330, 75 + width/2 - 75/2 + 5, 300, width/2 - 75/2 + 20, 300 + 15);
+    triangle(width/2 - 75/2 - 5, 330, width/2 - 75/2 - 5, 300, width/2 - 75/2 - 20, 300 + 15); // prev day navigation button
+    triangle(75 + width/2 - 75/2 + 5, 330, 75 + width/2 - 75/2 + 5, 300, 75 + width/2 - 75/2 + 20, 300 + 15); // next day navigation button
+    nextDay.tri(75 + width/2 - 75/2 + 5, 330, 75 + width/2 - 75/2 + 5, 300, 75 + width/2 - 75/2 + 20, 300 + 15);
+    prevDay.tri(width/2 - 75/2 - 5, 330, width/2 - 75/2 - 5, 300, width/2 - 75/2 - 20, 300 + 15);
+    nextDay.listen("TRIANGLE");
+    prevDay.listen("TRIANGLE");
     fill(0);
-    if (timesPressed < 9) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
-     text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328); 
-    } else {
-     timesPressed = 1;
+    if (!nextPressed && !prevPressed) {
+      text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
+    }
+    if (nextPressed || prevPressed) {
+      if (timesPressed < 9 && timesPressed >= 1) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
+        text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
+      } else if (timesPressed > 8) { // insert protective else if statements to prevent array out of bounds error
+        timesPressed = 1;
+      } else if (timesPressed < 1) {
+        timesPressed = 8;
+      }
     }
   }
 
   if (s == 4) {
-    
   }
 }
