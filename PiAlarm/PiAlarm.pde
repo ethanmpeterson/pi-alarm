@@ -136,19 +136,13 @@ void drawSlides(int s) {
       forecastDays[i] = u.getForecast()[i][0];
     }
     fill(255);
-    // input the coordinates of each into OnClickListener Class
-    rect(625, 300, 75, 30); // draw button to take user to next day in the forecast
-    nextDay.rec(625, 300, 75, 30);
-    nextDay.listen("RECTANGLE");
-    if (nextPressed) { // only draw and listen for prevDay button if it is needed
-     fill(255);
-     rect(100, 300, 75, 30); // draw button to take user to prev day in forecast
-     prevDay.rec(100, 300, 75, 30);
-     prevDay.listen("RECTANGLE");
-    }
+    rect(width/2 - 75/2, 300, 75, 30); // draw rect to display text telling the user what day they are viewing the weather for
+    // draw triangular buttons to navigate between days
+    triangle(width/2 - 75/2 - 5, 330, width/2 - 75/2 - 5, 300, width/2 - 75/2 - 20, 300 + 15);
+    triangle(75 + width/2 - 75/2 + 5, 330, 75 + width/2 - 75/2 + 5, 300, width/2 - 75/2 + 20, 300 + 15);
     fill(0);
     if (timesPressed < 9) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
-     text(forecastDays[timesPressed], 630, 328); 
+     text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328); 
     } else {
      timesPressed = 1;
     }
