@@ -3,7 +3,7 @@ interface Triangle {
 }
 
 interface Rectangle {
-  void rect(float x, float y, float width, float height);
+  void rec(float x, float y, float rwidth, float rheight);
 }
 
 interface Circle {
@@ -11,7 +11,7 @@ interface Circle {
 }
 
 interface Buttons {
-  void makeRectButton(String text, float x, float y, float width, float height);
+  void makeRectButton(String text, float x, float y, float rwidth, float rheight);
   void makeTriButton(float x1, float y1, float x2, float y2, float x3, float y3);
   void makeCircleButton(float x, float y, float diameter);
 }

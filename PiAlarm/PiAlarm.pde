@@ -12,10 +12,13 @@ OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on weather slide
 OnClickListener prevDay = new OnClickListener();
+
+
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed
 int timesPressed = 1; // tracks the number of times the nextDay button has been pressed starting at 1
+
 
 void setup() {
   size(800, 480);
@@ -71,9 +74,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (nextDay.over()) {
     nextPressed = true;
     println("next Pressed");
+    timesPressed++;
   }
   if (prevDay.over()) {
-    
+    println("prev Pressed");
   }
 }
 
@@ -132,17 +136,22 @@ void drawSlides(int s) {
       forecastDays[i] = u.getForecast()[i][0];
     }
     fill(255);
-    if (nextPressed) { // only draw and listen for prevDay button if it is needed
-      rect(100, 300, 75, 30); // draw button to take user to prev day in forecast
-      prevDay.rect(100, 300, 75, 30);
-      prevDay.listen("RECTANGLE");
-    }
     // input the coordinates of each into OnClickListener Class
     rect(625, 300, 75, 30); // draw button to take user to next day in the forecast
-    nextDay.rect(625, 300, 75, 30);
+    nextDay.rec(625, 300, 75, 30);
     nextDay.listen("RECTANGLE");
+    if (nextPressed) { // only draw and listen for prevDay button if it is needed
+     fill(255);
+     rect(100, 300, 75, 30); // draw button to take user to prev day in forecast
+     prevDay.rec(100, 300, 75, 30);
+     prevDay.listen("RECTANGLE");
+    }
     fill(0);
-    text(forecastDays[1], 630, 328);
+    if (timesPressed < 9) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
+     text(forecastDays[timesPressed], 630, 328); 
+    } else {
+     timesPressed = 1;
+    }
   }
 
   if (s == 4) {

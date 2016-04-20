@@ -25,12 +25,12 @@ class OnClickListener implements Triangle, Rectangle, Circle { // implements met
   }
 
 
-  void rect(float x, float y, float width, float height) {
+  void rec(float x, float y, float rwidth, float rheight) {
     // fill the rectangle array with values inputted into the function using this to make it unique to the particular instance of the class
     this.rectangle[0] = x;
     this.rectangle[1] = y;
-    this.rectangle[2] = width;
-    this.rectangle[3] = height;
+    this.rectangle[2] = rwidth;
+    this.rectangle[3] = rheight;
   }
 
 
