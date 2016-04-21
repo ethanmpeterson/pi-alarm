@@ -74,12 +74,12 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   // handle clicks on nextDay and PrevDay buttons in weather slide
   if (nextDay.over()) {
     nextPressed = true;
-    println("next Pressed" + timesPressed);
+    println("next Pressed " + timesPressed);
     timesPressed++;
   }
   if (prevDay.over()) {
     prevPressed = true;
-    println("prev Pressed" + timesPressed);
+    println("prev Pressed " + timesPressed);
     timesPressed--;
   }
 }
@@ -129,6 +129,7 @@ void drawSlides(int s) {
   }
 
   if (s == 3) { // weather slide
+    textFont(r.schedule);
     textSize(48);
     fill(0);
     text("Weather", width/2 - textWidth("Weather")/2, 75);
@@ -147,13 +148,12 @@ void drawSlides(int s) {
     prevDay.listen("TRIANGLE");
     fill(0);
     if (!nextPressed && !prevPressed) {
-      textSize(48);
-      text(theTemp, width/2 - textWidth(theTemp)/2, 175);
       textSize(32);
+      text(theTemp, width/2 - textWidth(theTemp)/2, 175);
       text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
     }
     if (nextPressed || prevPressed) {
-      if (timesPressed < 9 && timesPressed >= 1) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
+      if (timesPressed < 9 && timesPressed >= 0) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
         text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
       } else if (timesPressed > 8) { // insert protective else if statements to prevent array out of bounds error
         timesPressed = 0;
