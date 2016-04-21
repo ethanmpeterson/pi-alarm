@@ -232,7 +232,7 @@ class Util implements TimeUtils, WeatherUtils {
       currentTemp = weather.getChild("results/channel/item/yweather:condition").getInt("temp");
       return currentTemp;
     } else {
-      return -175; // return -175 if the function did not work due to XML File being null 
+      return -175; // return -175 if the function did not work due to XML File being null
     }
   }
 
@@ -245,16 +245,18 @@ class Util implements TimeUtils, WeatherUtils {
   public String[][] getForecast() { // function returns array of type String that is demensions meaning it is like a matrix which is filled with the week's forecast
     //                      5x5 array would give a total of 25 spaces
     String[][] dayForecast = new String[arraySize][arraySize]; // first axis of the array will be the day and second will be the component of forecast you wish to access ex. high temp for the day
-    for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
-      dayOfWeek[i] = forecast[i].getString("day");  // fill local arrays with data from the XML file for easier access
-      low[i] = forecast[i].getInt("low");
-      high[i] = forecast[i].getInt("high");
-      text[i] = forecast[i].getString("text");
-      for (int j = 0; j < arraySize; j++) {
-        dayForecast[j][0] = dayOfWeek[j];
-        dayForecast[j][1] = text[j];
-        dayForecast[j][2] = Integer.toString(high[j]); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
-        dayForecast[j][3] = Integer.toString(low[j]);
+    if (xmlAvailable) {
+      for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
+        dayOfWeek[i] = forecast[i].getString("day");  // fill local arrays with data from the XML file for easier access
+        low[i] = forecast[i].getInt("low");
+        high[i] = forecast[i].getInt("high");
+        text[i] = forecast[i].getString("text");
+        for (int j = 0; j < arraySize; j++) {
+          dayForecast[j][0] = dayOfWeek[j];
+          dayForecast[j][1] = text[j];
+          dayForecast[j][2] = Integer.toString(high[j]); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
+          dayForecast[j][3] = Integer.toString(low[j]);
+        }
       }
     }
     return dayForecast;
