@@ -26,7 +26,7 @@ class Util implements TimeUtils, WeatherUtils {
   public String p3Time = "  (11:15 AM - 12:30 PM)";
   public String p4Time = "  (1:25 PM - 2:40 PM)";
   public String[] extras;
-  
+
   // weather variables
   private XML weather;
   private boolean xmlAvailable;
@@ -228,8 +228,12 @@ class Util implements TimeUtils, WeatherUtils {
 
 
   public int getTemp() { // gets current temperature
-    currentTemp = weather.getChild("results/channel/item/yweather:condition").getInt("temp");
-    return currentTemp;
+    if (xmlAvailable) {
+      currentTemp = weather.getChild("results/channel/item/yweather:condition").getInt("temp");
+      return currentTemp;
+    } else {
+      return -175; // return -175 if the function did not work due to XML File being null 
+    }
   }
 
 

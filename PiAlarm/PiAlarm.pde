@@ -14,11 +14,11 @@ OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on
 OnClickListener prevDay = new OnClickListener();
 
 
-String theWeather; // for the weather slide text
+String theTemp; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
 boolean prevPressed;
-int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 1
+int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
 
 
 void setup() {
@@ -30,7 +30,7 @@ void setup() {
   frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
   // print out forecast for each day of the week for testing
-  theWeather = u.getTemp() + "°C  " + u.getWeather();
+  theTemp = u.getTemp() + "°C";
   if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
       print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
@@ -133,7 +133,6 @@ void drawSlides(int s) {
     fill(0);
     text("Weather", width/2 - textWidth("Weather")/2, 75);
     textSize(32);
-    text(theWeather, width/2 - textWidth(theWeather)/2, 150);
     for (int i = 0; i < 9; i++) { // use for loop to grab weekdays in the forecast and move to new array outside of the class
       forecastDays[i] = u.getForecast()[i][0];
     }
@@ -148,6 +147,9 @@ void drawSlides(int s) {
     prevDay.listen("TRIANGLE");
     fill(0);
     if (!nextPressed && !prevPressed) {
+      textSize(48);
+      text(theTemp, width/2 - textWidth(theTemp)/2, 175);
+      textSize(32);
       text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
     }
     if (nextPressed || prevPressed) {
