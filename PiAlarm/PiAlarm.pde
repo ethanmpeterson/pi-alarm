@@ -148,9 +148,11 @@ void drawSlides(int s) {
     prevDay.listen("TRIANGLE");
     fill(0);
     if (!nextPressed && !prevPressed) {
+      textSize(48);
+      text(theTemp, width/2 - textWidth(theTemp)/2, 225);
       textSize(32);
-      text(theTemp, width/2 - textWidth(theTemp)/2, 175);
       text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
+      println(u.getForecast()[0][1]);
     }
     if (nextPressed || prevPressed) {
       if (timesPressed < 9 && timesPressed >= 0) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
@@ -160,6 +162,24 @@ void drawSlides(int s) {
       } else if (timesPressed < 0) {
         timesPressed = 9;
       }
+    }
+    if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy")) {
+      shape(r.partlyCloudy, width/2 - 50, 90, 100, 100);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Cloudy")) {
+      shape(r.cloud, width/2 - 50, 90, 100, 100);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Sunny")) {
+      shape(r.sun, width/2 - 50, 90, 100, 100);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Showers")) {
+      shape(r.rain, width/2 - 50, 90, 100, 100);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Scattered Showers")) {
+      shape(r.sunShowers, width/2 - 50, 90, 100, 100);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Rain And Snow")) {
+      shape(r.rainSnow, width/2 - 50, 90, 100, 100);
     }
   }
 

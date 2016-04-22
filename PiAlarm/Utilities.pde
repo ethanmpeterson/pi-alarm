@@ -25,7 +25,6 @@ class Util implements TimeUtils, WeatherUtils {
   public String p2Time = "  (9:35 AM - 10:50 AM)";
   public String p3Time = "  (11:15 AM - 12:30 PM)";
   public String p4Time = "  (1:25 PM - 2:40 PM)";
-  public String[] extras;
 
   // weather variables
   private XML weather;
@@ -148,21 +147,21 @@ class Util implements TimeUtils, WeatherUtils {
 
   String getWeekDay(int w) { // function returns a weekday based on what number is given by the Java Calendar class
     if (w == 1) {
-      return "Sunday";
+    return "Sunday";
     } else if (w == 2) {
-      return "Monday";
+    return "Monday";
     } else if (w == 3) {
-      return "Tuesday";
+    return "Tuesday";
     } else if (w == 4) {
-      return "Wednesday";
+    return "Wednesday";
     } else if (w == 5) {
-      return "Thursday";
+    return "Thursday";
     } else if (w == 6) {
-      return "Friday";
+    return "Friday";
     } else if (w == 7) {
-      return "Saturday";
+    return "Saturday";
     } else {
-      return "Error";
+    return "Error";
     }
   }
 

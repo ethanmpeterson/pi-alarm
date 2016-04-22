@@ -7,6 +7,8 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public PShape rain;
   public PShape sun;
   public PShape partlyCloudy;
+  public PShape sunShowers;
+  public PShape rainSnow;
   public color buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
   public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
@@ -34,5 +36,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
     rain = loadShape("assets/img/rain.svg");
     sun = loadShape("assets/img/sun.svg");
     partlyCloudy = loadShape("assets/img/partlyCloudy.svg");
+    sunShowers = loadShape("assets/img/sunShowers.svg");
+    rainSnow = loadShape("assets/img/rainSnow.svg");
   }
 }
