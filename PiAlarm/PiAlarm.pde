@@ -1,7 +1,7 @@
 /*
 Raspberry Pi Alarm Clock
  Author: Ethan Peterson
- Revision Date: April 23, 2016
+ Revision Date: April 24, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
  */
@@ -15,7 +15,7 @@ OnClickListener prevDay = new OnClickListener();
 
 
 String theWeather; // for the weather slide text
-String weatherDate; // 
+String weatherDate; //
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
 boolean prevPressed;
@@ -77,12 +77,20 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (nextDay.over()) {
     nextPressed = true;
     println("next Pressed " + timesPressed);
-    timesPressed++;
+    if (timesPressed == 8) {
+      timesPressed = 0;
+    } else {
+      timesPressed++;
+    }
   }
   if (prevDay.over()) {
     prevPressed = true;
     println("prev Pressed " + timesPressed);
-    timesPressed--;
+    if (timesPressed == 0) {
+      timesPressed = 8;
+    } else {
+      timesPressed--;
+    }
   }
 }
 
@@ -120,7 +128,7 @@ void drawSlides(int s) {
       text("P2: " + u.p2 + u.p2Time, width/2 - textWidth("P2: " + u.p2 + u.p2Time)/2, 225);
       text("P3: " + u.p3 + u.p3Time, width/2 - textWidth("P3: " + u.p3 + u.p3Time)/2, 275);
       text("P4: " + u.p4 + u.p4Time, width/2 - textWidth("P4: " + u.p4 + u.p4Time)/2, 325);
-    } 
+    }
     if (u.dayNum == 9) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
@@ -151,29 +159,20 @@ void drawSlides(int s) {
     nextDay.listen("TRIANGLE");
     prevDay.listen("TRIANGLE");
     fill(0);
-    if (!nextPressed && !prevPressed) {
+    if (!nextPressed && !prevPressed || timesPressed == 0) {
       textSize(32);
       text(theWeather, width/2 - textWidth(theWeather)/2, 230);
-      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]); // draw arrow representing the high temp from svg asset
-      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]); // draw arrow representing the low temp from svg asset
-      text(u.getForecast()[0][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // add text for the high temp
-      text(u.getForecast()[0][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35); // add text for the low temp
-      text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328); // text displaying over the rect showing the current day the user is viewing the forecast in this case it is just the current date because no buttons have been pressed
-      text(weatherDate, width/2 - textWidth(weatherDate)/2, 375);
     }
-    if (nextPressed || prevPressed) {
-      if (timesPressed < 9 && timesPressed >= 0) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
-        text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
-      } else if (timesPressed > 8) { // insert protective else if statements to prevent array out of bounds error
-        timesPressed = 0;
-      } else if (timesPressed < 0) {
-        timesPressed = 9;
-      }
-      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]);
-      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]);
+    if (timesPressed != 0) {
       text(u.getForecast()[timesPressed][1], width/2 - textWidth(u.getForecast()[timesPressed][1])/2, 230); // draw weather text without the current temp because it is forecast
-      text(u.getForecast()[timesPressed][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // draw highs and lows for the day
-      text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35);
+    }
+    shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]); // draw arrow representing the high temp from svg asset
+    shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]); // draw arrow representing the low temp from svg asset
+    text(u.getForecast()[timesPressed][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // draw highs and lows for the day
+    text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35);
+    text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
+    text(weatherDate, width/2 - textWidth(weatherDate)/2, 375);
+    if (nextPressed || prevPressed) {
     }
     if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy") || u.getForecast()[timesPressed][1].equals("Mostly Sunny")) {
       shape(r.partlyCloudy, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
