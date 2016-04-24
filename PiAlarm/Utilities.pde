@@ -33,6 +33,7 @@ class Util implements TimeUtils, WeatherUtils {
   private String url; // stores url of XML file + city and province
   private int arraySize = 10; // will be int to store the array size because all the arrays to do with the forecast should be the same size
   private String[] dayOfWeek = new String[arraySize]; // array to store day of the week for the weather forecast advancing from the current day
+  private String[] date = new String[arraySize]; // array to hold forecast dates so users know what day they are viewing the forecast for
   private int[] low = new int[arraySize]; // 5 slots for each day of the week in the forecast of the low temps
   private int[] high = new int[arraySize]; // array of high daily temps in the forecast
   private String[] text = new String[arraySize]; // will hold comment on forecast ex. "AM Showers"
@@ -247,6 +248,7 @@ class Util implements TimeUtils, WeatherUtils {
     if (xmlAvailable) {
       for (int i = 0; i < forecast.length; i++) { // indexes weather forecast for the next 5 days into arrays
         dayOfWeek[i] = forecast[i].getString("day");  // fill local arrays with data from the XML file for easier access
+        date[i] = forecast[i].getString("date");
         low[i] = forecast[i].getInt("low");
         high[i] = forecast[i].getInt("high");
         text[i] = forecast[i].getString("text");
@@ -255,6 +257,7 @@ class Util implements TimeUtils, WeatherUtils {
           dayForecast[j][1] = text[j];
           dayForecast[j][2] = Integer.toString(high[j]); // add toString function as high array is of type float and so is the low array also uses the F2C function to get Celsius temp
           dayForecast[j][3] = Integer.toString(low[j]);
+          dayForecast[j][4] = date[j];
         }
       }
     }
