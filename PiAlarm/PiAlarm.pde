@@ -134,6 +134,10 @@ void drawSlides(int s) {
   }
 
   if (s == 2) { // extra carriculars
+    textFont(r.schedule);
+    textSize(48);
+    fill(0);
+    text("Extracurricular Activities", width/2 - textWidth("Extracurricular Activities")/2, 75);
   }
 
   if (s == 3) { // weather slide
@@ -156,8 +160,8 @@ void drawSlides(int s) {
     nextDay.listen("TRIANGLE");
     prevDay.listen("TRIANGLE");
     fill(0);
+    textSize(32);
     if (!nextPressed && !prevPressed || timesPressed == 0) {
-      textSize(32);
       text(theWeather, width/2 - textWidth(theWeather)/2, 230);
     }
     if (timesPressed != 0) {
@@ -169,6 +173,7 @@ void drawSlides(int s) {
     text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35);
     text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
     text(u.getForecast()[timesPressed][4], width/2 - textWidth(u.getForecast()[timesPressed][4])/2, 375);
+    text(u.getLocation(), width/2 - textWidth(u.getLocation())/2, 425);
     if (nextPressed || prevPressed) {
     }
     if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy") || u.getForecast()[timesPressed][1].equals("Mostly Sunny")) {

@@ -240,6 +240,11 @@ class Util implements TimeUtils, WeatherUtils {
   public String getWeather() { // will return weather conditions of the very moment
     return weather.getChild("results/channel/item/yweather:condition").getString("text");
   }
+  
+  
+  public String getLocation() {
+    return weather.getChild("results/channel/yweather:location").getString("city") + ", " + weather.getChild("results/channel/yweather:location").getString("region");
+  }
 
 
   public String[][] getForecast() { // function returns array of type String that is demensions meaning it is like a matrix which is filled with the week's forecast
