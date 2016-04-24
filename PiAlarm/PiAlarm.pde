@@ -1,7 +1,7 @@
 /*
 Raspberry Pi Alarm Clock
  Author: Ethan Peterson
- Revision Date: April 19, 2016
+ Revision Date: April 23, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
  */
@@ -14,7 +14,7 @@ OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on
 OnClickListener prevDay = new OnClickListener();
 
 
-String theTemp; // for the weather slide text
+String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
 boolean prevPressed;
@@ -30,7 +30,7 @@ void setup() {
   frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
   // print out forecast for each day of the week for testing
-  theTemp = u.getTemp() + "°C";
+  theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1];
   if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
       print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
@@ -148,9 +148,10 @@ void drawSlides(int s) {
     prevDay.listen("TRIANGLE");
     fill(0);
     if (!nextPressed && !prevPressed) {
-      textSize(48);
-      text(theTemp, width/2 - textWidth(theTemp)/2, 225);
       textSize(32);
+      text(theWeather, width/2 - textWidth(theWeather)/2, 230);
+      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]);
+      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]);
       text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
       println(u.getForecast()[0][1]);
     }
@@ -163,23 +164,26 @@ void drawSlides(int s) {
         timesPressed = 9;
       }
     }
-    if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy")) {
-      shape(r.partlyCloudy, width/2 - 50, 90, 100, 100);
+    if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy") || u.getForecast()[timesPressed][1].equals("Mostly Sunny")) {
+      shape(r.partlyCloudy, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Cloudy")) {
-      shape(r.cloud, width/2 - 50, 90, 100, 100);
+      shape(r.cloud, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Sunny")) {
-      shape(r.sun, width/2 - 50, 90, 100, 100);
+      shape(r.sun, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Showers")) {
-      shape(r.rain, width/2 - 50, 90, 100, 100);
+      shape(r.rain, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Scattered Showers")) {
-      shape(r.sunShowers, width/2 - 50, 90, 100, 100);
+      shape(r.sunShowers, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Rain And Snow")) {
-      shape(r.rainSnow, width/2 - 50, 90, 100, 100);
+      shape(r.rainSnow, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Rain")) {
+      shape(r.rain, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
   }
 
