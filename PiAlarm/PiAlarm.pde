@@ -150,10 +150,11 @@ void drawSlides(int s) {
     if (!nextPressed && !prevPressed) {
       textSize(32);
       text(theWeather, width/2 - textWidth(theWeather)/2, 230);
-      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]);
-      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]);
-      text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328);
-      println(u.getForecast()[0][1]);
+      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]); // draw arrow representing the high temp from svg asset
+      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]); // draw arrow representing the low temp from svg asset
+      text(u.getForecast()[0][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // add text for the high temp
+      text(u.getForecast()[0][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35); // add text for the low temp
+      text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328); // text displaying over the rect showing the current day the user is viewing the forecast in this case it is just the current date because no buttons have been pressed
     }
     if (nextPressed || prevPressed) {
       if (timesPressed < 9 && timesPressed >= 0) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
@@ -163,6 +164,11 @@ void drawSlides(int s) {
       } else if (timesPressed < 0) {
         timesPressed = 9;
       }
+      shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]);
+      shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]);
+      text(u.getForecast()[timesPressed][1], width/2 - textWidth(u.getForecast()[timesPressed][1])/2, 230); // draw weather text without the current temp because it is forecast
+      text(u.getForecast()[timesPressed][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // draw highs and lows for the day
+      text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35);
     }
     if (u.getForecast()[timesPressed][1].equals("Mostly Cloudy") || u.getForecast()[timesPressed][1].equals("Partly Cloudy") || u.getForecast()[timesPressed][1].equals("Mostly Sunny")) {
       shape(r.partlyCloudy, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
