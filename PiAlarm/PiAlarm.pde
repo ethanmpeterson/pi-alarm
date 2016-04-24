@@ -15,6 +15,7 @@ OnClickListener prevDay = new OnClickListener();
 
 
 String theWeather; // for the weather slide text
+String weatherDate; // 
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
 boolean prevPressed;
@@ -31,6 +32,7 @@ void setup() {
   fill(0);
   // print out forecast for each day of the week for testing
   theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1];
+  weatherDate = u.getMonth(u.month) + " " + u.day + ", " + u.year;
   if (u.xmlAvail()) {
     for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
       print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
@@ -129,6 +131,8 @@ void drawSlides(int s) {
   }
 
   if (s == 3) { // weather slide
+    theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1]; // ensure the weather string is updated when the slide is displayed
+    weatherDate = u.getMonth(u.month) + " " + u.day + ", " + u.year; // make weatherDate string update when slide is displayed
     textFont(r.schedule);
     textSize(48);
     fill(0);
@@ -155,6 +159,7 @@ void drawSlides(int s) {
       text(u.getForecast()[0][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // add text for the high temp
       text(u.getForecast()[0][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35); // add text for the low temp
       text(forecastDays[0], width/2 - textWidth(forecastDays[0])/2, 328); // text displaying over the rect showing the current day the user is viewing the forecast in this case it is just the current date because no buttons have been pressed
+      text(weatherDate, width/2 - textWidth(weatherDate)/2, 375);
     }
     if (nextPressed || prevPressed) {
       if (timesPressed < 9 && timesPressed >= 0) { // prevents the user from clicking the button too many times causing an array out of bounds runtime error
