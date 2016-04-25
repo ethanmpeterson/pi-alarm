@@ -24,7 +24,10 @@ String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
 boolean nextPressed; // boolean checking if the nextDay button in weather slide has been pressed same goes for prevPressed
 boolean prevPressed;
+boolean changePressed; // true if the changeDate button has been clicked
 int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
+int monthInput; // keeps track of what month the user has inputted into the schedule slide
+int dayInput; // keeps track of what day the user has inputted into the schedule slide
 
 
 void setup() {
@@ -96,6 +99,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       timesPressed--;
     }
   }
+  if (changeDate.over()) {
+    changePressed = true;
+    
+  }
 }
 
 
@@ -129,12 +136,20 @@ void drawSlides(int s) {
     textSize(32);
     fill(255);
     rect(width/2, 375, 120, 40);
+    changeDate.rec(width/2, 375, 120, 40);
+    changeDate.listen("RECTANGLE");
     fill(0);
     textSize(20);
     text("Change Date", width/2 + 3, 400);
+    if (changePressed) {
+      fill(255);
+      rect(width/2 + 140, 350, 120, 30);
+      triangle(width/2 + 145 + 120, 350 + 13, width/2 + 145 + 120 + 25, 350 + 13, width/2 + 145 + 120 + 25/2, 350 - 5);
+    }
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
-      text("P1: " + u.p1 + u.p1Time, width/2 - textWidth("P1: " + u.p1 + u.p1Time)/2, 175);
+      fill(0);
+      text("P1: " + u.p1 + u.p1Time, width/2 - textWidth("P1: " + u.p1 + u.p1Time)/2, 175); // display schedule strings onscreen
       text("P2: " + u.p2 + u.p2Time, width/2 - textWidth("P2: " + u.p2 + u.p2Time)/2, 225);
       text("P3: " + u.p3 + u.p3Time, width/2 - textWidth("P3: " + u.p3 + u.p3Time)/2, 275);
       text("P4: " + u.p4 + u.p4Time, width/2 - textWidth("P4: " + u.p4 + u.p4Time)/2, 325);
