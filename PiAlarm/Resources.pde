@@ -17,6 +17,9 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int lowArrow[] = {295, 245, 40, 40};
   public int leftButton[] = {25, 480/2, 50, 480/2 + 50, 50, 480/2 - 50};
   public int rightButton[] = {800 - 25, 480/2, 800 - 50, 480/2 + 50, 800 - 50, 480/2 - 50};
+  public int CD[] = {400, 375, 120, 40}; // array holding change date button rect coordinates
+  public int monthBox[] = {540, 350, 120, 30};
+  public float[] mUP = {665, 363, 690, 363, 800/2 + 145 + 120 + 25/2, 350 - 5};
   public final int[][] schoolYear = {
     {9, 9, 9, 9, 0, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 4, 1, 9, 9, 2, 3, 4, 1, 2, 9, 9}, // January
     {9, 3, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 9, 9, 9, 9, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1},       // February

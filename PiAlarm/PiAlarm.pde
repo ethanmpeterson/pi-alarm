@@ -129,18 +129,20 @@ void drawSlides(int s) {
   }
 
   if (s == 1) {
+    monthInput = u.month;
+    dayInput = u.day;
     textFont(r.schedule);
     fill(0);
     textSize(48);
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     fill(255);
-    rect(width/2, 375, 120, 40);
-    changeDate.rec(width/2, 375, 120, 40);
+    rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
+    changeDate.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
     changeDate.listen("RECTANGLE");
     fill(0);
     textSize(20);
-    text("Change Date", width/2 + 3, 400);
+    text("Change Date", r.CD[0] + 3, r.CD[0]);
     if (changePressed) {
       fill(255);
       rect(width/2 + 140, 350, 120, 30);
