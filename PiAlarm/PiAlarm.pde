@@ -12,6 +12,12 @@ OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on weather slide
 OnClickListener prevDay = new OnClickListener();
+OnClickListener changeDate = new OnClickListener(); // button placed on the school schedule slide allowing user to change the date of shcedule being viewed
+OnClickListener monthUp = new OnClickListener(); // lets user navigate to next month
+OnClickListener monthDown = new OnClickListener(); // lets user navigate to previous month
+OnClickListener dayUp = new OnClickListener(); // lets user navigate to next day in schedule
+OnClickListener dayDown = new OnClickListener(); // lets user navigate to previous days schedule
+OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
 
 
 String theWeather; // for the weather slide text
@@ -120,6 +126,12 @@ void drawSlides(int s) {
     fill(0);
     textSize(48);
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
+    textSize(32);
+    fill(255);
+    rect(width/2, 375, 120, 40);
+    fill(0);
+    textSize(20);
+    text("Change Date", width/2 + 3, 400);
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
       text("P1: " + u.p1 + u.p1Time, width/2 - textWidth("P1: " + u.p1 + u.p1Time)/2, 175);
