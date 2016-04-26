@@ -162,8 +162,11 @@ void drawSlides(int s) {
     if (changePressed) {
       fill(255);
       rect(r.monthBox[0], r.monthBox[1], r.monthBox[2], r.monthBox[3]); // month display box
+      rect(r.monthBox[0], r.monthBox[1] + 50, r.monthBox[2] - 60, r.monthBox[3]); // day display box
       fill(0);
-      text(u.getMonth(monthInput), r.monthBox[0] + 5, r.monthBox[1] + 10);
+      textSize(22);
+      text(dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
+      text(u.getMonth(monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
       fill(255);
       triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
       monthUp.tri(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
