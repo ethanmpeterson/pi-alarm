@@ -179,9 +179,12 @@ void drawSlides(int s) {
       triangle(r.mDown[0], r.mDown[1], r.mDown[2], r.mDown[3], r.mDown[4], r.mDown[5]);
       monthDown.tri(r.mDown[0], r.mDown[1], r.mDown[2], r.mDown[3], r.mDown[4], r.mDown[5]);
       monthDown.listen("TRIANGLE");
-      triangle(r.mUP[0] - 60, r.mUP[1] + 50, r.mUP[2] - 60, r.mUP[3] + 50, r.mUP[4] - 60, r.mUP[5] + 50);
+      triangle(r.dayUP[0], r.dayUP[1], r.dayUP[2], r.dayUP[3], r.dayUP[4], r.dayUP[5]);
       dayUp.tri(r.dayUP[0], r.dayUP[1], r.dayUP[2], r.dayUP[3], r.dayUP[4], r.dayUP[5]);
       dayUp.listen("TRIANGLE");
+      triangle(r.mDown[0] - 60, r.mDown[1] + 50, r.mDown[2] - 60, r.mDown[3] + 50, r.mDown[4] - 60, r.mDown[5] + 50);
+      dayDown.tri(r.mDown[0] - 60, r.mDown[1] + 50, r.mDown[2] - 60, r.mDown[3] + 50, r.mDown[4] - 60, r.mDown[5] + 50);
+      dayDown.listen("TRIANGLE");
     }
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
