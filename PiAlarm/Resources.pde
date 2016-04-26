@@ -21,6 +21,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public int monthBox[] = {540, 350, 120, 30};
   public float[] mUP = {665, 363, 690, 363, 665 + 25/2, 345};
   public float[] mDown = {665, 367, 690, 367, 665 + 25/2, 345 + 40};
+  public float[] dayUP = {mUP[0] - 60, mUP[1] + 50, mUP[2] - 60, mUP[3] + 50, mUP[4] - 60, mUP[5] + 50};
   public final int[][] schoolYear = {
     {9, 9, 9, 9, 0, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1, 2, 3, 4, 1, 9, 9, 2, 3, 4, 1, 2, 9, 9}, // January
     {9, 3, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 9, 9, 9, 9, 4, 1, 2, 3, 9, 9, 4, 1, 2, 3, 4, 9, 9, 1},       // February
