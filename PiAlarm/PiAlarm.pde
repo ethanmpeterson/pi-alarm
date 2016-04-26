@@ -103,6 +103,20 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     changePressed = true;
     
   }
+  if (monthUp.over()) {
+    if (monthInput == 12) {
+      monthInput = 1;
+    } else {
+      monthInput++;
+    }
+  }
+  if (monthDown.over()) {
+    if (monthInput == 1) {
+      monthInput = 12;
+    } else {
+      monthInput--;
+    }
+  }
 }
 
 
@@ -129,15 +143,17 @@ void drawSlides(int s) {
   }
 
   if (s == 1) {
-    monthInput = u.month;
-    dayInput = u.day;
+    if (!changePressed) {
+      monthInput = u.month;
+      dayInput = u.day;
+    }
     textFont(r.schedule);
     fill(0);
     textSize(48);
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     fill(255);
-    rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
+    rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // change date rect button
     changeDate.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
     changeDate.listen("RECTANGLE");
     fill(0);
@@ -145,8 +161,13 @@ void drawSlides(int s) {
     text("Change Date", r.CD[0] + 3, r.CD[0]);
     if (changePressed) {
       fill(255);
-      rect(width/2 + 140, 350, 120, 30);
-      triangle(width/2 + 145 + 120, 350 + 13, width/2 + 145 + 120 + 25, 350 + 13, width/2 + 145 + 120 + 25/2, 350 - 5);
+      rect(width/2 + 140, 350, 120, 30); // month display box
+      triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
+      monthUp.tri(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
+      monthUp.listen("TRIANGLE");
+      triangle(r.mDown[0], r.mDown[1], r.mDown[2], r.mDown[3], r.mDown[4], r.mDown[5]);
+      monthDown.tri(r.mDown[0], r.mDown[1], r.mDown[2], r.mDown[3], r.mDown[4], r.mDown[5]);
+      monthDown.listen("TRIANGLE");
     }
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
