@@ -161,7 +161,10 @@ void drawSlides(int s) {
     text("Change Date", r.CD[0] + 3, r.CD[0]);
     if (changePressed) {
       fill(255);
-      rect(width/2 + 140, 350, 120, 30); // month display box
+      rect(r.monthBox[0], r.monthBox[1], r.monthBox[2], r.monthBox[3]); // month display box
+      fill(0);
+      text(u.getMonth(monthInput), r.monthBox[0], r.monthBox[1]);
+      fill(255);
       triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
       monthUp.tri(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
       monthUp.listen("TRIANGLE");
