@@ -181,6 +181,7 @@ void drawSlides(int s) {
       text(dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
       text(u.getMonth(monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
       fill(255);
+      // draw triangular buttons to adjust the date and connect them to OnClickListeners
       triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
       monthUp.tri(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
       monthUp.listen("TRIANGLE");
@@ -193,6 +194,13 @@ void drawSlides(int s) {
       triangle(r.mDown[0] - 60, r.mDown[1] + 50, r.mDown[2] - 60, r.mDown[3] + 50, r.mDown[4] - 60, r.mDown[5] + 50);
       dayDown.tri(r.mDown[0] - 60, r.mDown[1] + 50, r.mDown[2] - 60, r.mDown[3] + 50, r.mDown[4] - 60, r.mDown[5] + 50);
       dayDown.listen("TRIANGLE");
+      // draw enter button to enter the date
+      rect(r.CD[0] + 250, r.CD[1] + 50, r.CD[2], r.CD[3]);
+      enterDate.rec(r.CD[0] + 250, r.CD[1] + 50, r.CD[2], r.CD[3]);
+      enterDate.listen("RECTANGLE");
+      fill(0);
+      textSize(28);
+      text("Enter!", r.CD[0] + 275, r.CD[1] + 80);
     }
     textSize(32);
     if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
