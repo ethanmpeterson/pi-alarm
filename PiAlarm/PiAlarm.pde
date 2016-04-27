@@ -26,8 +26,6 @@ boolean nextPressed; // boolean checking if the nextDay button in weather slide 
 boolean prevPressed;
 boolean changePressed; // true if the changeDate button has been clicked
 int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
-int monthInput; // keeps track of what month the user has inputted into the schedule slide
-int dayInput; // keeps track of what day the user has inputted into the schedule slide
 
 
 void setup() {
@@ -103,17 +101,17 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     changePressed = true;
   }
   if (monthUp.over()) {
-    if (monthInput == 12) {
-      monthInput = 1;
+    if (u.monthInput == 12) {
+      u.monthInput = 1;
     } else {
-      monthInput++;
+      u.monthInput++;
     }
   }
   if (monthDown.over()) {
-    if (monthInput == 1) {
-      monthInput = 12;
+    if (u.monthInput == 1) {
+      u.monthInput = 12;
     } else {
-      monthInput--;
+      u.monthInput--;
     }
   }
   if (dayUp.over()) {
@@ -129,6 +127,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     } else {
       dayInput--;
     }
+  }
+  if (enterDate.over()) {
+    changePressed = false;
+    u.dateChanged = true;
   }
 }
 
@@ -213,6 +215,9 @@ void drawSlides(int s) {
     if (u.dayNum == 9) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
+    }
+    if (u.dateChanged) {
+      
     }
   }
 

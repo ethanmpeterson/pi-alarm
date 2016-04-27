@@ -21,6 +21,9 @@ class Util implements TimeUtils, WeatherUtils {
   public String theDate;
   public String p1, p2, p3, p4;
   public boolean isPM;
+  public boolean dateChanged; // true if the user has changed the date
+  public int monthInput; // keeps track of what month the user has inputted into the schedule slide
+  public int dayInput; // keeps track of what day the user has inputted into the schedule slide
   public String p1Time = "  (8:15 AM - 9:30 AM)";
   public String p2Time = "  (9:35 AM - 10:50 AM)";
   public String p3Time = "  (11:15 AM - 12:30 PM)";
@@ -87,7 +90,11 @@ class Util implements TimeUtils, WeatherUtils {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    this.dayNum = r.schoolYear[month - 1][day];
+    if (!u.dateChanged) {
+      this.dayNum = r.schoolYear[month - 1][day];
+    } else {
+      this.dayNum = r.schoolYear[this.monthInput - 1][this.dayInput];
+    }
     if (this.dayNum == 1) {
       p1 = "Comm. Tech";
       p2 = "Gym";
