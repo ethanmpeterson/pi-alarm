@@ -192,6 +192,17 @@ class Util implements TimeUtils, WeatherUtils {
   }
 
 
+  public int getMonthLength(int m) {
+    if (m == 2) {
+      return 28; // return the feburary's amount of days which is 28 
+    } else if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
+      return 31; // return 31 as these months of the year are 31 days long
+    } else {
+      return 30; // return the 30 day month in all other cases
+    }
+  } 
+
+
   // weather functions:
   void setWeather(String city, String provCode) {
     url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)%20and%20u%3D'c'&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";

@@ -117,10 +117,18 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
   }
   if (dayUp.over()) {
-    
+    if (dayInput == u.getMonthLength(monthInput)) {
+      dayInput = 1;
+    } else {
+      dayInput++;
+    }
   }
   if (dayDown.over()) {
-    
+    if (dayInput == 1) {
+      dayInput = u.getMonthLength(monthInput);
+    } else {
+      dayInput--;
+    }
   }
 }
 
