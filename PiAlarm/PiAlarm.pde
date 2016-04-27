@@ -30,6 +30,7 @@ boolean prevPressed;
 boolean changePressed; // true if the changeDate button has been clicked
 int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
 boolean dateChanged; // true if the user has changed the date
+boolean tPressed;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -56,8 +57,9 @@ void setup() {
 void draw() {
   background(255);
   u.update();
-  updateSchedule();
+  
   drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
+  updateSchedule();
   leftRightNav();
   if (keyPressed && key == ' ') {
     exit();
@@ -102,10 +104,6 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       timesPressed--;
     }
   }
-  if (changeDate.over() && !dateChanged) {
-    changePressed = true;
-    dateChanged = false;
-  }
   if (monthUp.over()) {
     if (monthInput == 12) {
       monthInput = 1;
@@ -134,8 +132,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       dayInput--;
     }
   }
-  if (enterDate.over()) {
+  if (enterDate.over() && changePressed) {
     dateChanged = true;
+    changePressed = false;
   }
   if (today.over() && dateChanged) {
     dateChanged = false;
