@@ -1,5 +1,4 @@
 import java.util.Calendar; // for keeping time as opposed to built in processing functions
-import java.util.Date; // for getting the date from system time and updating the calendar object
 //import processing.io.*; // IO library to control the raspberry Pi's GPIO pins to detect button presses
 // for now navigation will be done with the keyboard for testing purposes
 // the library will be included when the program is compiled for raspberry pi
@@ -21,13 +20,6 @@ class Util implements TimeUtils, WeatherUtils {
   public String theDate;
   public String p1, p2, p3, p4;
   public boolean isPM;
-  public boolean dateChanged; // true if the user has changed the date
-  public int monthInput; // keeps track of what month the user has inputted into the schedule slide
-  public int dayInput; // keeps track of what day the user has inputted into the schedule slide
-  public String p1Time = "  (8:15 AM - 9:30 AM)";
-  public String p2Time = "  (9:35 AM - 10:50 AM)";
-  public String p3Time = "  (11:15 AM - 12:30 PM)";
-  public String p4Time = "  (1:25 PM - 2:40 PM)";
 
   // weather variables
   private XML weather;
@@ -53,31 +45,6 @@ class Util implements TimeUtils, WeatherUtils {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    this.dayNum = r.schoolYear[this.month - 1][this.day];
-    if (this.dayNum == 1) {
-      p1 = "Comm. Tech";
-      p2 = "Gym";
-      p3 = "English";
-      p4 = "Instrumental";
-    } 
-    if (this.dayNum == 2) {
-      p1 = "Science";
-      p2 = "Software";
-      p3 = "French";
-      p4 = "Math";
-    } 
-    if (this.dayNum == 3) {
-      p1 = "Instrumental";
-      p2 = "Gym";
-      p3 = "English";
-      p4 = "Comm. Tech";
-    } 
-    if (this.dayNum == 4) {
-      p1 = "Math";
-      p2 = "Software";
-      p3 = "French";
-      p4 = "Science";
-    }
   }
 
 
@@ -90,35 +57,6 @@ class Util implements TimeUtils, WeatherUtils {
     month = c.get(Calendar.MONTH) + 1;
     year = c.get(Calendar.YEAR);
     theDate = u.getWeekDay(u.weekDay) + ", " + u.getMonth(u.month) + " " + u.day + " " + u.year;
-    if (!u.dateChanged) {
-      this.dayNum = r.schoolYear[month - 1][day];
-    } else {
-      this.dayNum = r.schoolYear[this.monthInput - 1][this.dayInput];
-    }
-    if (this.dayNum == 1) {
-      p1 = "Comm. Tech";
-      p2 = "Gym";
-      p3 = "English";
-      p4 = "Instrumental";
-    } 
-    if (this.dayNum == 2) {
-      p1 = "Science";
-      p2 = "Software";
-      p3 = "French";
-      p4 = "Math";
-    } 
-    if (this.dayNum == 3) {
-      p1 = "Instrumental";
-      p2 = "Gym";
-      p3 = "English";
-      p4 = "Comm. Tech";
-    } 
-    if (this.dayNum == 4) {
-      p1 = "Math";
-      p2 = "Software";
-      p3 = "French";
-      p4 = "Science";
-    }
   }
 
 
@@ -155,21 +93,21 @@ class Util implements TimeUtils, WeatherUtils {
 
   String getWeekDay(int w) { // function returns a weekday based on what number is given by the Java Calendar class
     if (w == 1) {
-    return "Sunday";
+      return "Sunday";
     } else if (w == 2) {
-    return "Monday";
+      return "Monday";
     } else if (w == 3) {
-    return "Tuesday";
+      return "Tuesday";
     } else if (w == 4) {
-    return "Wednesday";
+      return "Wednesday";
     } else if (w == 5) {
-    return "Thursday";
+      return "Thursday";
     } else if (w == 6) {
-    return "Friday";
+      return "Friday";
     } else if (w == 7) {
-    return "Saturday";
+      return "Saturday";
     } else {
-    return "Error";
+      return "Error";
     }
   }
 
@@ -201,7 +139,7 @@ class Util implements TimeUtils, WeatherUtils {
 
   public int getMonthLength(int m) {
     if (m == 2) {
-      return 28; // return the feburary's amount of days which is 28 
+      return 28; // return the feburary's amount of days which is 28
     } else if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
       return 31; // return 31 as these months of the year are 31 days long
     } else {
@@ -258,8 +196,8 @@ class Util implements TimeUtils, WeatherUtils {
   public String getWeather() { // will return weather conditions of the very moment
     return weather.getChild("results/channel/item/yweather:condition").getString("text");
   }
-  
-  
+
+
   public String getLocation() {
     return weather.getChild("results/channel/yweather:location").getString("city") + ", " + weather.getChild("results/channel/yweather:location").getString("region");
   }

@@ -27,6 +27,13 @@ boolean nextPressed; // boolean checking if the nextDay button in weather slide 
 boolean prevPressed;
 boolean changePressed; // true if the changeDate button has been clicked
 int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
+boolean dateChanged; // true if the user has changed the date
+int monthInput; // keeps track of what month the user has inputted into the schedule slide
+int dayInput; // keeps track of what day the user has inputted into the schedule slide
+String p1Time = "  (8:15 AM - 9:30 AM)";
+String p2Time = "  (9:35 AM - 10:50 AM)";
+String p3Time = "  (11:15 AM - 12:30 PM)";
+String p4Time = "  (1:25 PM - 2:40 PM)";
 
 
 void setup() {
@@ -39,12 +46,6 @@ void setup() {
   fill(0);
   // print out forecast for each day of the week for testing
   theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1];
-  if (u.xmlAvail()) {
-    for (int i = 0; i < 4; i++) { // prints out the forecast high and low temps for 2 days from now (At the time of this comment wednesday)
-      print(u.getForecast()[0][i] + ", "); // first demension of array is the day and second is the resource you want such as high temp of the day
-      // prints out day, forecast, high temperature and low temperature
-    }
-  }
 }
 
 
@@ -82,7 +83,6 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   // handle clicks on nextDay and PrevDay buttons in weather slide
   if (nextDay.over()) {
     nextPressed = true;
-    println("next Pressed " + timesPressed);
     if (timesPressed == 8) {
       timesPressed = 0;
     } else {
@@ -91,7 +91,6 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   }
   if (prevDay.over()) {
     prevPressed = true;
-    println("prev Pressed " + timesPressed);
     if (timesPressed == 0) {
       timesPressed = 8;
     } else {
@@ -100,41 +99,42 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   }
   if (changeDate.over()) {
     changePressed = true;
+    dateChanged = false;
   }
   if (monthUp.over()) {
-    if (u.monthInput == 12) {
-      u.monthInput = 1;
+    if (monthInput == 12) {
+      monthInput = 1;
     } else {
-      u.monthInput++;
+      monthInput++;
     }
   }
   if (monthDown.over()) {
-    if (u.monthInput == 1) {
-      u.monthInput = 12;
+    if (monthInput == 1) {
+      monthInput = 12;
     } else {
-      u.monthInput--;
+      monthInput--;
     }
   }
   if (dayUp.over()) {
-    if (u.dayInput == u.getMonthLength(u.monthInput)) {
-      u.dayInput = 1;
+    if (dayInput == u.getMonthLength(monthInput)) {
+      dayInput = 1;
     } else {
-      u.dayInput++;
+      dayInput++;
     }
   }
   if (dayDown.over()) {
-    if (u.dayInput == 1) {
-      u.dayInput = u.getMonthLength(u.monthInput);
+    if (dayInput == 1) {
+      dayInput = u.getMonthLength(monthInput);
     } else {
-      u.dayInput--;
+      dayInput--;
     }
   }
   if (enterDate.over()) {
-    changePressed = false;
-    u.dateChanged = true;
+    dateChanged = true;
   }
-  if (today.over()) {
-    u.dateChanged = false;
+  if (today.over() && dateChanged) {
+    dateChanged = false;
+    changePressed = false;
   }
 }
 
@@ -150,6 +150,9 @@ void leftRightNav() {
   leftNavButton.listen("TRIANGLE");
 }
 
+void updateSchedule() {
+  
+}
 
 void drawSlides(int s) {
   if (s == 0) { // code for slide 0 and the following if statements will represent a particular slide as well
@@ -163,8 +166,8 @@ void drawSlides(int s) {
 
   if (s == 1) {
     if (!changePressed) {
-      u.monthInput = u.month;
-      u.dayInput = u.day;
+     monthInput = u.month;
+     dayInput = u.day;
     }
     textFont(r.schedule);
     fill(0);
@@ -172,7 +175,7 @@ void drawSlides(int s) {
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     fill(255);
-    if (!u.dateChanged) {
+    if (!dateChanged) {
       rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // change date rect button
       changeDate.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
       changeDate.listen("RECTANGLE"); 
@@ -180,14 +183,14 @@ void drawSlides(int s) {
       textSize(20);
       text("Change Date", r.CD[0] + 3, r.CD[0]);
     }
-    if (changePressed) {
+    if (changePressed && !dateChanged) {
       fill(255);
       rect(r.monthBox[0], r.monthBox[1], r.monthBox[2], r.monthBox[3]); // month display box
       rect(r.monthBox[0], r.monthBox[1] + 50, r.monthBox[2] - 60, r.monthBox[3]); // day display box
       fill(0);
       textSize(22);
-      text(u.dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
-      text(u.getMonth(u.monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
+      text(dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
+      text(u.getMonth(monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
       fill(255);
       // draw triangular buttons to adjust the date and connect them to OnClickListeners
       triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
@@ -211,13 +214,11 @@ void drawSlides(int s) {
       text("Enter!", r.CD[0] + 275, r.CD[1] + 80);
     }
     textSize(32);
-    if (u.dayNum == 1 || u.dayNum == 2 || u.dayNum == 3 || u.dayNum == 4) {
-      fill(0);
-      text("P1: " + u.p1 + u.p1Time, width/2 - textWidth("P1: " + u.p1 + u.p1Time)/2, 175); // display schedule strings onscreen
-      text("P2: " + u.p2 + u.p2Time, width/2 - textWidth("P2: " + u.p2 + u.p2Time)/2, 225);
-      text("P3: " + u.p3 + u.p3Time, width/2 - textWidth("P3: " + u.p3 + u.p3Time)/2, 275);
-      text("P4: " + u.p4 + u.p4Time, width/2 - textWidth("P4: " + u.p4 + u.p4Time)/2, 325);
-    }
+    fill(0);
+    text("P1: " + p1 + p1Time, width/2 - textWidth("P1: " + p1 + p1Time)/2, 175); // display schedule strings onscreen
+    text("P2: " + u.p2 + p2Time, width/2 - textWidth("P2: " + u.p2 + p2Time)/2, 225);
+    text("P3: " + u.p3 + p3Time, width/2 - textWidth("P3: " + u.p3 + p3Time)/2, 275);
+    text("P4: " + u.p4 + p4Time, width/2 - textWidth("P4: " + u.p4 + p4Time)/2, 325);
     if (u.dayNum == 9) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
