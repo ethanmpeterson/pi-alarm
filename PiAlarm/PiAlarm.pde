@@ -18,6 +18,7 @@ OnClickListener monthDown = new OnClickListener(); // lets user navigate to prev
 OnClickListener dayUp = new OnClickListener(); // lets user navigate to next day in schedule
 OnClickListener dayDown = new OnClickListener(); // lets user navigate to previous days schedule
 OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
+OnClickListener today = new OnClickListener(); // allows user to return to current date in schedule slide
 
 
 String theWeather; // for the weather slide text
@@ -115,22 +116,25 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
   }
   if (dayUp.over()) {
-    if (dayInput == u.getMonthLength(monthInput)) {
-      dayInput = 1;
+    if (u.dayInput == u.getMonthLength(u.monthInput)) {
+      u.dayInput = 1;
     } else {
-      dayInput++;
+      u.dayInput++;
     }
   }
   if (dayDown.over()) {
-    if (dayInput == 1) {
-      dayInput = u.getMonthLength(monthInput);
+    if (u.dayInput == 1) {
+      u.dayInput = u.getMonthLength(u.monthInput);
     } else {
-      dayInput--;
+      u.dayInput--;
     }
   }
   if (enterDate.over()) {
     changePressed = false;
     u.dateChanged = true;
+  }
+  if (today.over()) {
+    u.dateChanged = false;
   }
 }
 
@@ -159,8 +163,8 @@ void drawSlides(int s) {
 
   if (s == 1) {
     if (!changePressed) {
-      monthInput = u.month;
-      dayInput = u.day;
+      u.monthInput = u.month;
+      u.dayInput = u.day;
     }
     textFont(r.schedule);
     fill(0);
@@ -168,20 +172,22 @@ void drawSlides(int s) {
     text("School Schedule:", width/2 - textWidth("School Schedule:")/2, 75);
     textSize(32);
     fill(255);
-    rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // change date rect button
-    changeDate.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
-    changeDate.listen("RECTANGLE");
-    fill(0);
-    textSize(20);
-    text("Change Date", r.CD[0] + 3, r.CD[0]);
+    if (!u.dateChanged) {
+      rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // change date rect button
+      changeDate.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
+      changeDate.listen("RECTANGLE"); 
+      fill(0);
+      textSize(20);
+      text("Change Date", r.CD[0] + 3, r.CD[0]);
+    }
     if (changePressed) {
       fill(255);
       rect(r.monthBox[0], r.monthBox[1], r.monthBox[2], r.monthBox[3]); // month display box
       rect(r.monthBox[0], r.monthBox[1] + 50, r.monthBox[2] - 60, r.monthBox[3]); // day display box
       fill(0);
       textSize(22);
-      text(dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
-      text(u.getMonth(monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
+      text(u.dayInput, r.monthBox[0] + 5, r.monthBox[1] + 75); // day display text
+      text(u.getMonth(u.monthInput), r.monthBox[0] + 5, r.monthBox[1] + 25); // month display text
       fill(255);
       // draw triangular buttons to adjust the date and connect them to OnClickListeners
       triangle(r.mUP[0], r.mUP[1], r.mUP[2], r.mUP[3], r.mUP[4], r.mUP[5]);
@@ -217,7 +223,12 @@ void drawSlides(int s) {
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
     if (u.dateChanged) {
-      
+      rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
+      today.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
+      today.listen("RECTANGLE");
+      fill(0);
+      textSize(20);
+      text("Today", r.CD[0] + 3, r.CD[0]);
     }
   }
 
