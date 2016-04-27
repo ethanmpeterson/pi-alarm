@@ -58,7 +58,7 @@ void setup() {
 void draw() {
   background(255);
   u.update();
-  updateDayNum();
+  dayNum = r.schoolYear[u.month - 1][u.day];
   drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
   leftRightNav();
   if (keyPressed && key == ' ') {
@@ -139,6 +139,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (enterDate.over() && changePressed) {
     dateChanged = true;
     changePressed = false;
+    changedDayNum = r.schoolYear[monthInput - 1][dayInput];
   }
   if (changeDate.over()) {
     changePressed = true;
@@ -158,35 +159,29 @@ void leftRightNav() {
   leftNavButton.listen("TRIANGLE");
 }
 
-void updateDayNum() {
-  if (!dateChanged) {
-    dayNum = r.schoolYear[u.month - 1][u.day];
-  } else if (dateChanged) {
-    dayNum = r.schoolYear[monthInput - 1][dayInput];
-  }
-}
+
 
 String[] getSchedule(int d) {
   String[] schedule = new String[5];
-  if (dayNum == 1) {
+  if (d == 1) {
    schedule[1] = "Comm. Tech";
    schedule[2] = "Gym";
    schedule[3] = "English";
    schedule[4] = "Instrumental";
   }
-  if (dayNum == 2) {
+  if (d == 2) {
    schedule[1] = "Science";
    schedule[2] = "Software";
    schedule[3] = "French";
    schedule[4] = "Math";
   }
-  if (dayNum == 3) {
+  if (d == 3) {
    schedule[1] = "Instrumental";
    schedule[2] = "Gym";
    schedule[3] = "English";
    schedule[4] = "Comm. Tech";
   }
-  if (dayNum == 4) {
+  if (d == 4) {
    schedule[1] = "Math";
    schedule[2] = "Software";
    schedule[3] = "French";
@@ -256,12 +251,6 @@ void drawSlides(int s) {
       textSize(28);
       text("Enter!", r.CD[0] + 275, r.CD[1] + 80);
     }
-    textSize(32);
-    fill(0);
-    text("P1: " + getSchedule(dayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(dayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
-    text("P2: " + getSchedule(dayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(dayNum)[2] + p2Time)/2, 225);
-    text("P3: " + getSchedule(dayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(dayNum)[3] + p3Time)/2, 275);
-    text("P4: " + getSchedule(dayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(dayNum)[4] + p4Time)/2, 325);
     if (dayNum == 9) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
@@ -273,6 +262,19 @@ void drawSlides(int s) {
       fill(0);
       textSize(28);
       text("Today", width/2 - textWidth("Today")/2, r.CD[1] + 80);
+      textSize(32);
+      fill(0);
+      text("P1: " + getSchedule(changedDayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(changedDayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
+      text("P2: " + getSchedule(changedDayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(changedDayNum)[2] + p2Time)/2, 225);
+      text("P3: " + getSchedule(changedDayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(changedDayNum)[3] + p3Time)/2, 275);
+      text("P4: " + getSchedule(changedDayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(changedDayNum)[4] + p4Time)/2, 325);
+    } else if (!dateChanged) {
+      textSize(32);
+      fill(0);
+      text("P1: " + getSchedule(dayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(dayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
+      text("P2: " + getSchedule(dayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(dayNum)[2] + p2Time)/2, 225);
+      text("P3: " + getSchedule(dayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(dayNum)[3] + p3Time)/2, 275);
+      text("P4: " + getSchedule(dayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(dayNum)[4] + p4Time)/2, 325);
     }
   }
 
