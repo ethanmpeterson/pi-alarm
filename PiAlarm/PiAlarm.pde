@@ -30,6 +30,11 @@ int timesPressed = 0; // tracks the number of times the nextDay button has been 
 boolean dateChanged; // true if the user has changed the date
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
+int dayNum;
+String p1;
+String p2;
+String p3;
+String p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
 String p3Time = "  (11:15 AM - 12:30 PM)";
@@ -54,6 +59,7 @@ void draw() {
   u.update();
   //depending on what slide the user is switching from
   // once the value of slide is changed in draw the function corresponding to that value will run
+  updateSchedule();
   drawSlides(r.slide); // pass the value of slide from the resources class into the function to check if it is 1
   leftRightNav();
   if (keyPressed && key == ' ') {
@@ -151,7 +157,36 @@ void leftRightNav() {
 }
 
 void updateSchedule() {
-  
+  if (!dateChanged) {
+    dayNum = r.schoolYear[u.month - 1][u.day];
+  } 
+  if (dateChanged) {
+    dayNum = r.schoolYear[monthInput - 1][dayInput];
+  }
+  if (dayNum == 1) {
+    p1 = "Comm. Tech";
+    p2 = "Gym";
+    p3 = "English";
+    p4 = "Instrumental";
+  }
+  if (dayNum == 2) {
+    p1 = "Science";
+    p2 = "Software";
+    p3 = "French";
+    p4 = "Math";
+  }
+  if (dayNum == 3) {
+    p1 = "Instrumental";
+    p2 = "Gym";
+    p3 = "English";
+    p4 = "Comm. Tech";
+  }
+  if (dayNum == 4) {
+    p1 = "Math";
+    p2 = "Software";
+    p3 = "French";
+    p4 = "Science";
+  }
 }
 
 void drawSlides(int s) {
@@ -166,8 +201,8 @@ void drawSlides(int s) {
 
   if (s == 1) {
     if (!changePressed) {
-     monthInput = u.month;
-     dayInput = u.day;
+      monthInput = u.month;
+      dayInput = u.day;
     }
     textFont(r.schedule);
     fill(0);
@@ -223,7 +258,7 @@ void drawSlides(int s) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
-    if (u.dateChanged) {
+    if (dateChanged) {
       rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
       today.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
       today.listen("RECTANGLE");
