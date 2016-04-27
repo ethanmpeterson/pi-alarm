@@ -6,6 +6,8 @@ Raspberry Pi Alarm Clock
  a school schedule and touchscreen operation with the Raspberry Pi.
  */
 
+
+
 Util u = new Util();
 Resource r = new Resource();
 OnClickListener leftNavButton = new OnClickListener();
@@ -31,10 +33,7 @@ boolean dateChanged; // true if the user has changed the date
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
-String p1;
-String p2;
-String p3;
-String p4;
+String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
 String p3Time = "  (11:15 AM - 12:30 PM)";
@@ -57,10 +56,8 @@ void setup() {
 void draw() {
   background(255);
   u.update();
-  //depending on what slide the user is switching from
-  // once the value of slide is changed in draw the function corresponding to that value will run
   updateSchedule();
-  drawSlides(r.slide); // pass the value of slide from the resources class into the function to check if it is 1
+  drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
   leftRightNav();
   if (keyPressed && key == ' ') {
     exit();
@@ -71,6 +68,8 @@ void draw() {
 }
 
 void mouseClicked() { // runs when the mouse is pressed and released (will be tested with pi touchscreen)
+  fill(0);
+  //text("Mouse Clicked!", width/2 - textWidth("Mouse Clicked")/2, height/2);
   // handle clicks to navigate between slides
   if (rightNavButton.over()) {
     if (r.slide == r.slideNum) {
@@ -103,7 +102,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       timesPressed--;
     }
   }
-  if (changeDate.over()) {
+  if (changeDate.over() && !dateChanged) {
     changePressed = true;
     dateChanged = false;
   }
@@ -141,6 +140,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (today.over() && dateChanged) {
     dateChanged = false;
     changePressed = false;
+  }
+  if (changeDate.over()) {
+    changePressed = true;
   }
 }
 
@@ -200,6 +202,8 @@ void drawSlides(int s) {
   }
 
   if (s == 1) {
+    println("changePressed " + changePressed);
+    println("dateChanged " + dateChanged);
     if (!changePressed) {
       monthInput = u.month;
       dayInput = u.day;
@@ -251,20 +255,20 @@ void drawSlides(int s) {
     textSize(32);
     fill(0);
     text("P1: " + p1 + p1Time, width/2 - textWidth("P1: " + p1 + p1Time)/2, 175); // display schedule strings onscreen
-    text("P2: " + u.p2 + p2Time, width/2 - textWidth("P2: " + u.p2 + p2Time)/2, 225);
-    text("P3: " + u.p3 + p3Time, width/2 - textWidth("P3: " + u.p3 + p3Time)/2, 275);
-    text("P4: " + u.p4 + p4Time, width/2 - textWidth("P4: " + u.p4 + p4Time)/2, 325);
-    if (u.dayNum == 9) {
+    text("P2: " + p2 + p2Time, width/2 - textWidth("P2: " + p2 + p2Time)/2, 225);
+    text("P3: " + p3 + p3Time, width/2 - textWidth("P3: " + p3 + p3Time)/2, 275);
+    text("P4: " + p4 + p4Time, width/2 - textWidth("P4: " + p4 + p4Time)/2, 325);
+    if (dayNum == 9) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
     if (dateChanged) {
-      rect(r.CD[0], r.CD[1], r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
-      today.rec(r.CD[0], r.CD[1], r.CD[2], r.CD[3]);
+      rect(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
+      today.rec(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]);
       today.listen("RECTANGLE");
       fill(0);
-      textSize(20);
-      text("Today", r.CD[0] + 3, r.CD[0]);
+      textSize(28);
+      text("Today", width/2 - textWidth("Today")/2, r.CD[1] + 80);
     }
   }
 
