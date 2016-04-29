@@ -21,6 +21,7 @@ OnClickListener dayUp = new OnClickListener(); // lets user navigate to next day
 OnClickListener dayDown = new OnClickListener(); // lets user navigate to previous days schedule
 OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
 OnClickListener today = new OnClickListener(); // allows user to return to current date in schedule slide
+OnClickListener alarm = new OnClickListener(); // button for setting alarm time
 
 
 String theWeather; // for the weather slide text
@@ -198,8 +199,15 @@ void drawSlides(int s) {
     text(u.get12HourTime(), width/2 - textWidth(u.get12HourTime())/2, height/2); // draw the time
     textSize(32); // draw the date
     text(u.theDate, 400 - textWidth(u.theDate)/2, 300);
+    noFill();
+    noStroke();
+    ellipse(725, 425, 60, 60); // draw circle that will act as the button for the alarm clock
+    alarm.circle(725, 425, 60);
+    alarm.listen("CIRCLE");
+    shape(r.alarmClock, 700, 400, 50, 50); // draw alarm clock icon for user to pick the alarm time
   }
-
+  stroke(5);
+  fill(0);
   if (s == 1) {
     println("changePressed " + changePressed);
     println("dateChanged " + dateChanged);
@@ -254,6 +262,7 @@ void drawSlides(int s) {
     }
     if (dayNum == 9 && !changePressed) {
       textSize(48);
+      fill(0);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
     if (changedDayNum == 9 && dateChanged) {

@@ -11,6 +11,7 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
   public PShape rainSnow;
   public PShape downArrow;
   public PShape upArrow;
+  public PShape alarmClock;
   public color buttonHighlight = color(209, 209, 209); // color buttons will change to when they have been hovered over by the cursor
   public int wIcon[] = {350, 90, 100, 100};
   public int highArrow[] = {460, 245, 40, 40};
@@ -50,5 +51,6 @@ class Resource { // stores useful public vars and assets such as sounds fonts an
     rainSnow = loadShape("assets/img/rainSnow.svg");
     upArrow = loadShape("assets/img/upArrow.svg");
     downArrow = loadShape("assets/img/downArrow.svg");
+    alarmClock = loadShape("assets/img/alarmClock.svg");
   }
 }
