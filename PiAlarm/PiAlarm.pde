@@ -203,6 +203,7 @@ void drawSlides(int s) {
   if (s == 1) {
     println("changePressed " + changePressed);
     println("dateChanged " + dateChanged);
+    println(changedDayNum);
     if (!changePressed) {
       monthInput = u.month;
       dayInput = u.day;
@@ -251,11 +252,16 @@ void drawSlides(int s) {
       textSize(28);
       text("Enter!", r.CD[0] + 275, r.CD[1] + 80);
     }
-    if (dayNum == 9) {
+    if (dayNum == 9 && !changePressed) {
       textSize(48);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
-    if (dateChanged) {
+    if (changedDayNum == 9 && dateChanged) {
+      textSize(48);
+      fill(0);
+      text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
+    }
+    if (dateChanged && changedDayNum != 9) {
       rect(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
       today.rec(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]);
       today.listen("RECTANGLE");
@@ -268,7 +274,7 @@ void drawSlides(int s) {
       text("P2: " + getSchedule(changedDayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(changedDayNum)[2] + p2Time)/2, 225);
       text("P3: " + getSchedule(changedDayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(changedDayNum)[3] + p3Time)/2, 275);
       text("P4: " + getSchedule(changedDayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(changedDayNum)[4] + p4Time)/2, 325);
-    } else if (!dateChanged) {
+    } else if (!dateChanged && dayNum != 9) {
       textSize(32);
       fill(0);
       text("P1: " + getSchedule(dayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(dayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
