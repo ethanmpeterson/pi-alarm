@@ -1,12 +1,12 @@
 /*
 Raspberry Pi Alarm Clock
  Author: Ethan Peterson
- Revision Date: April 24, 2016
+ Revision Date: April 29, 2016
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
  */
 
-
+import processing.sound.*; // import sound library to audio file
 
 Util u = new Util();
 Resource r = new Resource();
@@ -32,6 +32,7 @@ boolean changePressed; // true if the changeDate button has been clicked
 int timesPressed = 0; // tracks the number of times the nextDay button has been pressed starting at 0
 boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
+boolean alarmPressed;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -60,8 +61,8 @@ void draw() {
   background(255);
   u.update();
   dayNum = r.schoolYear[u.month - 1][u.day];
-  drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
   leftRightNav();
+  drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -146,6 +147,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     changePressed = true;
     dateChanged = false;
   }
+  if (alarm.over()) {
+    alarmPressed = true;
+  }
 }
 
 
@@ -160,7 +164,18 @@ void leftRightNav() {
   leftNavButton.listen("TRIANGLE");
 }
 
-
+void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if the alarm button has been pressed using the boolean parameter of the function
+  if (b) {
+    fill(255);
+    rect(width/2 - 150, 50, 300, 400); // draw dialog box
+    translate(width/2 - 150, 50); // translate the point of zero to the top left corner of the dialog to make drawing on it easier
+    pushMatrix(); // pushes in the translation
+    fill(0);
+    textFont(r.schedule);
+    text("Set Alarm Time", 0, 0);
+    popMatrix(); // return 0,0 point to normal
+  }
+}
 
 String[] getSchedule(int d) {
   String[] schedule = new String[5];
@@ -205,9 +220,10 @@ void drawSlides(int s) {
     alarm.circle(725, 425, 60);
     alarm.listen("CIRCLE");
     shape(r.alarmClock, 700, 400, 50, 50); // draw alarm clock icon for user to pick the alarm time
+    stroke(5);
+    fill(0);
+    setAlarm(alarmPressed);
   }
-  stroke(5);
-  fill(0);
   if (s == 1) {
     println("changePressed " + changePressed);
     println("dateChanged " + dateChanged);
