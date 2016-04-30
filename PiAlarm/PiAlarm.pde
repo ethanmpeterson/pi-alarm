@@ -22,6 +22,7 @@ OnClickListener dayDown = new OnClickListener(); // lets user navigate to previo
 OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
 OnClickListener today = new OnClickListener(); // allows user to return to current date in schedule slide
 OnClickListener alarm = new OnClickListener(); // button for setting alarm time
+OnClickListener exitDialog = new OnClickListener(); // button to exit the dialog for setting alarm time 
 
 
 String theWeather; // for the weather slide text
@@ -37,6 +38,8 @@ int monthInput; // keeps track of what month the user has inputted into the sche
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
 int changedDayNum;
+int dialogX = 400 - 150;
+int dialogY = 50;
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
@@ -147,6 +150,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     changePressed = true;
     dateChanged = false;
   }
+  if (exitDialog.over()) {
+    alarmPressed = false;
+  }
   if (alarm.over()) {
     alarmPressed = true;
   }
@@ -167,13 +173,18 @@ void leftRightNav() {
 void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if the alarm button has been pressed using the boolean parameter of the function
   if (b) {
     fill(255);
-    rect(width/2 - 150, 50, 300, 400); // draw dialog box
-    translate(width/2 - 150, 50); // translate the point of zero to the top left corner of the dialog to make drawing on it easier
-    pushMatrix(); // pushes in the translation
+    fill(255);
+    rect(dialogX, dialogY, 300, 400); // draw dialog box
     fill(0);
     textFont(r.schedule);
-    text("Set Alarm Time", 0, 0);
-    popMatrix(); // return 0,0 point to normal
+    textSize(32);
+    text("Set Alarm Time:", dialogX + 25, 80);
+    textSize(16);
+    rect(dialogX + 265, dialogY, 35, 20); // draw button to exit the dialog
+    exitDialog.rec(dialogX + 265, dialogY, 35, 20);
+    exitDialog.listen("RECTANGLE");
+    fill(0);
+    text("X", dialogX + 278, dialogY + 15);
   }
 }
 
