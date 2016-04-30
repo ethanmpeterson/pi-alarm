@@ -151,10 +151,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     dateChanged = false;
   }
   if (exitDialog.over()) {
-    alarmPressed = false;
+   alarmPressed = false;
   }
   if (alarm.over()) {
-    alarmPressed = true;
+   alarmPressed = true;
   }
 }
 
@@ -297,13 +297,15 @@ void drawSlides(int s) {
       fill(0);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
     }
-    if (dateChanged && changedDayNum != 9) {
+    if (dateChanged) {
       rect(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]); // rect button with same coordinates as change date button but will be used to be returned to the current date
       today.rec(width/2 - r.CD[2]/2, r.CD[1] + 50, r.CD[2], r.CD[3]);
       today.listen("RECTANGLE");
       fill(0);
       textSize(28);
       text("Today", width/2 - textWidth("Today")/2, r.CD[1] + 80);
+    }
+    if (dateChanged && changedDayNum != 9) {
       textSize(32);
       fill(0);
       text("P1: " + getSchedule(changedDayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(changedDayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
