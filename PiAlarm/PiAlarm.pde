@@ -27,9 +27,11 @@ OnClickListener hourUp = new OnClickListener();
 OnClickListener hourDown = new OnClickListener();
 OnClickListener minUp = new OnClickListener();
 OnClickListener minDown = new OnClickListener();
+OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
+Calendar cal; // instance of calendar class to check if it is am or pm
 
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
@@ -40,6 +42,7 @@ int timesPressed = 0; // tracks the number of times the nextDay button has been 
 boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
 boolean alarmPressed;
+boolean amPmPressed; // true if the button to switch from am to pm in alarm dialog is pressed
 boolean hourPressed = false;; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
@@ -74,6 +77,7 @@ void setup() {
 
 void draw() {
   background(255);
+  cal = Calendar.getInstance();
   u.update();
   dayNum = r.schoolYear[u.month - 1][u.day];
   leftRightNav();
@@ -185,10 +189,23 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
   }
   if (minUp.over()) {
-    
+    minPressed = true;
+    if (minInput == 59) {
+      minInput = 1;
+    } else {
+      minInput++;
+    }
   }
   if (minDown.over()) {
-    
+    minPressed = true;
+    if (minInput == 1) {
+      minInput = 59;
+    } else {
+      minInput--;
+    }
+  }
+  if (amPm.over()) {
+    amPmPressed = true;
   }
 }
 
@@ -204,25 +221,50 @@ void leftRightNav() {
   leftNavButton.listen("TRIANGLE");
 }
 
+
+String AmOrPm() {
+  if (cal.get(Calendar.HOUR_OF_DAY) >= 12) {
+    return "PM";
+  } else if (cal.get(Calendar.HOUR_OF_DAY) < 12) {
+    return "AM";
+  } else {
+    return "ERROR";
+  }
+}
+
+
 void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if the alarm button has been pressed using the boolean parameter of the function
   if (b) {
     fill(255);
     rect(dialogX, dialogY, 300, 400); // draw dialog box
     rect(dialogX + 25, dialogY + 75, 50, 40); // draw box for adjusting hour
     rect(dialogX + 225, dialogY + 75, 50, 40); // draw box for adjusting min
+    rect(dialogX + 85, dialogY + 75, 130, 40);
+    amPm.rec(dialogX + 85, dialogY + 75, 130, 40);
+    amPm.listen("RECTANGLE");
+    if (!amPmPressed) {
+      fill(0);
+      textSize(32);
+      text(AmOrPm(), (dialogX + 150) - textWidth(AmOrPm())/2, dialogY + 108);
+    } else {
+      
+    }
     if (!hourPressed && !minPressed) {
       textFont(r.schedule);
       hourInput = u.hour;
       minInput = u.minute;
       fill(0);
       textSize(14);
-      text("HOUR", dialogX + 30, dialogY + 100);
+      text("HOUR", (dialogX + 50) - textWidth("HOUR")/2, dialogY + 100); // center hour and min text
+      text("MIN", (dialogX + 250) - textWidth("MIN")/2, dialogY + 100);
     } else {
       fill(0);
       textFont(r.schedule);
       textSize(16);
       text(hourInput, (dialogX + 50) - textWidth(Integer.toString(hourInput))/2, dialogY + 100); // center hour input text
+      text(minInput, (dialogX + 250) - textWidth(Integer.toString(minInput))/2, dialogY + 100);
     }
+    fill(255);
     triangle(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
     hourUp.tri(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
     hourUp.listen("TRIANGLE");
