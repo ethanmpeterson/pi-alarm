@@ -5,8 +5,9 @@ Raspberry Pi Alarm Clock
  Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
  a school schedule and touchscreen operation with the Raspberry Pi.
  */
+import processing.sound.*; // import sound library to play alarm audio
 
-import processing.sound.*; // import sound library to audio file
+
 
 Util u = new Util();
 Resource r = new Resource();
@@ -287,7 +288,7 @@ void drawSlides(int s) {
       textSize(28);
       text("Enter!", r.CD[0] + 275, r.CD[1] + 80);
     }
-    if (dayNum == 9 && !changePressed) {
+    if (dayNum == 9 && !changePressed && !dateChanged) {
       textSize(48);
       fill(0);
       text("It's A Holiday!", width/2 - textWidth("It's A Holiday!")/2, 175);
