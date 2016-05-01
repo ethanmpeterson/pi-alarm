@@ -33,8 +33,7 @@ OnClickListener chooseRing = new OnClickListener();
 OnClickListener cancel = new OnClickListener();
 OnClickListener ok = new OnClickListener();
 OnClickListener setAlarm = new OnClickListener();
-OnClickListener play = new OnClickListener();
-OnClickListener pause = new OnClickListener();
+OnClickListener playPause = new OnClickListener(); // for the play/pause button
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -54,6 +53,7 @@ boolean amPmPressed; // true if the button to switch from am to pm in alarm dial
 boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
 boolean filePicked; // true if the user has picked a file for the alarm ring tone
+boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -236,6 +236,20 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     wrongFile = false;
     selectInput("Select Ring Tone Audio File", "fileSelected");
   }
+  if (playPause.over()) {
+    if (!isPlaying) {
+      isPlaying = true;
+      if (filePicked) {
+        customRing.play(); 
+      } else {
+        ringTone.play();
+      }
+    } else {
+      isPlaying = false;
+      //customRing.pause();
+      //ringTone.pause();
+    }
+  }
 }
 
 
@@ -295,7 +309,14 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     }
     noStroke();
     noFill();
-    shape(r.play, (dialogX + 150) - 25, dialogY + 250, 50, 50);
+    ellipse((dialogX + 150), dialogY + 285, 50, 50);
+    playPause.circle((dialogX + 150), dialogY + 285, 50);
+    playPause.listen("CIRCLE");
+    if (!isPlaying) {
+      shape(r.play, (dialogX + 150) - 25, dialogY + 260, 50, 50); 
+    } else{
+      shape(r.pause, (dialogX + 150) - 25, dialogY + 260, 50, 50);
+    }
     stroke(5);
     fill(255);
     rect(dialogX + 10, dialogY + 350, 280, 40);
@@ -399,7 +420,7 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     if (filePicked) {
       fill(0);
       textSize(16);
-      text("Ring Tone: " + fileName, (dialogX + 150) - textWidth("Ring Tone: " + fileName)/2, dialogY + 265);
+      text("Ring Tone: " + fileName, (dialogX + 150) - textWidth("Ring Tone: " + fileName)/2, dialogY + 190);
     }
   }
 }
