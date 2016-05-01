@@ -25,6 +25,8 @@ OnClickListener alarm = new OnClickListener(); // button for setting alarm time
 OnClickListener exitDialog = new OnClickListener(); // button to exit the dialog for setting alarm time
 OnClickListener hourUp = new OnClickListener();
 OnClickListener hourDown = new OnClickListener();
+OnClickListener minUp = new OnClickListener();
+OnClickListener minDown = new OnClickListener();
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -38,7 +40,8 @@ int timesPressed = 0; // tracks the number of times the nextDay button has been 
 boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
 boolean alarmPressed;
-boolean hourPressed; // true if either of the hour up or down buttons are pressed
+boolean hourPressed = false;; // true if either of the hour up or down buttons are pressed
+boolean minPressed = false;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -46,7 +49,7 @@ int changedDayNum;
 int dialogX = 400 - 150;
 int dialogY = 50;
 int hourInput; // will hold the hour of the alarm selected by the user in the dialog
-int minuteInput; // will hold the minute of the alarm selected by the user in the dialog
+int minInput; // will hold the minute of the alarm selected by the user in the dialog
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
@@ -181,6 +184,12 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       hourInput--;
     }
   }
+  if (minUp.over()) {
+    
+  }
+  if (minDown.over()) {
+    
+  }
 }
 
 
@@ -200,6 +209,20 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     fill(255);
     rect(dialogX, dialogY, 300, 400); // draw dialog box
     rect(dialogX + 25, dialogY + 75, 50, 40); // draw box for adjusting hour
+    rect(dialogX + 225, dialogY + 75, 50, 40); // draw box for adjusting min
+    if (!hourPressed && !minPressed) {
+      textFont(r.schedule);
+      hourInput = u.hour;
+      minInput = u.minute;
+      fill(0);
+      textSize(14);
+      text("HOUR", dialogX + 30, dialogY + 100);
+    } else {
+      fill(0);
+      textFont(r.schedule);
+      textSize(16);
+      text(hourInput, (dialogX + 50) - textWidth(Integer.toString(hourInput))/2, dialogY + 100); // center hour input text
+    }
     triangle(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
     hourUp.tri(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
     hourUp.listen("TRIANGLE");
@@ -207,10 +230,16 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     triangle(dialogX + 25, dialogY + 75 + 45, dialogX + 75, dialogY + 75 + 45, dialogX + 50, dialogY + 75 + 65);
     hourDown.tri(dialogX + 25, dialogY + 75 + 45, dialogX + 75, dialogY + 75 + 45, dialogX + 50, dialogY + 75 + 65);
     hourDown.listen("TRIANGLE");
+    fill(255);
+    triangle(dialogX + 225, dialogY + 70, dialogX + 275, dialogY + 70, dialogX + 250, dialogY + 50);
+    minUp.tri(dialogX + 225, dialogY + 70, dialogX + 275, dialogY + 70, dialogX + 250, dialogY + 50);
+    minUp.listen("TRIANGLE");
+    fill(255);
+    triangle(dialogX + 225, dialogY + 70 + 50, dialogX + 275, dialogY + 70 + 50, dialogX + 250, dialogY + 140);
+    minDown.tri(dialogX + 225, dialogY + 70 + 50, dialogX + 275, dialogY + 70 + 50, dialogX + 250, dialogY + 140);
+    minDown.listen("TRIANGLE");
     fill(0);
     textFont(r.schedule);
-    textSize(14);
-    text("HOUR", dialogX + 30, dialogY + 100);
     textSize(32);
     text("Set Alarm Time:", dialogX + 25, 80);
     textSize(16);
