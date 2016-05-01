@@ -58,6 +58,7 @@ String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
 String p3Time = "  (11:15 AM - 12:30 PM)";
 String p4Time = "  (1:25 PM - 2:40 PM)";
+String amPmButton;
 
 
 void setup() {
@@ -205,6 +206,13 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
   }
   if (amPm.over()) {
+    if (!amPmPressed) {
+      amPmButton = AmOrPm();
+    } else if (amPmButton == "PM" && amPmPressed) {
+      amPmButton = "AM";
+    } else if (amPmButton == "AM" && amPmPressed) {
+      amPmButton = "PM";
+    }
     amPmPressed = true;
   }
 }
@@ -244,10 +252,14 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     amPm.listen("RECTANGLE");
     if (!amPmPressed) {
       fill(0);
+      textFont(r.schedule);
       textSize(32);
       text(AmOrPm(), (dialogX + 150) - textWidth(AmOrPm())/2, dialogY + 108);
     } else {
-      
+      fill(0);
+      textFont(r.schedule);
+      textSize(32);
+      text(amPmButton, (dialogX + 150) - textWidth(amPmButton)/2, dialogY + 108);
     }
     if (!hourPressed && !minPressed) {
       textFont(r.schedule);
@@ -263,6 +275,17 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       textSize(16);
       text(hourInput, (dialogX + 50) - textWidth(Integer.toString(hourInput))/2, dialogY + 100); // center hour input text
       text(minInput, (dialogX + 250) - textWidth(Integer.toString(minInput))/2, dialogY + 100);
+    }
+    if (hourPressed || minPressed || amPmPressed) {
+      // add alarm preview time
+      fill(0);
+      textFont(r.schedule);
+      textSize(16);
+      if (!amPmPressed) {
+        text("Alarm Time: " + hourInput + ":" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+      } else {
+        text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);
+      }
     }
     fill(255);
     triangle(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
@@ -293,6 +316,7 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
   }
 }
 
+
 String[] getSchedule(int d) {
   String[] schedule = new String[5];
   if (d == 1) {
@@ -321,6 +345,7 @@ String[] getSchedule(int d) {
   }
   return schedule;
 }
+
 
 void drawSlides(int s) {
   if (s == 0) { // code for slide 0 and the following if statements will represent a particular slide as well
