@@ -32,6 +32,7 @@ OnClickListener amPm = new OnClickListener(); // button to switch between am and
 OnClickListener chooseRing = new OnClickListener();
 OnClickListener cancel = new OnClickListener();
 OnClickListener ok = new OnClickListener();
+OnClickListener setAlarm = new OnClickListener();
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -50,6 +51,7 @@ boolean wrongFile; // will be true if the user has not selected an mp3 file
 boolean amPmPressed; // true if the button to switch from am to pm in alarm dialog is pressed
 boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
+boolean filePicked; // true if the user has picked a file for the alarm ring tone
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -64,6 +66,7 @@ String p2Time = "  (9:35 AM - 10:50 AM)";
 String p3Time = "  (11:15 AM - 12:30 PM)";
 String p4Time = "  (1:25 PM - 2:40 PM)";
 String amPmButton;
+String fileName;
 
 
 void setup() {
@@ -238,8 +241,10 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   if (selection != null) {
     if (selection.getName().endsWith("mp3")) {
       customRing = minim.loadSnippet(selection.getAbsolutePath());
-      customRing.play();
+      fileName = selection.getName();
+      filePicked = true;
     } else {
+      filePicked = false;
       wrongFile = true;
     }
   } else {
@@ -286,10 +291,15 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       chooseRing.rec(dialogX + 10, dialogY + 200, 280, 40);
       chooseRing.listen("RECTANGLE");
     }
+    fill(255);
+    rect(dialogX + 10, dialogY + 350, 280, 40);
+    setAlarm.rec(dialogX + 10, dialogY + 350, 280, 40);
+    setAlarm.listen("RECTANGLE");
     fill(0);
     textFont(r.schedule);
     textSize(32);
     text("Choose Ring Tone!", (dialogX + 150) - textWidth("Choose Ring Tone!")/2, dialogY + 230);
+    text("Set Alarm!", (dialogX + 150) - textWidth("Set Alarm!")/2, dialogY + 380);
     if (!amPmPressed) {
       fill(0);
       textFont(r.schedule);
@@ -379,6 +389,11 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       text("Ok", (dialogX + 150 + 62.5) - textWidth("Ok")/2, dialogY + 240);
       textSize(16);
       text("Error: Please Choose an MP3 File", (dialogX + 150) - textWidth("Error: Please Choose an MP3 File")/2, dialogY + 170);
+    }
+    if (filePicked) {
+      fill(0);
+      textSize(16);
+      text("Ring Tone: " + fileName, (dialogX + 150) - textWidth("Ring Tone: " + fileName)/2, dialogY + 265);
     }
   }
 }
