@@ -43,6 +43,7 @@ int timesPressed = 0; // tracks the number of times the nextDay button has been 
 boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
 boolean alarmPressed;
+boolean wrongFile; // will be true if the user has not selected an mp3 file
 boolean amPmPressed; // true if the button to switch from am to pm in alarm dialog is pressed
 boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
@@ -218,6 +219,20 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   }
   if (chooseRing.over()) {
     selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
+    // first parameter is the message to be displayed to the user and the second is the name of the method to be called when a file is selected
+  }
+}
+
+
+void fileSelected(File selection) { // takes paremeter as a file object that the selectInput function returns in the callback 
+  if (selection != null) {
+    if (selection.getName().endsWith("mp3")) {
+      customRing = minim.loadSnippet(selection.getAbsolutePath());
+    } else {
+      wrongFile = true;
+    }
+  } else {
+    println("User has Cancelled");
   }
 }
 
@@ -334,6 +349,13 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     exitDialog.listen("RECTANGLE");
     fill(0);
     text("X", dialogX + 278, dialogY + 15);
+    if (wrongFile) {
+      fill(255);
+      rect(dialogX + 50, dialogY + 150, 200, 100);
+      fill(0);
+      textSize(16);
+      text("Error: Please Choose an MP3 File", (dialogX + 50) - textWidth("Error: Please Choose an MP3 File")/2, dialogY + 150);
+    }
   }
 }
 
