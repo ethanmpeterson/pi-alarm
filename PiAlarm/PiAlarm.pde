@@ -1,12 +1,11 @@
 /*
 Raspberry Pi Alarm Clock
- Author: Ethan Peterson
- Revision Date: April 29, 2016
- Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
- a school schedule and touchscreen operation with the Raspberry Pi.
- */
-import processing.sound.*; // import sound library to play alarm audio
-
+Author: Ethan Peterson
+Revision Date: April 30, 2016
+Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
+a school schedule and touchscreen operation with the Raspberry Pi.
+*/
+import ddf.minim.*; // 3rd party audio library downloaded from processing add library wizard
 
 
 Util u = new Util();
@@ -23,8 +22,12 @@ OnClickListener dayDown = new OnClickListener(); // lets user navigate to previo
 OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
 OnClickListener today = new OnClickListener(); // allows user to return to current date in schedule slide
 OnClickListener alarm = new OnClickListener(); // button for setting alarm time
-OnClickListener exitDialog = new OnClickListener(); // button to exit the dialog for setting alarm time 
-
+OnClickListener exitDialog = new OnClickListener(); // button to exit the dialog for setting alarm time
+OnClickListener hourUp = new OnClickListener();
+OnClickListener hourDown = new OnClickListener();
+Minim minim; //initialize of main class from library
+AudioSnippet ringTone; // initialize the audio file class of the library
+AudioSnippet customRing; // have second instance for customized ringTone
 
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
@@ -35,12 +38,15 @@ int timesPressed = 0; // tracks the number of times the nextDay button has been 
 boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
 boolean alarmPressed;
+boolean hourPressed; // true if either of the hour up or down buttons are pressed
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
 int changedDayNum;
 int dialogX = 400 - 150;
 int dialogY = 50;
+int hourInput; // will hold the hour of the alarm selected by the user in the dialog
+int minuteInput; // will hold the minute of the alarm selected by the user in the dialog
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
@@ -51,6 +57,8 @@ String p4Time = "  (1:25 PM - 2:40 PM)";
 void setup() {
   size(800, 480);
   background(255);
+  minim = new Minim(this);
+  ringTone = minim.loadSnippet("assets/audio/ringTone.mp3");
   u.setWeather("Toronto", "ON");
   u.update();
   r.load();
@@ -157,6 +165,22 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (alarm.over()) {
    alarmPressed = true;
   }
+  if (hourUp.over()) {
+    hourPressed = true;
+    if (hourInput == 12) {
+      hourInput = 1;
+    } else {
+      hourInput++;
+    }
+  }
+  if (hourDown.over()) {
+    hourPressed = true;
+    if (hourInput == 1) {
+      hourInput = 12;
+    } else {
+      hourInput--;
+    }
+  }
 }
 
 
@@ -174,10 +198,19 @@ void leftRightNav() {
 void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if the alarm button has been pressed using the boolean parameter of the function
   if (b) {
     fill(255);
-    fill(255);
     rect(dialogX, dialogY, 300, 400); // draw dialog box
+    rect(dialogX + 25, dialogY + 75, 50, 40); // draw box for adjusting hour
+    triangle(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
+    hourUp.tri(dialogX + 25, dialogY + 70, dialogX + 75, dialogY + 70, dialogX + 50, dialogY + 50);
+    hourUp.listen("TRIANGLE");
+    fill(255);
+    triangle(dialogX + 25, dialogY + 75 + 45, dialogX + 75, dialogY + 75 + 45, dialogX + 50, dialogY + 75 + 65);
+    hourDown.tri(dialogX + 25, dialogY + 75 + 45, dialogX + 75, dialogY + 75 + 45, dialogX + 50, dialogY + 75 + 65);
+    hourDown.listen("TRIANGLE");
     fill(0);
     textFont(r.schedule);
+    textSize(14);
+    text("HOUR", dialogX + 30, dialogY + 100);
     textSize(32);
     text("Set Alarm Time:", dialogX + 25, 80);
     textSize(16);
