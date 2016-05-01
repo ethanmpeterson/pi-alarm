@@ -21,6 +21,7 @@ OnClickListener dayUp = new OnClickListener(); // lets user navigate to next day
 OnClickListener dayDown = new OnClickListener(); // lets user navigate to previous days schedule
 OnClickListener enterDate = new OnClickListener(); // enters the date of the schedule the user wants to view
 OnClickListener today = new OnClickListener(); // allows user to return to current date in schedule slide
+// alarm dialog OnClickListeners
 OnClickListener alarm = new OnClickListener(); // button for setting alarm time
 OnClickListener exitDialog = new OnClickListener(); // button to exit the dialog for setting alarm time
 OnClickListener hourUp = new OnClickListener();
@@ -29,6 +30,8 @@ OnClickListener minUp = new OnClickListener();
 OnClickListener minDown = new OnClickListener();
 OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
 OnClickListener chooseRing = new OnClickListener();
+OnClickListener cancel = new OnClickListener();
+OnClickListener ok = new OnClickListener();
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -217,9 +220,16 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
     amPmPressed = true;
   }
-  if (chooseRing.over()) {
+  if (chooseRing.over() && !wrongFile) {
     selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
     // first parameter is the message to be displayed to the user and the second is the name of the method to be called when a file is selected
+  }
+  if (cancel.over()) {
+    wrongFile = false;
+  }
+  if (ok.over() && wrongFile) {
+    wrongFile = false;
+    selectInput("Select Ring Tone Audio File", "fileSelected");
   }
 }
 
@@ -228,6 +238,7 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   if (selection != null) {
     if (selection.getName().endsWith("mp3")) {
       customRing = minim.loadSnippet(selection.getAbsolutePath());
+      customRing.play();
     } else {
       wrongFile = true;
     }
@@ -271,8 +282,10 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     amPm.listen("RECTANGLE");
     fill(255);
     rect(dialogX + 10, dialogY + 200, 280, 40);
-    chooseRing.rec(dialogX + 10, dialogY + 200, 280, 40);
-    chooseRing.listen("RECTANGLE");
+    if (!wrongFile) {
+      chooseRing.rec(dialogX + 10, dialogY + 200, 280, 40);
+      chooseRing.listen("RECTANGLE");
+    }
     fill(0);
     textFont(r.schedule);
     textSize(32);
@@ -350,11 +363,22 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     fill(0);
     text("X", dialogX + 278, dialogY + 15);
     if (wrongFile) {
+      // draw wrong file dialog to handle the error where the user does note select mp3 file
       fill(255);
-      rect(dialogX + 50, dialogY + 150, 200, 100);
+      rect(dialogX + 25, dialogY + 150, 250, 100); // draw dialog box
+      rect(dialogX + 25, dialogY + 150 + 60, 125, 40); // cancel button
+      cancel.rec(dialogX + 25, dialogY + 150 + 60, 125, 40);
+      cancel.listen("RECTANGLE");
+      fill(255);
+      rect(dialogX + 150, dialogY + 210, 125, 40);
+      ok.rec(dialogX + 150, dialogY + 210, 125, 40);
+      ok.listen("RECTANGLE");
       fill(0);
+      textSize(32);
+      text("Cancel", (dialogX + 25 + 62.5) - textWidth("Cancel")/2, dialogY + 150 + 90);
+      text("Ok", (dialogX + 150 + 62.5) - textWidth("Ok")/2, dialogY + 240);
       textSize(16);
-      text("Error: Please Choose an MP3 File", (dialogX + 50) - textWidth("Error: Please Choose an MP3 File")/2, dialogY + 150);
+      text("Error: Please Choose an MP3 File", (dialogX + 150) - textWidth("Error: Please Choose an MP3 File")/2, dialogY + 170);
     }
   }
 }
