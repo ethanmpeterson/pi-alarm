@@ -69,6 +69,7 @@ String p3Time = "  (11:15 AM - 12:30 PM)";
 String p4Time = "  (1:25 PM - 2:40 PM)";
 String amPmButton;
 String fileName;
+XML test;
 
 
 void setup() {
@@ -83,6 +84,14 @@ void setup() {
   fill(0);
   // print out forecast for each day of the week for testing
   theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1];
+  test = loadXML("assets/xml/savedData.xml");
+  XML[] children = test.getChildren("time");
+  for (int i = 0; i < children.length; i++) {
+    int id = children[i].getInt("id");
+    int time = children[i].getInt("alarmTime");
+    String name = children[i].getContent();
+    println(id + " " + time + " " + name);
+  }
 }
 
 
@@ -240,14 +249,19 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     if (!isPlaying) {
       isPlaying = true;
       if (filePicked) {
-        customRing.play(); 
+        customRing.play();
+        ringTone.pause();
       } else {
         ringTone.play();
       }
     } else {
       isPlaying = false;
-      //customRing.pause();
-      //ringTone.pause();
+      if (filePicked) {
+        customRing.pause();
+        ringTone.pause();
+      } else {
+        ringTone.pause();
+      }
     }
   }
 }
@@ -361,9 +375,9 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       if (!amPmPressed) {
         if (minInput < 10) {
           fill(0);
-          text("Alarm Time: " + hourInput + ":0" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+          text("Alarm Time: " + hourInput + ":0" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165); 
         } else {
-          text("Alarm Time: " + hourInput + ":" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);  
+          text("Alarm Time: " + hourInput + ":" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165);  
         }
       } else {
         if (minInput < 10) {

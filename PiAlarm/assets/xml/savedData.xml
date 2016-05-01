@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<times>
+	<time id="0" alarmTime="8">hour</time>
+	<time id="1" alarmTime="30">minute</time>
+</times>
+
