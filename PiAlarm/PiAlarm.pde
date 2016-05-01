@@ -294,9 +294,18 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       textFont(r.schedule);
       textSize(16);
       if (!amPmPressed) {
-        text("Alarm Time: " + hourInput + ":" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+        if (minInput < 10) {
+          fill(0);
+          text("Alarm Time: " + hourInput + ":0" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+        } else {
+          text("Alarm Time: " + hourInput + ":" + minInput + " " + AmOrPm(), (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);  
+        }
       } else {
-        text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);
+        if (minInput < 10) {
+          text("Alarm Time: " + hourInput + ":0" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);
+        } else {
+          text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+        }
       }
     }
     fill(255);
