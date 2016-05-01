@@ -33,6 +33,8 @@ OnClickListener chooseRing = new OnClickListener();
 OnClickListener cancel = new OnClickListener();
 OnClickListener ok = new OnClickListener();
 OnClickListener setAlarm = new OnClickListener();
+OnClickListener play = new OnClickListener();
+OnClickListener pause = new OnClickListener();
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -291,6 +293,10 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       chooseRing.rec(dialogX + 10, dialogY + 200, 280, 40);
       chooseRing.listen("RECTANGLE");
     }
+    noStroke();
+    noFill();
+    shape(r.play, (dialogX + 150) - 25, dialogY + 250, 50, 50);
+    stroke(5);
     fill(255);
     rect(dialogX + 10, dialogY + 350, 280, 40);
     setAlarm.rec(dialogX + 10, dialogY + 350, 280, 40);
