@@ -28,6 +28,7 @@ OnClickListener hourDown = new OnClickListener();
 OnClickListener minUp = new OnClickListener();
 OnClickListener minDown = new OnClickListener();
 OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
+OnClickListener chooseRing = new OnClickListener();
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
@@ -43,7 +44,7 @@ boolean dateChanged; // true if the user has changed the date
 boolean tPressed;
 boolean alarmPressed;
 boolean amPmPressed; // true if the button to switch from am to pm in alarm dialog is pressed
-boolean hourPressed = false;; // true if either of the hour up or down buttons are pressed
+boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
@@ -250,6 +251,14 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     rect(dialogX + 85, dialogY + 75, 130, 40);
     amPm.rec(dialogX + 85, dialogY + 75, 130, 40);
     amPm.listen("RECTANGLE");
+    fill(255);
+    rect(dialogX + 10, dialogY + 200, 280, 40);
+    chooseRing.rec(dialogX + 10, dialogY + 200, 280, 40);
+    chooseRing.listen("RECTANGLE");
+    fill(0);
+    textFont(r.schedule);
+    textSize(32);
+    text("Choose Ring Tone!", (dialogX + 150) - textWidth("Choose Ring Tone!")/2, dialogY + 230);
     if (!amPmPressed) {
       fill(0);
       textFont(r.schedule);
