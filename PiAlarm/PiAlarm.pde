@@ -216,6 +216,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
     amPmPressed = true;
   }
+  if (chooseRing.over()) {
+    selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
+  }
 }
 
 
