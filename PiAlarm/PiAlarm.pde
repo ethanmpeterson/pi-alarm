@@ -195,7 +195,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     dateChanged = false;
   }
   if (exitDialog.over()) {
-   alarmPressed = false;
+   exitDialog();
   }
   if (alarm.over()) {
    alarmPressed = true;
@@ -320,9 +320,10 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
   if (alarmSet) {
     alarmHour = children[0].getInt("alarmTime");
     alarmMinute = children[1].getInt("alarmTime");
+    amPmButton = children[2].getString("alarmTime");
     println("alarmHour: " + alarmHour);
     println("alarmMinute: " + alarmMinute);
-    if (u.hour == alarmHour && u.minute == alarmMinute) {
+    if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton)) {
       alarmRinging = true;
     }
     if (alarmRinging) {
@@ -340,6 +341,11 @@ void exitDialog() {
   amPmPressed = false;
   hourPressed = false;
   minPressed = false;
+  if (filePicked) {
+    customRing.pause();
+  } else {
+    ringTone.pause();
+  }
 }
 
 
