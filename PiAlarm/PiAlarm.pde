@@ -28,7 +28,9 @@ OnClickListener hourUp = new OnClickListener();
 OnClickListener hourDown = new OnClickListener();
 OnClickListener minUp = new OnClickListener();
 OnClickListener minDown = new OnClickListener();
-OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
+//OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
+OnClickListener alarmUp = new OnClickListener();
+OnClickListener alarmDown = new OnClickListener();
 OnClickListener chooseRing = new OnClickListener();
 OnClickListener cancel = new OnClickListener();
 OnClickListener ok = new OnClickListener();
@@ -72,6 +74,7 @@ int hourInput; // will hold the hour of the alarm selected by the user in the di
 int minInput; // will hold the minute of the alarm selected by the user in the dialog
 int alarmHour; // will store the hour of when the alarm should go off
 int alarmMinute;
+int amPm = 0;
 String alarmPmAm; // will store if alarm is going off in the morning or the afternoon
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
@@ -244,6 +247,12 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
        //<>// //<>//
   //  }
   //}
+  if (alarmUp.over() && alarmPressed) {
+    
+  }
+  if (alarmDown.over()) {
+    
+  }
   if (chooseRing.over() && !wrongFile) {
     selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
     // first parameter is the message to be displayed to the user and the second is the name of the method to be called when a file is selected
@@ -382,8 +391,9 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     rect(dialogX + 25, dialogY + 75, 50, 40); // draw box for adjusting hour
     rect(dialogX + 225, dialogY + 75, 50, 40); // draw box for adjusting min
     rect(dialogX + 85, dialogY + 75, 130, 40);
-    amPm.rec(dialogX + 85, dialogY + 75, 130, 40);
-    amPm.listen("RECTANGLE");
+    //amPm.rec(dialogX + 85, dialogY + 75, 130, 40);
+    //amPm.listen("RECTANGLE");
+    triangle(dialogX + 85, dialogY + 70, dialogX + 85 + 130, dialogY + 70, dialogX + 85 + 65, dialogY + 40);
     fill(255);
     rect(dialogX + 10, dialogY + 200, 280, 40);
     if (!wrongFile) {
