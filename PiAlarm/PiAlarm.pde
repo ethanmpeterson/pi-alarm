@@ -248,10 +248,20 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   //  }
   //}
   if (alarmUp.over() && alarmPressed) {
-    
+    amPmPressed = true;
+    if (amPm == 1) {
+      amPm = 0;
+    } else {
+      amPm = 1;
+    }
   }
   if (alarmDown.over()) {
-    
+    amPmPressed = true;
+    if (amPm == 0) {
+      amPm = 1;
+    } else {
+      amPm = 0;
+    }
   }
   if (chooseRing.over() && !wrongFile) {
     selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
@@ -394,6 +404,12 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     //amPm.rec(dialogX + 85, dialogY + 75, 130, 40);
     //amPm.listen("RECTANGLE");
     triangle(dialogX + 85, dialogY + 70, dialogX + 85 + 130, dialogY + 70, dialogX + 85 + 65, dialogY + 40);
+    alarmUp.tri(dialogX + 85, dialogY + 70, dialogX + 85 + 130, dialogY + 70, dialogX + 85 + 65, dialogY + 40);
+    alarmUp.listen("TRIANGLE");
+    fill(255);
+    triangle(dialogX + 85, dialogY + 75 + 45, dialogX + 85 + 130, dialogY + 75 + 45, dialogX + 85 + 65, (dialogY + 75 + 45) + 30);
+    alarmDown.tri(dialogX + 85, dialogY + 75 + 45, dialogX + 85 + 130, dialogY + 75 + 45, dialogX + 85 + 65, (dialogY + 75 + 45) + 30);
+    alarmDown.listen("TRIANGLE");
     fill(255);
     rect(dialogX + 10, dialogY + 200, 280, 40);
     if (!wrongFile) {
@@ -430,7 +446,7 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
       fill(0);
       textFont(r.schedule);
       textSize(32);
-      text(amPmButton, (dialogX + 150) - textWidth(amPmButton)/2, dialogY + 108);
+      text(amPmDisplay[amPm], (dialogX + 150) - textWidth(amPmButton)/2, dialogY + 108);
     }
     if (!hourPressed && !minPressed) {
       textFont(r.schedule);
@@ -461,9 +477,9 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
         }
       } else {
         if (minInput < 10) {
-          text("Alarm Time: " + hourInput + ":0" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165);
+          text("Alarm Time: " + hourInput + ":0" + minInput + " " + amPmDisplay[amPm], (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165);
         } else {
-          text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165); 
+          text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmDisplay[amPm], (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165); 
         }
       }
     }
