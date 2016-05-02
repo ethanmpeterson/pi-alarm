@@ -28,7 +28,6 @@ OnClickListener hourUp = new OnClickListener();
 OnClickListener hourDown = new OnClickListener();
 OnClickListener minUp = new OnClickListener();
 OnClickListener minDown = new OnClickListener();
-//OnClickListener amPm = new OnClickListener(); // button to switch between am and pm in set alarm time dialog
 OnClickListener alarmUp = new OnClickListener();
 OnClickListener alarmDown = new OnClickListener();
 OnClickListener chooseRing = new OnClickListener();
@@ -86,6 +85,8 @@ String fileName;
 String amPmDisplay[] = {"AM", "PM"};
 XML alarmXML; // xml to load in the alarm clock time
 XML[] children; // array for tags of the xml file
+XML schedule;
+XML sChildren; // children of the schedule xml
 
 
 void setup() {
@@ -237,16 +238,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     } else {
       minInput--;
     }
-  }
-  //if (amPm.over() && alarmPressed) {
-  //  if (!amPmPressed) {
-  //    amPmButton = AmOrPm();
-  //    amPmPressed = true;
-  //  }
-  //  if (amPmPressed) {
-       //<>// //<>//
-  //  }
-  //}
+  } //<>// //<>//
   if (alarmUp.over() && alarmPressed) {
     amPmPressed = true;
     if (amPm == 1) {
