@@ -1,7 +1,7 @@
 /*
 Raspberry Pi Alarm Clock
 Author: Ethan Peterson
-Revision Date: April 30, 2016
+Revision Date: May 2, 2016
 Description: The Raspberry Pi Alarm Clock is a program that is meant to go above what a traditional alarm clock can do offering the weather
 a school schedule and touchscreen operation with the Raspberry Pi.
 */
@@ -55,6 +55,7 @@ boolean tPressed;
 boolean alarmPressed;
 boolean wrongFile; // will be true if the user has not selected an mp3 file
 boolean amPmPressed; // true if the button to switch from am to pm in alarm dialog is pressed
+boolean isAm; // true if am is selected false if not
 boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
 boolean filePicked; // true if the user has picked a file for the alarm ring tone
@@ -79,8 +80,9 @@ String p3Time = "  (11:15 AM - 12:30 PM)";
 String p4Time = "  (1:25 PM - 2:40 PM)";
 String amPmButton;
 String fileName;
-XML alarmXML;
-XML[] children;
+String amPmDisplay[] = {"AM", "PM"};
+XML alarmXML; // xml to load in the alarm clock time
+XML[] children; // array for tags of the xml file
 
 
 void setup() {
@@ -101,6 +103,7 @@ void setup() {
 
 
 void draw() {
+  println("AMPMPressed" + amPmButton);
   background(255);
   cal = Calendar.getInstance();
   u.update();
@@ -224,7 +227,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       minInput++;
     }
   }
-  if (minDown.over()) {
+  if (minDown.over() && alarmPressed) {
     minPressed = true;
     if (minInput == 0) {
       minInput = 59;
@@ -232,16 +235,15 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       minInput--;
     }
   }
-  if (amPm.over()) {
-    if (!amPmPressed) {
-      amPmButton = AmOrPm();
-    } else if (amPmButton == "PM" && amPmPressed) {
-      amPmButton = "AM";
-    } else if (amPmButton == "AM" && amPmPressed) {
-      amPmButton = "PM";
-    }
-    amPmPressed = true;
-  }
+  //if (amPm.over() && alarmPressed) {
+  //  if (!amPmPressed) {
+  //    amPmButton = AmOrPm();
+  //    amPmPressed = true;
+  //  }
+  //  if (amPmPressed) {
+       //<>// //<>//
+  //  }
+  //}
   if (chooseRing.over() && !wrongFile) {
     selectInput("Select Ring Tone Audio File", "fileSelected"); // open file selector window for the user to pick a audio file for their ring tone
     // first parameter is the message to be displayed to the user and the second is the name of the method to be called when a file is selected
@@ -279,10 +281,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       alarmSet = true;
       if (amPmPressed) {
         alarmPmAm = amPmButton; 
-      } else {
+      } else if (!amPmPressed) {
         alarmPmAm = AmOrPm();
       }
-      children[0].setInt("alarmTime", alarmHour);
+      children[0].setInt("alarmTime", alarmHour); // reset the ints in the file to the alarm times
       children[1].setInt("alarmTime", alarmMinute);
       children[2].setString("alarmTime", alarmPmAm);
       saveXML(alarmXML, "assets/xml/savedData.xml"); // save changes to assets folder overwriting old file
@@ -323,6 +325,7 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
     amPmButton = children[2].getString("alarmTime");
     println("alarmHour: " + alarmHour);
     println("alarmMinute: " + alarmMinute);
+    println("isAm: " + isAm);
     if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton)) {
       alarmRinging = true;
     }
@@ -407,12 +410,13 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     textSize(32);
     text("Choose Ring Tone!", (dialogX + 150) - textWidth("Choose Ring Tone!")/2, dialogY + 230);
     text("Set Alarm!", (dialogX + 150) - textWidth("Set Alarm!")/2, dialogY + 380);
+    println("AM PM Button: " + amPmPressed);
     if (!amPmPressed) {
       fill(0);
       textFont(r.schedule);
       textSize(32);
       text(AmOrPm(), (dialogX + 150) - textWidth(AmOrPm())/2, dialogY + 108);
-    } else {
+    } else if (amPmPressed) {
       fill(0);
       textFont(r.schedule);
       textSize(32);
