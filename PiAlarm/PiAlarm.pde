@@ -34,10 +34,15 @@ OnClickListener cancel = new OnClickListener();
 OnClickListener ok = new OnClickListener();
 OnClickListener setAlarm = new OnClickListener();
 OnClickListener playPause = new OnClickListener(); // for the play/pause button
+OnClickListener snooze = new OnClickListener();
+OnClickListener dismiss = new OnClickListener();
+
+
 Minim minim; //initialize of main class from library
 AudioSnippet ringTone; // initialize the audio file class of the library
 AudioSnippet customRing; // have second instance for customized ringTone
 Calendar cal; // instance of calendar class to check if it is am or pm
+
 
 String theWeather; // for the weather slide text
 String forecastDays[] = new String[9]; // array storing the strings for weekdays of the forecast
@@ -55,6 +60,7 @@ boolean minPressed = false;
 boolean filePicked; // true if the user has picked a file for the alarm ring tone
 boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone
 boolean alarmSet = false; // true if the alarm has been set and the alarm time has been saved to XML
+boolean alarmRinging = false;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -101,6 +107,9 @@ void draw() {
   dayNum = r.schoolYear[u.month - 1][u.day];
   leftRightNav();
   drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
+  println("alarm ring: " + alarmRinging);
+  println("alarm set: " + alarmSet);
+  alarmCheck();
   if (keyPressed && key == ' ') {
     exit();
   }
@@ -305,9 +314,22 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
 void alarmCheck() { // will handle checking if it is alarm time amongst other things
   if (children[0].getString("alarmTime").equals("0") && children[1].getString("alarmTime").equals("0") && children[2].getString("alarmTime").equals("0")) { // use getString in case the alarm has been set and one of the tags holds a string and not int
     alarmSet = false;
+  } else {
+    alarmSet = true;
   }
   if (alarmSet) {
-    
+    alarmHour = children[0].getInt("alarmTime");
+    alarmMinute = children[1].getInt("alarmTime");
+    println("alarmHour: " + alarmHour);
+    println("alarmMinute: " + alarmMinute);
+    if (u.hour == alarmHour && u.minute == alarmMinute) {
+      alarmRinging = true;
+    }
+    if (alarmRinging) {
+      fill(255);
+      rect(dialogX + 25, dialogY + 150, 250, 100); // draw dialog box
+      rect(dialogX + 25, dialogY + 150 + 60, 125, 40); // cancel button
+    }
   }
 }
 
