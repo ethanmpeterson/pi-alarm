@@ -53,7 +53,8 @@ boolean amPmPressed; // true if the button to switch from am to pm in alarm dial
 boolean hourPressed = false; // true if either of the hour up or down buttons are pressed
 boolean minPressed = false;
 boolean filePicked; // true if the user has picked a file for the alarm ring tone
-boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone;
+boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone
+boolean alarmSet = false; // true if the alarm has been set and the alarm time has been saved to XML
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -62,6 +63,9 @@ int dialogX = 400 - 150;
 int dialogY = 50;
 int hourInput; // will hold the hour of the alarm selected by the user in the dialog
 int minInput; // will hold the minute of the alarm selected by the user in the dialog
+int alarmHour; // will store the hour of when the alarm should go off
+int alarmMinute;
+String alarmPmAm; // will store if alarm is going off in the morning or the afternoon
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
 String p2Time = "  (9:35 AM - 10:50 AM)";
@@ -69,7 +73,8 @@ String p3Time = "  (11:15 AM - 12:30 PM)";
 String p4Time = "  (1:25 PM - 2:40 PM)";
 String amPmButton;
 String fileName;
-XML test;
+XML alarmXML;
+XML[] children;
 
 
 void setup() {
@@ -84,14 +89,8 @@ void setup() {
   fill(0);
   // print out forecast for each day of the week for testing
   theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1];
-  test = loadXML("assets/xml/savedData.xml");
-  XML[] children = test.getChildren("time");
-  for (int i = 0; i < children.length; i++) {
-    int id = children[i].getInt("id");
-    int time = children[i].getInt("alarmTime");
-    String name = children[i].getContent();
-    println(id + " " + time + " " + name);
-  }
+  alarmXML = loadXML("assets/xml/savedData.xml");
+  children = alarmXML.getChildren("time");
 }
 
 
@@ -211,14 +210,14 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (minUp.over()) {
     minPressed = true;
     if (minInput == 59) {
-      minInput = 1;
+      minInput = 0;
     } else {
       minInput++;
     }
   }
   if (minDown.over()) {
     minPressed = true;
-    if (minInput == 1) {
+    if (minInput == 0) {
       minInput = 59;
     } else {
       minInput--;
@@ -264,6 +263,26 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       }
     }
   }
+  if (setAlarm.over()) {
+    if (hourPressed || minPressed || amPmPressed && !alarmSet && alarmPressed) {
+      alarmHour = hourInput;
+      alarmMinute = minInput;
+      alarmSet = true;
+      if (amPmPressed) {
+        alarmPmAm = amPmButton; 
+      } else {
+        alarmPmAm = AmOrPm();
+      }
+      children[0].setInt("alarmTime", alarmHour);
+      children[1].setInt("alarmTime", alarmMinute);
+      children[2].setString("alarmTime", alarmPmAm);
+      saveXML(alarmXML, "assets/xml/savedData.xml"); // save changes to assets folder overwriting old file
+      for (int i = 0; i < children.length; i++) { // print out what was saved to xml to check it worked
+        println(children[i].getContent() + ": " + children[i].getString("alarmTime"));
+      }
+      exitDialog();
+    }
+  }
 }
 
 
@@ -280,6 +299,25 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   } else {
     println("User has Cancelled");
   }
+}
+
+
+void alarmCheck() { // will handle checking if it is alarm time amongst other things
+  if (children[0].getString("alarmTime").equals("0") && children[1].getString("alarmTime").equals("0") && children[2].getString("alarmTime").equals("0")) { // use getString in case the alarm has been set and one of the tags holds a string and not int
+    alarmSet = false;
+  }
+  if (alarmSet) {
+    
+  }
+}
+
+
+void exitDialog() {
+  alarmPressed = false;
+  wrongFile = false;
+  amPmPressed = false;
+  hourPressed = false;
+  minPressed = false;
 }
 
 
@@ -381,9 +419,9 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
         }
       } else {
         if (minInput < 10) {
-          text("Alarm Time: " + hourInput + ":0" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175);
+          text("Alarm Time: " + hourInput + ":0" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165);
         } else {
-          text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 175); 
+          text("Alarm Time: " + hourInput + ":" + minInput + " " + amPmButton, (dialogX + 150) - textWidth("Alarm Time: "+ hourInput + ":" + minInput + " " + amPmButton)/2, dialogY + 165); 
         }
       }
     }
