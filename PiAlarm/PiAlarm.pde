@@ -63,6 +63,7 @@ boolean filePicked; // true if the user has picked a file for the alarm ring ton
 boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone
 boolean alarmSet = false; // true if the alarm has been set and the alarm time has been saved to XML
 boolean alarmRinging = false;
+boolean snoozePressed = false; // wil
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -74,6 +75,7 @@ int minInput; // will hold the minute of the alarm selected by the user in the d
 int alarmHour; // will store the hour of when the alarm should go off
 int alarmMinute;
 int amPm = 0;
+int millisTime; // will be set to millis() when snooze is pressed to time 10 mins for the alarm to go off again
 String alarmPmAm; // will store if alarm is going off in the morning or the afternoon
 String p1, p2, p3, p4;
 String p1Time = "  (8:15 AM - 9:30 AM)";
@@ -304,6 +306,13 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
       }
       exitDialog();
     }
+  }
+  if (snooze.over()) {
+    snoozePressed = true;
+    millisTime = millis();
+  }
+  if (dismiss.over()) {
+    alarmRinging = false;
   }
 }
 

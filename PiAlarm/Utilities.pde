@@ -60,6 +60,15 @@ class Util implements TimeUtils, WeatherUtils {
   }
 
 
+  boolean countDown(int min, int startTime) { // will return true once a specified number of minutes has passed for the snooze button
+    if (millis() - startTime >= (min/1000)/60) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
   String getMonth(int m) { // takes month var as input
     if (m == 1) { //return the right month string depending on what number from 1-12 is inputted into the function
       return "January";
