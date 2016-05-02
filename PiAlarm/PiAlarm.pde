@@ -63,7 +63,8 @@ boolean filePicked; // true if the user has picked a file for the alarm ring ton
 boolean isPlaying; // true if the user has hit play to listen to their alarm ringtone
 boolean alarmSet = false; // true if the alarm has been set and the alarm time has been saved to XML
 boolean alarmRinging = false;
-boolean snoozePressed = false; // wil
+boolean snoozePressed = false; // will be true when snooze is pressed to initiate timer
+boolean dismissPressed = false; // true if dismiss button was pressed
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -310,6 +311,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (snooze.over()) {
     snoozePressed = true;
     millisTime = millis();
+    alarmRinging = false;
   }
   if (dismiss.over()) {
     alarmRinging = false;
@@ -346,7 +348,7 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
     println("alarmHour: " + alarmHour);
     println("alarmMinute: " + alarmMinute);
     println("isAm: " + isAm);
-    if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton)) {
+    if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton) && !snoozePressed && !dismissPressed) {
       alarmRinging = true;
     }
     if (alarmRinging) {
@@ -366,6 +368,10 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
       textSize(24);
       text("Snooze", (dialogX + 25 + 125/2) - textWidth("Snooze")/2, dialogY + 150 + 90);
       text("Dismiss", (dialogX + 25 + 125 + 125/2) - textWidth("Dismiss")/2, dialogY + 150 + 90);
+    }
+    if (snoozePressed && u.countDown(2, millisTime)) {
+      snoozePressed = false;
+      alarmRinging = true;
     }
   }
 }

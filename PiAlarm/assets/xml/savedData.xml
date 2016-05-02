@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <times>
   <time alarmTime="6" id="0">hour</time>
-  <time alarmTime="3" id="1">minute</time>
+  <time alarmTime="45" id="1">minute</time>
   <time alarmTime="PM" id="2">AmOrPm</time>
 </times>

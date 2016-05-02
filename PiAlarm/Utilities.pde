@@ -61,7 +61,7 @@ class Util implements TimeUtils, WeatherUtils {
 
 
   boolean countDown(int min, int startTime) { // will return true once a specified number of minutes has passed for the snooze button
-    if (millis() - startTime >= (min/1000)/60) {
+    if (millis() - startTime >= min) {
       return true;
     } else {
       return false;
