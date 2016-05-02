@@ -343,7 +343,20 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
     if (alarmRinging) {
       fill(255);
       rect(dialogX + 25, dialogY + 150, 250, 100); // draw dialog box
-      rect(dialogX + 25, dialogY + 150 + 60, 125, 40); // cancel button
+      rect(dialogX + 25, dialogY + 150 + 60, 125, 40); // snooze button
+      snooze.rec(dialogX + 25, dialogY + 150 + 60, 125, 40);
+      snooze.listen("RECTANGLE");
+      fill(255);
+      rect(dialogX + 25 + 125, dialogY + 150 + 60, 125, 40); // dismiss button
+      dismiss.rec(dialogX + 25 + 125, dialogY + 150 + 60, 125, 40);
+      dismiss.listen("RECTANGLE");
+      fill(0);
+      textFont(r.schedule);
+      textSize(32);
+      text("Wake Up!", (dialogX + 25 + 125) - textWidth("Wake Up!")/2, dialogY + 190);
+      textSize(24);
+      text("Snooze", (dialogX + 25 + 125/2) - textWidth("Snooze")/2, dialogY + 150 + 90);
+      text("Dismiss", (dialogX + 25 + 125 + 125/2) - textWidth("Dismiss")/2, dialogY + 150 + 90);
     }
   }
 }
