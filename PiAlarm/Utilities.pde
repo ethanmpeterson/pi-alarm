@@ -37,6 +37,7 @@ class Util implements TimeUtils, WeatherUtils {
   private String[] text = new String[arraySize]; // will hold comment on forecast ex. "AM Showers"
   // current the length of the all forecast arrays is 5
   private XML[] forecast; // XML array storing the forecast for each
+  private XML onlineXML; // online weather XML
   //extracurrciular XML
   private XML extras;
   private XML[] children;
@@ -199,7 +200,9 @@ class Util implements TimeUtils, WeatherUtils {
   void setWeather(String city, String provCode) {
     url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%2C%20" + provCode + "%22)%20and%20u%3D'c'&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     try { // tries a line of code allowing an error in this case NullPointer Exception to be caught and handled
-      weather = loadXML(url); // loads XML file with the weather from Yahoo feed
+      onlineXML = loadXML(url);
+      saveXML(onlineXML, "assets/xml/weather.xml"); // loads XML file with the weather from Yahoo feed
+      weather = loadXML("assets/xml/weather.xml");
       xmlAvailable = true; // will stay true if there is no NullPointerException
       forecast = weather.getChildren("results/channel/item/yweather:forecast");
     } 
@@ -218,7 +221,9 @@ class Util implements TimeUtils, WeatherUtils {
 
   public void updateXML() { // will be called in PiAlarm every hour to get the latest weather feed from Yahoo
     try { // tries a line of code allowing an error in this case NullPointer Exception to be caught and handled
-      weather = loadXML(url); // loads XML file with the weather from Yahoo feed
+      onlineXML = loadXML(url); // loads XML file with the weather from Yahoo feed
+      saveXML(onlineXML, "assets/xml/weather.xml");
+      weather = loadXML("assets/xml/weather.xml");
       xmlAvailable = true; // will stay true if there is no NullPointerException
       forecast = weather.getChildren("results/channel/item/yweather:forecast");
     } 
