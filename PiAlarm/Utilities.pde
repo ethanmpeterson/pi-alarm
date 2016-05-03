@@ -18,12 +18,11 @@ class Util implements TimeUtils, WeatherUtils {
   public int year;
   public int dayNum;
   public String theDate;
-  public String p1, p2, p3, p4;
   public boolean isPM;
-  public String p1Time = "  (8:15 AM - 9:30 AM)";
-  public String p2Time = "  (9:35 AM - 10:50 AM)";
-  public String p3Time = "  (11:15 AM - 12:30 PM)";
-  public String p4Time = "  (1:25 PM - 2:40 PM)";
+  private String p1Time = "  (8:15 AM - 9:30 AM)";
+  private String p2Time = "  (9:35 AM - 10:50 AM)";
+  private String p3Time = "  (11:15 AM - 12:30 PM)";
+  private String p4Time = "  (1:25 PM - 2:40 PM)";
 
   // weather variables
   private XML weather;

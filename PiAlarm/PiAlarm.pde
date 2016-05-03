@@ -78,7 +78,6 @@ int alarmMinute;
 int amPm = 0;
 int millisTime; // will be set to millis() when snooze is pressed to time 10 mins for the alarm to go off again
 String alarmPmAm; // will store if alarm is going off in the morning or the afternoon
-String p1, p2, p3, p4;
 String amPmButton;
 String fileName;
 String amPmDisplay[] = {"AM", "PM"};
