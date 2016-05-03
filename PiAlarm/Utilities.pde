@@ -37,6 +37,8 @@ class Util implements TimeUtils, WeatherUtils {
   //extracurrciular XML
   private XML extras;
   private XML[] children;
+  private XML schoolSchedule; // schedule XML
+  private XML[] sChildren; // children of day tag
 
 
   void Util() { // do the initial setting of the variables in the constructor
@@ -159,6 +161,36 @@ class Util implements TimeUtils, WeatherUtils {
     }
   } 
 
+  String[] getSchedule(int d) {
+    String[] schedule = new String[4];
+    schoolSchedule = loadXML("assets/xml/schedule.xml");
+    sChildren = schoolSchedule.getChildren("day"); // collect the correct strings from XML array of the XML tags called day
+    if (d == 1) {
+      schedule[0] = sChildren[0].getString("p1"); // use the strings for the schedule this way the xml can be modified for schedule changes
+      schedule[1] = sChildren[0].getString("p2");
+      schedule[2] = sChildren[0].getString("p3");
+      schedule[3] = sChildren[0].getString("p4");
+    }
+    if (d == 2) {
+      schedule[0] = sChildren[1].getString("p1");
+      schedule[1] = sChildren[1].getString("p2");
+      schedule[2] = sChildren[1].getString("p3");
+      schedule[3] = sChildren[1].getString("p4");
+    }
+    if (d == 3) {
+      schedule[0] = sChildren[2].getString("p1");
+      schedule[1] = sChildren[2].getString("p2");
+      schedule[2] = sChildren[2].getString("p3");
+      schedule[3] = sChildren[2].getString("p4");
+    }
+    if (d == 4) {
+      schedule[0] = sChildren[3].getString("p1");
+      schedule[1] = sChildren[3].getString("p2");
+      schedule[2] = sChildren[3].getString("p3");
+      schedule[3] = sChildren[3].getString("p4");
+    }
+    return schedule;
+  }
 
   // weather functions:
   void setWeather(String city, String provCode) {

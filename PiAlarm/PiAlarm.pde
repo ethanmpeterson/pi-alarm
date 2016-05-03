@@ -89,8 +89,6 @@ String amPmDisplay[] = {"AM", "PM"};
 XML alarmXML; // xml to load in the alarm clock time
 XML[] children; // array for tags of the xml file
 XML filePath;
-XML schedule; // schedule XML
-XML sChildren; // children of day tag
 
 
 void setup() {
@@ -605,36 +603,6 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
 }
 
 
-String[] getSchedule(int d) {
-  String[] schedule = new String[5];
-  if (d == 1) {
-   schedule[1] = "Comm. Tech";
-   schedule[2] = "Gym";
-   schedule[3] = "English";
-   schedule[4] = "Instrumental";
-  }
-  if (d == 2) {
-   schedule[1] = "Science";
-   schedule[2] = "Software";
-   schedule[3] = "French";
-   schedule[4] = "Math";
-  }
-  if (d == 3) {
-   schedule[1] = "Instrumental";
-   schedule[2] = "Gym";
-   schedule[3] = "English";
-   schedule[4] = "Comm. Tech";
-  }
-  if (d == 4) {
-   schedule[1] = "Math";
-   schedule[2] = "Software";
-   schedule[3] = "French";
-   schedule[4] = "Science";
-  }
-  return schedule;
-}
-
-
 void drawSlides(int s) {
   if (s == 0) { // code for slide 0 and the following if statements will represent a particular slide as well
     textFont(r.time);
@@ -726,17 +694,17 @@ void drawSlides(int s) {
     if (dateChanged && changedDayNum != 9) {
       textSize(32);
       fill(0);
-      text("P1: " + getSchedule(changedDayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(changedDayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
-      text("P2: " + getSchedule(changedDayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(changedDayNum)[2] + p2Time)/2, 225);
-      text("P3: " + getSchedule(changedDayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(changedDayNum)[3] + p3Time)/2, 275);
-      text("P4: " + getSchedule(changedDayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(changedDayNum)[4] + p4Time)/2, 325);
+      text("P1: " + u.getSchedule(changedDayNum)[0] + p1Time, width/2 - textWidth("P1: " + u.getSchedule(changedDayNum)[0] + p1Time)/2, 175); // display schedule strings onscreen
+      text("P2: " + u.getSchedule(changedDayNum)[1] + p2Time, width/2 - textWidth("P2: " + u.getSchedule(changedDayNum)[1] + p2Time)/2, 225);
+      text("P3: " + u.getSchedule(changedDayNum)[2] + p3Time, width/2 - textWidth("P3: " + u.getSchedule(changedDayNum)[2] + p3Time)/2, 275);
+      text("P4: " + u.getSchedule(changedDayNum)[3] + p4Time, width/2 - textWidth("P4: " + u.getSchedule(changedDayNum)[3] + p4Time)/2, 325);
     } else if (!dateChanged && dayNum != 9) {
       textSize(32);
       fill(0);
-      text("P1: " + getSchedule(dayNum)[1] + p1Time, width/2 - textWidth("P1: " + getSchedule(dayNum)[1] + p1Time)/2, 175); // display schedule strings onscreen
-      text("P2: " + getSchedule(dayNum)[2] + p2Time, width/2 - textWidth("P2: " + getSchedule(dayNum)[2] + p2Time)/2, 225);
-      text("P3: " + getSchedule(dayNum)[3] + p3Time, width/2 - textWidth("P3: " + getSchedule(dayNum)[3] + p3Time)/2, 275);
-      text("P4: " + getSchedule(dayNum)[4] + p4Time, width/2 - textWidth("P4: " + getSchedule(dayNum)[4] + p4Time)/2, 325);
+      text("P1: " + u.getSchedule(dayNum)[0] + p1Time, width/2 - textWidth("P1: " + u.getSchedule(dayNum)[0] + p1Time)/2, 175); // display schedule strings onscreen
+      text("P2: " + u.getSchedule(dayNum)[1] + p2Time, width/2 - textWidth("P2: " + u.getSchedule(dayNum)[1] + p2Time)/2, 225);
+      text("P3: " + u.getSchedule(dayNum)[2] + p3Time, width/2 - textWidth("P3: " + u.getSchedule(dayNum)[2] + p3Time)/2, 275);
+      text("P4: " + u.getSchedule(dayNum)[3] + p4Time, width/2 - textWidth("P4: " + u.getSchedule(dayNum)[3] + p4Time)/2, 325);
     }
   }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schedule>
-	<day p1="" p2="" p3="" p4="" id="0"></day>
-	<day p1="" p2="" p3="" p4="" id="1"></day>
-	<day p1="" p2="" p3="" p4="" id="2"></day>
-	<day p1="" p2="" p3="" p4="" id="3"></day>
+	<day p1="Comm. Tech" p2="Gym" p3="English" p4="Instrumental" id="0"></day>
+	<day p1="Science" p2="Software" p3="French" p4="Math" id="1"></day>
+	<day p1="Instrumental" p2="Gym" p3="English" p4="Comm. Tech" id="2"></day>
+	<day p1="Math" p2="Software" p3="French" p4="Science" id="3"></day>
 </schedule>
