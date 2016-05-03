@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <extraCurriculars>
-	<extra activity="Homework!">Mon</extra>
-	<extra activity="Homework!">Tue</extra>
-	<extra activity="Homework!">Wed</extra>
-	<extra activity="Music Lesson (4PM - 4:30PM)">Thur</extra>
-	<extra activity="Homework!">Fri</extra>
+	<extra activity="Homework!" id="0">Mon: </extra>
+	<extra activity="Homework!" id="1">Tue: </extra>
+	<extra activity="Homework!" id="2">Wed: </extra>
+	<extra activity="Music Lesson (4 PM - 4:30 PM)" id="3">Thur: </extra>
+	<extra activity="Homework!" id="4">Fri: </extra>
 </extraCurriculars>

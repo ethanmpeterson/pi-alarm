@@ -744,11 +744,9 @@ void drawSlides(int s) {
     fill(0);
     text("Extracurricular Activities", width/2 - textWidth("Extracurricular Activities")/2, 75);
     textSize(32);
-    text("Mon:", width/2 - textWidth("Mon:")/2, 150);
-    text("Tue:", width/2 - textWidth("Tue:")/2, 200);
-    text("Wed:", width/2 - textWidth("Wed:")/2, 250);
-    text("Thur:", width/2 - textWidth("Thur")/2, 300);
-    text("Fri:", width/2 - textWidth("Fri:")/2, 350);
+    for (int i = 0; i < u.getDays().length; i++) { // for loop iterating through the array instead of writing text function over and over
+      text(u.getDays()[i] + u.getExtras()[i], width/2 - textWidth(u.getDays()[i] + u.getExtras()[i])/2, 150 + i*50); // add 150 to i for y coordinate and multiply by 50 to start the y at 150 and add 50 each time
+    }
   }
 
   if (s == 3) { // weather slide
@@ -780,8 +778,8 @@ void drawSlides(int s) {
     }
     shape(r.upArrow, r.highArrow[0], r.highArrow[1], r.highArrow[2], r.highArrow[3]); // draw arrow representing the high temp from svg asset
     shape(r.downArrow, r.lowArrow[0], r.lowArrow[1], r.lowArrow[2], r.lowArrow[3]); // draw arrow representing the low temp from svg asset
-    text(u.getForecast()[timesPressed][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 30, r.highArrow[1] + 35); // draw highs and lows for the day
-    text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 45, r.lowArrow[1] + 35);
+    text(u.getForecast()[timesPressed][2] + "°", r.highArrow[0] - textWidth(u.getForecast()[0][2])/2 - 37, r.highArrow[1] + 35); // draw highs and lows for the day
+    text(u.getForecast()[timesPressed][3] + "°", r.lowArrow[0] + textWidth(u.getForecast()[0][3])/2 + 37, r.lowArrow[1] + 35);
     text(forecastDays[timesPressed], width/2 - textWidth(forecastDays[timesPressed])/2, 328);
     text(u.getForecast()[timesPressed][4], width/2 - textWidth(u.getForecast()[timesPressed][4])/2, 375);
     text(u.getLocation(), width/2 - textWidth(u.getLocation())/2, 425);

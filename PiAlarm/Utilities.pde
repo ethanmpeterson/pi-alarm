@@ -237,7 +237,7 @@ class Util implements TimeUtils, WeatherUtils {
     return dayForecast;
   }
   //extra and schedule XML
-  public String[] getExtras() {
+  public String[] getExtras() { // collects extra currcicular activity strings from XML file using for loop iterating through arrays
     extras = loadXML("assets/xml/extras.xml");
     children = extras.getChildren("extra");
     String[] extraActivities = new String[children.length];
@@ -245,5 +245,14 @@ class Util implements TimeUtils, WeatherUtils {
       extraActivities[i] = children[i].getString("activity");
     }
     return extraActivities;
+  }
+  public String[] getDays() {// collects extra currcicular activity day strings from XML file using for loop iterating through arrays
+    extras = loadXML("assets/xml/extras.xml");
+    children = extras.getChildren("extra");
+    String[] days = new String[children.length];
+    for (int i = 0; i < children.length; i++) {
+      days[i] = children[i].getContent();
+    }
+    return days;
   }
 }
