@@ -1,6 +1,6 @@
 class Resource { // stores useful public vars and assets such as sounds fonts and images
   public int slide = 0;
-  public int slideNum = 4; // int stores the number of slides
+  public int slideNum = 3; // int stores the number of slides
   public PFont schedule; // the font used for slide 1 to show my school schedule
   public PFont time;  // grey color
   public PShape cloud;
