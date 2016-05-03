@@ -66,6 +66,8 @@ boolean alarmSet = false; // true if the alarm has been set and the alarm time h
 boolean alarmRinging = false;
 boolean snoozePressed = false; // will be true when snooze is pressed to initiate timer
 boolean dismissPressed = false; // true if dismiss button was pressed
+File ringToneFile;
+File customRingFile;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
 int dayNum;
@@ -98,7 +100,8 @@ void setup() {
   filePath = loadXML("assets/xml/files.xml");
   XML path = filePath.getChild("filePath");
   String rPath = path.getString("path");
-  if (!rPath.equals("none") && !filePicked) {
+  customRingFile = new File(rPath);
+  if (!rPath.equals("none") && !filePicked && customRingFile.exists()) {
     File ring = new File(rPath);
    customRing = minim.loadSnippet(rPath);
    filePicked = true;
