@@ -89,7 +89,9 @@ String amPmDisplay[] = {"AM", "PM"};
 XML alarmXML; // xml to load in the alarm clock time
 XML[] children; // array for tags of the xml file
 XML schedule;
-XML sChildren; // children of the schedule xml
+XML[] sChildren; // children of the schedule xml
+XML[] eChildren; // children of extracurrcicular tag of schedule xml
+XML filePath;
 
 
 void setup() {
@@ -309,12 +311,10 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     }
   }
   if (snooze.over()) {
-    snoozePressed = true;
-    millisTime = millis();
-    alarmRinging = false;
+    snooze();
   }
   if (dismiss.over()) {
-    alarmRinging = false;
+    dismiss();
   }
 }
 
@@ -335,6 +335,27 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
 }
 
 
+void dismiss() {
+  dismissPressed = true;
+  alarmRinging = false;
+  millisTime = millis();
+  if (filePicked) {
+    customRing.rewind();
+    customRing.pause();
+  } else {
+    ringTone.rewind();
+    ringTone.pause();
+  }
+}
+
+
+void snooze() {
+  snoozePressed = true;
+  millisTime = millis();
+  alarmRinging = false;
+}
+
+
 void alarmCheck() { // will handle checking if it is alarm time amongst other things
   if (children[0].getString("alarmTime").equals("0") && children[1].getString("alarmTime").equals("0") && children[2].getString("alarmTime").equals("0")) { // use getString in case the alarm has been set and one of the tags holds a string and not int
     alarmSet = false;
@@ -351,7 +372,7 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
     if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton) && !snoozePressed && !dismissPressed) {
       alarmRinging = true;
     }
-    if (alarmRinging) {
+    if (alarmRinging && !snoozePressed && !dismissPressed) {
       fill(255);
       rect(dialogX + 25, dialogY + 150, 250, 100); // draw dialog box
       rect(dialogX + 25, dialogY + 150 + 60, 125, 40); // snooze button
@@ -368,10 +389,18 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
       textSize(24);
       text("Snooze", (dialogX + 25 + 125/2) - textWidth("Snooze")/2, dialogY + 150 + 90);
       text("Dismiss", (dialogX + 25 + 125 + 125/2) - textWidth("Dismiss")/2, dialogY + 150 + 90);
+      if (filePicked) {
+        customRing.play();
+      } else {
+        ringTone.play();
+      }
     }
-    if (snoozePressed && u.countDown(2, millisTime)) {
+    if (snoozePressed && u.countDown(240000, millisTime)) { // wait for 4 mins before alarm goes off
       snoozePressed = false;
       alarmRinging = true;
+    }
+    if (dismissPressed && u.countDown(60000, millisTime)) {
+     dismissPressed = false; // stops this boolean from preventing the alarm from ringing the next day
     }
   }
 }
