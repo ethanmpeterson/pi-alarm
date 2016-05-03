@@ -246,12 +246,20 @@ class Util implements TimeUtils, WeatherUtils {
 
 
   public String getWeather() { // will return weather conditions of the very moment
-    return weather.getChild("results/channel/item/yweather:condition").getString("text");
+    if (xmlAvailable) {
+      return weather.getChild("results/channel/item/yweather:condition").getString("text"); 
+    } else {
+      return "ERROR";
+    }
   }
 
 
   public String getLocation() {
-    return weather.getChild("results/channel/yweather:location").getString("city") + ", " + weather.getChild("results/channel/yweather:location").getString("region");
+    if (xmlAvailable) {
+      return weather.getChild("results/channel/yweather:location").getString("city") + ", " + weather.getChild("results/channel/yweather:location").getString("region"); 
+    } else {
+      return "ERROR";
+    }
   }
 
 

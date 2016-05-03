@@ -14,6 +14,7 @@ OnClickListener leftNavButton = new OnClickListener();
 OnClickListener rightNavButton = new OnClickListener();
 OnClickListener nextDay = new OnClickListener(); // for browsing the forecast on weather slide
 OnClickListener prevDay = new OnClickListener();
+OnClickListener download = new OnClickListener(); // for error screen where is user is offline and unable to get the weather they can press this button to download weather data once they are back online
 OnClickListener changeDate = new OnClickListener(); // button placed on the school schedule slide allowing user to change the date of shcedule being viewed
 OnClickListener monthUp = new OnClickListener(); // lets user navigate to next month
 OnClickListener monthDown = new OnClickListener(); // lets user navigate to previous month
@@ -113,15 +114,12 @@ void setup() {
 
 
 void draw() {
-  println("AMPMPressed" + amPmButton);
   background(255);
   cal = Calendar.getInstance();
   u.update();
   dayNum = r.schoolYear[u.month - 1][u.day];
   leftRightNav();
   drawSlides(r.slide); // pass the value of slide from the resources class into the function to check the current slide and corresponding content
-  println("alarm ring: " + alarmRinging);
-  println("alarm set: " + alarmSet);
   alarmCheck();
   if (keyPressed && key == ' ') {
     exit();
@@ -317,6 +315,9 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
   if (dismiss.over()) {
     dismiss();
   }
+  if (download.over() && !u.xmlAvail()) {
+    u.updateXML(); // call update XML which will download the new file
+  }
 }
 
 
@@ -377,9 +378,6 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
     alarmHour = children[0].getInt("alarmTime");
     alarmMinute = children[1].getInt("alarmTime");
     amPmButton = children[2].getString("alarmTime");
-    println("alarmHour: " + alarmHour);
-    println("alarmMinute: " + alarmMinute);
-    println("isAm: " + isAm);
     if (u.hour == alarmHour && u.minute == alarmMinute && AmOrPm().equals(amPmButton) && !snoozePressed && !dismissPressed) {
       alarmRinging = true;
     }
@@ -498,7 +496,6 @@ void setAlarm(boolean b) { // will draw a dialog to set the alarm clock time if 
     textSize(32);
     text("Choose Ring Tone!", (dialogX + 150) - textWidth("Choose Ring Tone!")/2, dialogY + 230);
     text("Set Alarm!", (dialogX + 150) - textWidth("Set Alarm!")/2, dialogY + 380);
-    println("AM PM Button: " + amPmPressed);
     if (!amPmPressed) {
       fill(0);
       textFont(r.schedule);
@@ -617,9 +614,6 @@ void drawSlides(int s) {
     setAlarm(alarmPressed);
   }
   if (s == 1) {
-    println("changePressed " + changePressed);
-    println("dateChanged " + dateChanged);
-    println(changedDayNum);
     if (!changePressed) {
       monthInput = u.month;
       dayInput = u.day;
@@ -712,7 +706,7 @@ void drawSlides(int s) {
     }
   }
 
-  if (s == 3) { // weather slide
+  if (s == 3 && u.xmlAvail()) { // weather slide
     theWeather = u.getTemp() + "°C  " + u.getForecast()[timesPressed][1]; // ensure the weather string is updated when the slide is displayed
     textFont(r.schedule);
     textSize(48);
@@ -772,6 +766,22 @@ void drawSlides(int s) {
     if (u.getForecast()[timesPressed][1].equals("Scattered Thunderstorms")) {
       shape(r.thunderStorm, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
+  } else if (s == 3 && !u.xmlAvail()) {
+    fill(0);
+    textSize(36);
+    String wError[] = {"Weather Unavailable!", "Please Connect to the Internet to", "Download Weather Data.", "(If You are Connected to the Internet)"};
+    text(wError[0], width/2 - textWidth(wError[0])/2, height/3);
+    text(wError[1], width/2 - textWidth(wError[1])/2, height/3 + 50);
+    text(wError[2], width/2 - textWidth(wError[2])/2, height/3 + 100);
+    fill(255);
+    rect(width/2 - 125/2, height/3 + 150, 125, 40);
+    download.rec(width/2 - 125/2, height/3 + 150, 125, 40);
+    download.listen("RECTANGLE");
+    fill(0);
+    textSize(24);
+    text("Download", width/2 - textWidth("Download")/2, height/3 + 180);
+    textSize(16);
+    text(wError[3], width/2 - textWidth(wError[3])/2, height/3 + 210);
   }
 
   if (s == 4) {
