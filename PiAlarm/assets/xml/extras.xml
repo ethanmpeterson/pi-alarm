@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<files>
-	<filePath path="funyun" id="0">customRingTone</filePath>
-</files>
+<filePath filePath="/Users/student/Desktop/test.mp3" id="0" path="funyun">customRingTone</filePath>

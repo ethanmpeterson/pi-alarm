@@ -88,10 +88,6 @@ String fileName;
 String amPmDisplay[] = {"AM", "PM"};
 XML alarmXML; // xml to load in the alarm clock time
 XML[] children; // array for tags of the xml file
-XML schedule;
-XML[] sChildren; // children of the schedule xml
-XML[] eChildren; // children of extracurrcicular tag of schedule xml
-XML fileXML;
 XML filePath;
 
 
@@ -103,9 +99,15 @@ void setup() {
   u.setWeather("Toronto", "ON");
   u.update();
   r.load();
-  fileXML = loadXML("assets/xml/extras.xml");
-  filePath = fileXML.getChild("files");
-  ringCheck();
+  filePath = loadXML("assets/xml/files.xml");
+  XML path = filePath.getChild("filePath");
+  String rPath = path.getString("path");
+  if (!rPath.equals("none") && !filePicked) {
+    File ring = new File(rPath);
+   customRing = minim.loadSnippet(rPath);
+   filePicked = true;
+   fileName = ring.getName();
+  }
   frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
   // print out forecast for each day of the week for testing
@@ -247,7 +249,7 @@ void mouseClicked() { // runs when the mouse is pressed and released (will be te
     } else {
       minInput--;
     }
-  } //<>// //<>//
+  } //<>//
   if (alarmUp.over() && alarmPressed) {
     amPmPressed = true;
     if (amPm == 1) {
@@ -327,8 +329,10 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   if (selection != null) {
     if (selection.getName().endsWith("mp3")) {
       customRing = minim.loadSnippet(selection.getAbsolutePath());
-      filePath.getChild("files").setString("filePath", selection.getAbsolutePath());
       fileName = selection.getName();
+      filePath.getChild("filePath").setString("path", selection.getAbsolutePath());
+      saveXML(filePath, "assets/xml/files.xml");
+      filePath = loadXML("assets/xml/files.xml");
       filePicked = true;
     } else {
       filePicked = false;
@@ -339,12 +343,18 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   }
 }
 
-void ringCheck() { // checks for the existence of a custom ring tone
-  //if (!filePicked && !fileXML.getString("path").equals("none")) { // only run if there is no file picked and there is a file path in the xml
-  //  customRing = minim.loadSnippet(fileXML.getString("path"));
-  //  filePicked = true;
-  //}
-}
+//void ringCheck() { // checks for the existence of a custom ring tone
+//  XML path = filePath.getChild("filePath");
+//  String ringPath = filePath.getContent();
+//  try {
+//    if (!ringPath.equals("none")) {
+//      customRing = minim.loadSnippet();
+//      filePicked = true; 
+//    }
+//  } catch (NullPointerException e) {
+//    filePicked = false;
+//  }
+//}
 
 void dismiss() {
   dismissPressed = true;
