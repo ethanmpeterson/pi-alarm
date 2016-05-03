@@ -89,6 +89,8 @@ String amPmDisplay[] = {"AM", "PM"};
 XML alarmXML; // xml to load in the alarm clock time
 XML[] children; // array for tags of the xml file
 XML filePath;
+XML schedule; // schedule XML
+XML sChildren; // children of day tag
 
 
 void setup() {
@@ -805,6 +807,9 @@ void drawSlides(int s) {
     }
     if (u.getForecast()[timesPressed][1].equals("Rain")) {
       shape(r.rain, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Scattered Thunderstorms")) {
+      shape(r.thunderStorm, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
   }
 
