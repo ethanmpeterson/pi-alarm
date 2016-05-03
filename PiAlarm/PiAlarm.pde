@@ -79,10 +79,6 @@ int amPm = 0;
 int millisTime; // will be set to millis() when snooze is pressed to time 10 mins for the alarm to go off again
 String alarmPmAm; // will store if alarm is going off in the morning or the afternoon
 String p1, p2, p3, p4;
-String p1Time = "  (8:15 AM - 9:30 AM)";
-String p2Time = "  (9:35 AM - 10:50 AM)";
-String p3Time = "  (11:15 AM - 12:30 PM)";
-String p4Time = "  (1:25 PM - 2:40 PM)";
 String amPmButton;
 String fileName;
 String amPmDisplay[] = {"AM", "PM"};
@@ -694,17 +690,15 @@ void drawSlides(int s) {
     if (dateChanged && changedDayNum != 9) {
       textSize(32);
       fill(0);
-      text("P1: " + u.getSchedule(changedDayNum)[0] + p1Time, width/2 - textWidth("P1: " + u.getSchedule(changedDayNum)[0] + p1Time)/2, 175); // display schedule strings onscreen
-      text("P2: " + u.getSchedule(changedDayNum)[1] + p2Time, width/2 - textWidth("P2: " + u.getSchedule(changedDayNum)[1] + p2Time)/2, 225);
-      text("P3: " + u.getSchedule(changedDayNum)[2] + p3Time, width/2 - textWidth("P3: " + u.getSchedule(changedDayNum)[2] + p3Time)/2, 275);
-      text("P4: " + u.getSchedule(changedDayNum)[3] + p4Time, width/2 - textWidth("P4: " + u.getSchedule(changedDayNum)[3] + p4Time)/2, 325);
+      for (int i = 0; i < u.getSchedule(changedDayNum).length; i++) {
+        text(u.getSchedule(changedDayNum)[i], width/2 - textWidth(u.getSchedule(changedDayNum)[i])/2, 175 + (i * 50));
+      }
     } else if (!dateChanged && dayNum != 9) {
       textSize(32);
       fill(0);
-      text("P1: " + u.getSchedule(dayNum)[0] + p1Time, width/2 - textWidth("P1: " + u.getSchedule(dayNum)[0] + p1Time)/2, 175); // display schedule strings onscreen
-      text("P2: " + u.getSchedule(dayNum)[1] + p2Time, width/2 - textWidth("P2: " + u.getSchedule(dayNum)[1] + p2Time)/2, 225);
-      text("P3: " + u.getSchedule(dayNum)[2] + p3Time, width/2 - textWidth("P3: " + u.getSchedule(dayNum)[2] + p3Time)/2, 275);
-      text("P4: " + u.getSchedule(dayNum)[3] + p4Time, width/2 - textWidth("P4: " + u.getSchedule(dayNum)[3] + p4Time)/2, 325);
+      for (int i = 0; i < u.getSchedule(dayNum).length; i++) { // draw schedule onscreen using for loop iterating through getSchedule function array
+        text(u.getSchedule(dayNum)[i], width/2 - textWidth(u.getSchedule(dayNum)[i])/2, 175 + (i * 50)); // multiply i by 50 to ensure the y coordinate is incrimented by 50 every time starting at 175
+      }
     }
   }
 

@@ -20,6 +20,10 @@ class Util implements TimeUtils, WeatherUtils {
   public String theDate;
   public String p1, p2, p3, p4;
   public boolean isPM;
+  public String p1Time = "  (8:15 AM - 9:30 AM)";
+  public String p2Time = "  (9:35 AM - 10:50 AM)";
+  public String p3Time = "  (11:15 AM - 12:30 PM)";
+  public String p4Time = "  (1:25 PM - 2:40 PM)";
 
   // weather variables
   private XML weather;
@@ -166,28 +170,28 @@ class Util implements TimeUtils, WeatherUtils {
     schoolSchedule = loadXML("assets/xml/schedule.xml");
     sChildren = schoolSchedule.getChildren("day"); // collect the correct strings from XML array of the XML tags called day
     if (d == 1) {
-      schedule[0] = sChildren[0].getString("p1"); // use the strings for the schedule this way the xml can be modified for schedule changes
-      schedule[1] = sChildren[0].getString("p2");
-      schedule[2] = sChildren[0].getString("p3");
-      schedule[3] = sChildren[0].getString("p4");
+      schedule[0] = "P1: " + sChildren[0].getString("p1") + p1Time; // use the strings for the schedule this way the xml can be modified for schedule changes
+      schedule[1] = "P2: " + sChildren[0].getString("p2") + p2Time;
+      schedule[2] = "P3: " + sChildren[0].getString("p3") + p3Time;
+      schedule[3] = "P4: " + sChildren[0].getString("p4") + p4Time;
     }
     if (d == 2) {
-      schedule[0] = sChildren[1].getString("p1");
-      schedule[1] = sChildren[1].getString("p2");
-      schedule[2] = sChildren[1].getString("p3");
-      schedule[3] = sChildren[1].getString("p4");
+      schedule[0] = "P1: " + sChildren[1].getString("p1") + p1Time;
+      schedule[1] = "P2: " + sChildren[1].getString("p2") + p2Time;
+      schedule[2] = "P3: " + sChildren[1].getString("p3") + p3Time;
+      schedule[3] = "P4: " + sChildren[1].getString("p4") + p4Time;
     }
     if (d == 3) {
-      schedule[0] = sChildren[2].getString("p1");
-      schedule[1] = sChildren[2].getString("p2");
-      schedule[2] = sChildren[2].getString("p3");
-      schedule[3] = sChildren[2].getString("p4");
+      schedule[0] = "P1: " + sChildren[2].getString("p1") + p1Time;
+      schedule[1] = "P2: " + sChildren[2].getString("p2") + p2Time;
+      schedule[2] = "P3: " + sChildren[2].getString("p3") + p3Time;
+      schedule[3] = "P4: " + sChildren[2].getString("p4") + p4Time;
     }
     if (d == 4) {
-      schedule[0] = sChildren[3].getString("p1");
-      schedule[1] = sChildren[3].getString("p2");
-      schedule[2] = sChildren[3].getString("p3");
-      schedule[3] = sChildren[3].getString("p4");
+      schedule[0] = "P1: " + sChildren[3].getString("p1") + p1Time;
+      schedule[1] = "P2: " + sChildren[3].getString("p2") + p2Time;
+      schedule[2] = "P3: " + sChildren[3].getString("p3") + p3Time;
+      schedule[3] = "P4: " + sChildren[3].getString("p4") + p4Time;
     }
     return schedule;
   }
