@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<days>
-	<day p1="" p2="" p3="" p4="" id="0">day1</day>
-	<day p1="" p2="" p3="" p4="" id="1">day2</day>
-	<day p1="" p2="" p3="" p4="" id="2">day3</day>
-	<day p1="" p2="" p3="" p4="" id="3">day4</day>
-</days>
-<extraCurriculars>
-</extraCurriculars>
-
-</filePath>
-	<file path="null" id="0">customRingTone</file>
-</filePath>
+<files>
+	<filePath path="funyun" id="0">customRingTone</filePath>
+</files>

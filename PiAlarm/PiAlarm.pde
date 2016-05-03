@@ -91,6 +91,7 @@ XML[] children; // array for tags of the xml file
 XML schedule;
 XML[] sChildren; // children of the schedule xml
 XML[] eChildren; // children of extracurrcicular tag of schedule xml
+XML fileXML;
 XML filePath;
 
 
@@ -102,6 +103,9 @@ void setup() {
   u.setWeather("Toronto", "ON");
   u.update();
   r.load();
+  fileXML = loadXML("assets/xml/extras.xml");
+  filePath = fileXML.getChild("files");
+  ringCheck();
   frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
   // print out forecast for each day of the week for testing
@@ -323,6 +327,7 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   if (selection != null) {
     if (selection.getName().endsWith("mp3")) {
       customRing = minim.loadSnippet(selection.getAbsolutePath());
+      filePath.getChild("files").setString("filePath", selection.getAbsolutePath());
       fileName = selection.getName();
       filePicked = true;
     } else {
@@ -334,6 +339,12 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   }
 }
 
+void ringCheck() { // checks for the existence of a custom ring tone
+  //if (!filePicked && !fileXML.getString("path").equals("none")) { // only run if there is no file picked and there is a file path in the xml
+  //  customRing = minim.loadSnippet(fileXML.getString("path"));
+  //  filePicked = true;
+  //}
+}
 
 void dismiss() {
   dismissPressed = true;
@@ -353,6 +364,13 @@ void snooze() {
   snoozePressed = true;
   millisTime = millis();
   alarmRinging = false;
+  if (filePicked) {
+    customRing.rewind();
+    customRing.pause();
+  } else {
+    ringTone.rewind();
+    ringTone.pause();
+  }
 }
 
 
@@ -413,8 +431,10 @@ void exitDialog() {
   hourPressed = false;
   minPressed = false;
   if (filePicked) {
+    customRing.rewind();
     customRing.pause();
   } else {
+    ringTone.rewind();
     ringTone.pause();
   }
 }
