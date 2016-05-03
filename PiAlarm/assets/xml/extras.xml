@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<filePath filePath="/Users/student/Desktop/test.mp3" id="0" path="funyun">customRingTone</filePath>
+<extraCurriculars>
+	<extra activity="Homework!">Mon</extra>
+	<extra activity="Homework!">Tue</extra>
+	<extra activity="Homework!">Wed</extra>
+	<extra activity="Music Lesson (4PM - 4:30PM)">Thur</extra>
+	<extra activity="Homework!">Fri</extra>
+</extraCurriculars>

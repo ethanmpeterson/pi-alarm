@@ -34,6 +34,9 @@ class Util implements TimeUtils, WeatherUtils {
   private String[] text = new String[arraySize]; // will hold comment on forecast ex. "AM Showers"
   // current the length of the all forecast arrays is 5
   private XML[] forecast; // XML array storing the forecast for each
+  //extracurrciular XML
+  private XML extras;
+  private XML[] children;
 
 
   void Util() { // do the initial setting of the variables in the constructor
@@ -232,5 +235,15 @@ class Util implements TimeUtils, WeatherUtils {
       }
     }
     return dayForecast;
+  }
+  //extra and schedule XML
+  public String[] getExtras() {
+    extras = loadXML("assets/xml/extras.xml");
+    children = extras.getChildren("extra");
+    String[] extraActivities = new String[children.length];
+    for (int i = 0; i < children.length; i++) {
+      extraActivities[i] = children[i].getString("activity");
+    }
+    return extraActivities;
   }
 }

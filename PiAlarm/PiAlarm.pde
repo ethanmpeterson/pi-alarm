@@ -343,18 +343,6 @@ void fileSelected(File selection) { // takes paremeter as a file object that the
   }
 }
 
-//void ringCheck() { // checks for the existence of a custom ring tone
-//  XML path = filePath.getChild("filePath");
-//  String ringPath = filePath.getContent();
-//  try {
-//    if (!ringPath.equals("none")) {
-//      customRing = minim.loadSnippet();
-//      filePicked = true; 
-//    }
-//  } catch (NullPointerException e) {
-//    filePicked = false;
-//  }
-//}
 
 void dismiss() {
   dismissPressed = true;
@@ -755,6 +743,12 @@ void drawSlides(int s) {
     textSize(48);
     fill(0);
     text("Extracurricular Activities", width/2 - textWidth("Extracurricular Activities")/2, 75);
+    textSize(32);
+    text("Mon:", width/2 - textWidth("Mon:")/2, 150);
+    text("Tue:", width/2 - textWidth("Tue:")/2, 200);
+    text("Wed:", width/2 - textWidth("Wed:")/2, 250);
+    text("Thur:", width/2 - textWidth("Thur")/2, 300);
+    text("Fri:", width/2 - textWidth("Fri:")/2, 350);
   }
 
   if (s == 3) { // weather slide
