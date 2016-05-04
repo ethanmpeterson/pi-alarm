@@ -756,7 +756,7 @@ void drawSlides(int s) {
     if (u.getForecast()[timesPressed][1].equals("Cloudy")) {
       shape(r.cloud, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
-    if (u.getForecast()[timesPressed][1].equals("Sunny")) {
+    if (u.getForecast()[timesPressed][1].equals("Sunny") || u.getForecast()[timesPressed][1].equals("Hot")) {
       shape(r.sun, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Showers")) {
@@ -775,7 +775,7 @@ void drawSlides(int s) {
       shape(r.thunderStorm, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
     if (u.getForecast()[timesPressed][1].equals("Breezy") || u.getForecast()[timesPressed][1].equals("Windy") || u.getForecast()[timesPressed][1].equals("Blustery")) {
-      shape(r.breeze, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
+     shape(r.breeze, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
   } else if (s == 3 && !u.xmlAvail()) {
     fill(0);

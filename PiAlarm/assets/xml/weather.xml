@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" yahoo:count="1" yahoo:created="2016-05-04T01:31:48Z" yahoo:lang="en-US">
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" yahoo:count="1" yahoo:created="2016-05-04T02:04:32Z" yahoo:lang="en-US">
   <results>
     <channel>
       <yweather:units xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" distance="km" pressure="mb" speed="km/h" temperature="C"/>
@@ -7,11 +7,11 @@
       <link>http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-4118/</link>
       <description>Yahoo! Weather for Toronto, ON, CA</description>
       <language>en-us</language>
-      <lastBuildDate>Tue, 03 May 2016 09:31 PM EDT</lastBuildDate>
+      <lastBuildDate>Tue, 03 May 2016 10:04 PM EDT</lastBuildDate>
       <ttl>60</ttl>
       <yweather:location xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" city="Toronto" country="Canada" region=" ON"/>
-      <yweather:wind xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" chill="41" direction="75" speed="17.70"/>
-      <yweather:atmosphere xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" humidity="88" pressure="33796.17" rising="0" visibility="25.91"/>
+      <yweather:wind xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" chill="39" direction="75" speed="17.70"/>
+      <yweather:atmosphere xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" humidity="90" pressure="33796.17" rising="0" visibility="25.11"/>
       <yweather:astronomy xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" sunrise="6:6 am" sunset="8:23 pm"/>
       <image>
         <title>Yahoo! Weather</title>
@@ -21,12 +21,12 @@
         <url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
       </image>
       <item>
-        <title>Conditions for Toronto, ON, CA at 08:00 PM EDT</title>
+        <title>Conditions for Toronto, ON, CA at 09:00 PM EDT</title>
         <geo:lat xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">43.64856</geo:lat>
         <geo:long xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">-79.385368</geo:long>
         <link>http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-4118/</link>
-        <pubDate>Tue, 03 May 2016 08:00 PM EDT</pubDate>
-        <yweather:condition xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="30" date="Tue, 03 May 2016 08:00 PM EDT" temp="7" text="Partly Cloudy"/>
+        <pubDate>Tue, 03 May 2016 09:00 PM EDT</pubDate>
+        <yweather:condition xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="29" date="Tue, 03 May 2016 09:00 PM EDT" temp="6" text="Partly Cloudy"/>
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="30" date="03 May 2016" day="Tue" high="8" low="4" text="Partly Cloudy"/>
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="30" date="04 May 2016" day="Wed" high="9" low="5" text="Partly Cloudy"/>
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="28" date="05 May 2016" day="Thu" high="12" low="7" text="Mostly Cloudy"/>
@@ -37,7 +37,7 @@
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="30" date="10 May 2016" day="Tue" high="13" low="6" text="Partly Cloudy"/>
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="28" date="11 May 2016" day="Wed" high="15" low="8" text="Mostly Cloudy"/>
         <yweather:forecast xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" code="30" date="12 May 2016" day="Thu" high="13" low="11" text="Partly Cloudy"/>
-        <description>&lt;![CDATA[&lt;img src="http://l.yimg.com/a/i/us/we/52/30.gif"/&gt;&lt;BR /&gt;&lt;b&gt;Current Conditions:&lt;/b&gt;&lt;BR /&gt;Partly Cloudy&lt;BR /&gt;&lt;BR /&gt;&lt;b&gt;Forecast:&lt;/b&gt;&lt;BR /&gt; Tue - Partly Cloudy. High: 8Low: 4&lt;BR /&gt; Wed - Partly Cloudy. High: 9Low: 5&lt;BR /&gt; Thu - Mostly Cloudy. High: 12Low: 7&lt;BR /&gt; Fri - Partly Cloudy. High: 13Low: 7&lt;BR /&gt; Sat - Showers. High: 15Low: 7&lt;BR /&gt;&lt;BR /&gt;&lt;a href="http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-4118/"&gt;Full Forecast at Yahoo! Weather&lt;/a&gt;&lt;BR /&gt;&lt;BR /&gt;(provided by &lt;a href="http://www.weather.com" &gt;The Weather Channel&lt;/a&gt;)&lt;BR /&gt;]]&gt;</description>
+        <description>&lt;![CDATA[&lt;img src="http://l.yimg.com/a/i/us/we/52/29.gif"/&gt;&lt;BR /&gt;&lt;b&gt;Current Conditions:&lt;/b&gt;&lt;BR /&gt;Partly Cloudy&lt;BR /&gt;&lt;BR /&gt;&lt;b&gt;Forecast:&lt;/b&gt;&lt;BR /&gt; Tue - Partly Cloudy. High: 8Low: 4&lt;BR /&gt; Wed - Partly Cloudy. High: 9Low: 5&lt;BR /&gt; Thu - Mostly Cloudy. High: 12Low: 7&lt;BR /&gt; Fri - Partly Cloudy. High: 13Low: 7&lt;BR /&gt; Sat - Showers. High: 15Low: 7&lt;BR /&gt;&lt;BR /&gt;&lt;a href="http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-4118/"&gt;Full Forecast at Yahoo! Weather&lt;/a&gt;&lt;BR /&gt;&lt;BR /&gt;(provided by &lt;a href="http://www.weather.com" &gt;The Weather Channel&lt;/a&gt;)&lt;BR /&gt;]]&gt;</description>
         <guid isPermaLink="false"/>
       </item>
     </channel>
