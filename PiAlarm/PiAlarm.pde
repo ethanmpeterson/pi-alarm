@@ -412,7 +412,7 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
         ringTone.play();
       }
     }
-    if (snoozePressed && u.countDown(240000, millisTime)) { // wait for 4 mins before alarm goes off
+    if (snoozePressed && u.countDown(60000, millisTime)) { // wait for 4 mins before alarm goes off
       snoozePressed = false;
       alarmRinging = true;
     }
