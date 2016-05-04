@@ -38,6 +38,8 @@ OnClickListener setAlarm = new OnClickListener();
 OnClickListener playPause = new OnClickListener(); // for the play/pause button
 OnClickListener snooze = new OnClickListener();
 OnClickListener dismiss = new OnClickListener();
+OnClickListener fileOk = new OnClickListener(); // button for dialog that comes up when users set ring tone does not exist
+OnClickListener useDef = new OnClickListener(); // button letting the user switch back to default ringtone
 
 
 Minim minim; //initialize of main class from library
@@ -66,7 +68,7 @@ boolean alarmSet = false; // true if the alarm has been set and the alarm time h
 boolean alarmRinging = false;
 boolean snoozePressed = false; // will be true when snooze is pressed to initiate timer
 boolean dismissPressed = false; // true if dismiss button was pressed
-File ringToneFile;
+boolean fileExists = true; // true only if the custom ring tone file exists
 File customRingFile;
 int monthInput; // keeps track of what month the user has inputted into the schedule slide
 int dayInput; // keeps track of what day the user has inputted into the schedule slide
@@ -105,7 +107,10 @@ void setup() {
     File ring = new File(rPath);
    customRing = minim.loadSnippet(rPath);
    filePicked = true;
+   fileExists = true;
    fileName = ring.getName();
+  } else if (!customRingFile.exists()) {
+    fileExists = false;
   }
   frameRate(60); // processing will go for 60fps by default however since my program has simple graphics I should cap the rate at 60
   fill(0);
@@ -401,7 +406,7 @@ void alarmCheck() { // will handle checking if it is alarm time amongst other th
       textSize(24);
       text("Snooze", (dialogX + 25 + 125/2) - textWidth("Snooze")/2, dialogY + 150 + 90);
       text("Dismiss", (dialogX + 25 + 125 + 125/2) - textWidth("Dismiss")/2, dialogY + 150 + 90);
-      if (filePicked) {
+      if (filePicked && fileExists) {
         customRing.play();
       } else {
         ringTone.play();
@@ -768,6 +773,9 @@ void drawSlides(int s) {
     }
     if (u.getForecast()[timesPressed][1].equals("Scattered Thunderstorms")) {
       shape(r.thunderStorm, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
+    }
+    if (u.getForecast()[timesPressed][1].equals("Breezy")) {
+      shape(r.breeze, r.wIcon[0], r.wIcon[1], r.wIcon[2], r.wIcon[3]);
     }
   } else if (s == 3 && !u.xmlAvail()) {
     fill(0);
